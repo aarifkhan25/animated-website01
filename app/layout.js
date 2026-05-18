@@ -49,7 +49,7 @@ const [isMobileMenuOpen,setIsMobileMenuOpen]=useState(false)
         {/* header */}
         <div className="h-screen w-full  font-sans antialiased text-white">
           <nav
-            className={`fixed top-0 left-1/2 -translate-x-1/2 w-full  mx-auto z-50 px-6 md:px-10 lg:px-14 py-4 flex items-center justify-between transition-all duration-300 
+            className={`fixed top-0 left-1/2 -translate-x-1/2 w-full  mx-auto z-50 px-6 md:px-10 lg:px-20 py-4 flex items-center justify-between transition-all duration-300 
       ${isScrolled ? "bg-black/70 backdrop-blur-[4px]" : "bg-transparent"}`}
           >
             {/* Navigation Links */}
@@ -119,13 +119,13 @@ const [isMobileMenuOpen,setIsMobileMenuOpen]=useState(false)
 
                   <Link
                     href="#courses"
-                    className="bg-[#1a1a1a] hover:bg-[#242323] cursor-pointer text-white font-bold  px-4 py-1 pb-3 rounded-full text-sm lg:text-base transition duration-150"
+                    className="bg-[#1a1a1a] hover:bg-[#242323] cursor-pointer text-white font-semibold  px-4 py-3  rounded-full text-sm lg:text-base transition duration-150"
                   >
                     Sign In
                   </Link>
                   <Link
                     href="#courses"
-                    className="hidden sm:flex bg-[#ffffff] hover:bg-white cursor-pointer text-black font-bold  px-4 py-1 pb-3 rounded-full text-base transition duration-150"
+                    className="hidden sm:flex bg-[#ffffff] hover:bg-white cursor-pointer text-black font-bold  px-4 py-3  rounded-full text-base transition duration-150"
                   >
                     Start Hiring Talents
                   </Link>

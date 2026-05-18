@@ -65,7 +65,7 @@ const items = [
         },
       ];
   return (
-   <section className=" bg-[url(/assets/talentbg.png)] gradient-overlay bg-cover bg-no-repeat  w-full  grid items-center   justify-center gap-0 ">
+   <section className=" bg-[url(/assets/talentbg.png)] bg-opacity-50 gradient-overlay bg-cover bg-no-repeat  w-full  grid items-center   justify-center gap-0 ">
     <div className="flex justify-center"> 
        <Image
                   src="/assets/Y.svg"
@@ -73,7 +73,7 @@ const items = [
                   height={500}
                   alt="Y"
                   loading="lazy"
-                  className="w-[150px] md:w-[220px]  "
+                  className="w-[150px] md:w-[220px]   "
                 /></div>
         <div className="flex   gap-10 justify-center mb-5 md:mb-15 ">
           {items?.map((item, i) => {
