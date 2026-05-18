@@ -1,0 +1,46 @@
+@import "tailwindcss";
+/* Optional: Scroll-behavior ko smooth rakhein poore page ke liye */
+html {
+  scroll-behavior: smooth;
+
+ 
+}
+body{
+  background-color: #0d0d0d;
+  overflow-x: hidden; 
+}
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+@keyframes centerSmoothMove {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(var(--move-y, -80px));
+  }
+}
+
+.card-scroll-animation {
+  animation: centerSmoothMove both;
+  animation-timeline: view();
+  
+  /* Jab card screen ke center (50%) par pahuche tab move hona shuru ho */
+  /* Aur jab wo upar nikalne lage (85%) tab tak movement complete ho */
+  animation-range: entry 50% cover 85%;
+  
+  /* Smoothness ke liye cubic-bezier easing */
+  animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* for fonts */
+@theme inline{
+  --font-jb-mono:var(--font-jb-mono);
+--font-mulish:var(--font-mulish);
+}

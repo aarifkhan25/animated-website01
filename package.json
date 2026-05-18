@@ -1,0 +1,29 @@
+{
+  "name": "task2-animated-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "aos": "^2.3.4",
+    "framer-motion": "^12.38.0",
+    "gsap": "^3.15.0",
+    "next": "16.2.6",
+    "ogl": "^1.0.11",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "react-icons": "^5.6.0",
+    "react-player": "^3.4.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.4",
+    "tailwindcss": "^4"
+  }
+}
