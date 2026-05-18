@@ -37,7 +37,8 @@ discover Pangea?</span>
                 </p>
               </FadeContent>
               </div>
-                 <div className="flex justify-center md:justify-start  ">
+                 <div className="flex justify-center md:justify-start 
+                  ">
                       <FadeContent
                         blur={true}
                         duration={1.5}
@@ -46,7 +47,7 @@ discover Pangea?</span>
                         initialOpacity={0}
                       >
                         {" "}
-                        <button className="md:w-full flex justify-center  group  gap-2 bg-[#ff004e] hover:bg-[#ff185e] transition-colors text-black py-2 md:py-3   px-4 md:px-5  rounded-full font-mulish font-bold text-base md:text-xl lg:text-3xl max-w-[380px]">
+                        <button className=" flex justify-center  group  gap-2 bg-[#ff004e] hover:bg-[#ff185e] transition-colors text-black py-2 md:py-3   px-4 md:px-5  rounded-full font-mulish font-bold text-base md:text-xl lg:text-3xl max-w-[380px]">
                           <div className="flex justify-center   items-center gap-1">
                             Get Started
                             <GoArrowRight className="w-7 h-7 group-hover:translate-x-1 transition-transform" />
