@@ -75,17 +75,17 @@ export default function Talent({
 
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
 
-  // Aapki purani states ke niche ise add karein
+  
   const [visibleCards, setVisibleCards] = useState([]);
-  const [isMobile, setIsMobile] = useState(false); // <-- Yeh nayi state add karein
+  const [isMobile, setIsMobile] = useState(false); 
 const [isMobileOnly, setIsMobileOnly] = useState(false);
   const handleResize = () => {
     if (window.innerWidth < 768) {
       setVisibleCards(talent?.slice(0, -1));
-      setIsMobile(true); // <-- Mobile hai toh true karein
+      setIsMobile(true);
     } else {
       setVisibleCards(talent);
-      setIsMobile(false); // <-- Desktop hai toh false karein
+      setIsMobile(false); 
     }
   };
 
@@ -125,132 +125,154 @@ const [isMobileOnly, setIsMobileOnly] = useState(false);
     setProgress((currentTime / duration) * 100);
   };
 
-  const scrollHorizontal = (direction) => {
-  if (isMobileOnly) {
-    if (horizontalScrollRef.current) {
-      const { scrollLeft, clientWidth } = horizontalScrollRef.current;
-      const scrollAmount = clientWidth * 0.75;
-      horizontalScrollRef.current.scrollTo({
-        left: direction === "left" ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
-        behavior: "smooth",
-      });
-    }
-  } else {
-    const scrollDistance = window.innerHeight * 0.5;
-    window.scrollBy({
-      top: direction === "left" ? -scrollDistance : scrollDistance,
+ const [canScrollLeft, setCanScrollLeft] = useState(false);
+const [canScrollRight, setCanScrollRight] = useState(true);
+
+// Scroll position check karne ka function
+const checkScrollPosition = () => {
+  const container = horizontalScrollRef.current;
+  if (!container) return;
+
+  const { scrollLeft, scrollWidth, clientWidth } = container;
+  
+  // 1. Agar scrollLeft 2 se bada hai, toh left scroll possible hai
+  setCanScrollLeft(scrollLeft > 2);
+  
+  // 2. Agar current scroll + viewable width lagbhag total width ke barabar hai, toh right end ho gaya
+  // (Halki margin error 5px ki rakhi hai safe side ke liye)
+  setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
+};
+const scrollHorizontal = (direction) => {
+  const container = horizontalScrollRef.current;
+  if (!container) return;
+
+  // Ek click par kitna door scroll hoga (Card ki width + Gap)
+  // 450px card width + 40px gap = ~490px
+  const scrollAmount = 490; 
+
+  if (direction === "left") {
+    container.scrollBy({
+      left: -scrollAmount,
+      behavior: "smooth",
+    });
+  } else if (direction === "right") {
+    container.scrollBy({
+      left: scrollAmount,
       behavior: "smooth",
     });
   }
 };
+// Event listener attach karna jab page render ho
+useEffect(() => {
+  const container = horizontalScrollRef.current;
+  if (!container) return;
+
+  // Shuruat me check karein
+  checkScrollPosition();
+
+  // Scroll hone par track karein
+  container.addEventListener("scroll", checkScrollPosition);
+  
+  // Resize hone par bhi check karein (responsiveness ke liye)
+  window.addEventListener("resize", checkScrollPosition);
+
+  return () => {
+    container.removeEventListener("scroll", checkScrollPosition);
+    window.removeEventListener("resize", checkScrollPosition);
+  };
+}, [visibleCards]); // visibleCards change hone par recalculate hoga
   return (
     <>
-      <section className="w-full  text-white pt-10 md:pt-30 px-10 md:px-20 lg:px-32">
-        <div className="w-full mx-auto flex flex-col justify-between  gap-10">
-          {/* Left Content */}
-          <div className="flex-1">
-            {/* Orange Badge */}
-            <AnimatedContent
-              distance={20}
-              direction="horizontal"
-              reverse
-              duration={0.5}
-              ease="power3.out"
-              initialOpacity={0}
-              animateOpacity
-              scale={1}
-              threshold={0.2}
-              delay={0.2}
-            >
-              <div className="mb-8">
-                <span
-                  className={`px-4 py-1.5 rounded-full text-[8px] md:text-xs font-jb-mono font-bold uppercase`}
-                  style={{ backgroundColor: bgColor, color: textColor }}
-                >
-                  {title}
-                </span>
-              </div>
-            </AnimatedContent>
+     {/* --- Upper Header Section --- */}
+<section className="w-full text-white pt-10 md:pt-30 px-10 md:px-20 lg:px-32 xl:px-38">
+  <div className="w-full mx-auto flex flex-col justify-between gap-10">
+    {/* Left Content */}
+    <div className="flex-1">
+      {/* Orange Badge */}
+      <AnimatedContent
+        distance={20}
+        direction="horizontal"
+        reverse
+        duration={0.5}
+        ease="power3.out"
+        initialOpacity={0}
+        animateOpacity
+        scale={1}
+        threshold={0.2}
+        delay={0.2}
+      >
+        <div className="mb-8">
+          <span
+            className="px-4 py-1.5 rounded-full text-[8px] md:text-xs font-jb-mono font-bold uppercase"
+            style={{ backgroundColor: bgColor, color: textColor }}
+          >
+            {title}
+          </span>
+        </div>
+      </AnimatedContent>
 
-            {/* Heading */}
-            <ScrollReveal
-              baseOpacity={0.1}
-              enableBlur
-              blurStrength={1}
-              baseRotation={0}
-            >
-              {" "}
-              <h2 className="text-[50px] md:text-[65px] lg:text-[72px] font-mulish leading-[1] tracking-tight mb-12">
-                {heading}
-              </h2>
-              {/* Subtext */}
-              <div className="grid md:flex justify-between gap-5 items-center">
-                <div>
-                  <p className="max-w-xl text-white text-xs md:text-sm lg:text-base font-mulish leading-relaxed">
-                    {subheading}
-                  </p>
-                </div>
+      {/* Heading */}
+      <ScrollReveal
+        baseOpacity={0.1}
+        enableBlur
+        blurStrength={1}
+        baseRotation={0}
+      >
+        <h2 className="text-[50px] md:text-[65px] lg:text-[72px] font-mulish leading-[1] tracking-tight mb-12">
+          {heading}
+        </h2>
+        
+        {/* Subtext & Navigation Buttons */}
+        <div className="grid md:flex justify-between gap-5 items-center">
+          <div>
+            <p className="max-w-xl text-white text-xs md:text-sm lg:text-base font-mulish leading-relaxed">
+              {subheading}
+            </p>
+          </div>
 
-                <div>
-                  <div className="flex  gap-4 ">
-                  <button 
-                    onClick={() => scrollHorizontal("left")} // <-- YEH LINE ADD KAREIN
-                    className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all"
-                  >
-                    <FiChevronLeft className="md:w-8 md:h-8" />
-                  </button>
-                  
-                  {/* RIGHT BUTTON */}
-                  <button 
-                    onClick={() => scrollHorizontal("right")} // <-- YEH LINE ADD KAREIN
-                    className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all"
-                  >
-                    <FiChevronRight className="md:w-8 md:h-8" />
-                  </button>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
+          <div>
+            <div className="flex gap-4">
+              {/* LEFT BUTTON */}
+             <button 
+                onClick={() => scrollHorizontal("left")}
+                disabled={!canScrollLeft} // <-- Disable Feature Add Hua
+                className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all disabled:opacity-20 disabled:pointer-events-none cursor-pointer"
+              >
+                <FiChevronLeft className="w-5 h-5 md:w-8 md:h-8" />
+              </button>
+              
+              {/* RIGHT BUTTON */}
+              <button 
+                onClick={() => scrollHorizontal("right")}
+                disabled={!canScrollRight} // <-- Disable Feature Add Hua
+                className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all disabled:opacity-20 disabled:pointer-events-none cursor-pointer"
+              >
+                <FiChevronRight className="w-5 h-5 md:w-8 md:h-8" />
+              </button>
+            </div>
           </div>
         </div>
-      </section>
+      </ScrollReveal>
+    </div>
+  </div>
+</section>
 
-   <section
+{/* --- Cards Scroll Section --- */}
+<section
   ref={targetRef}
-  /* 
-    Tablet range par scroll track ko poora area travel karne dene ke liye height md:h-[250vh] ki hai 
-    aur desktop par normal md:h-[200vh] apply hogi.
-  */
   className={`${role === "client" ? "hidden" : "block"} relative h-auto md:h-[250vh] lg:h-[200vh] md:-mt-60 lg:-mt-0`}
 >
-  {/* 
-    'md:overflow-hidden' track rendering glitch ko fix rakhega.
-    Yahan humne 'justify-start' use kiya hai 'justify-center' ki jagah, taaki starting point absolute edge se calculate ho.
-  */}
   <div 
     ref={horizontalScrollRef}
-    className="static md:sticky md:top-0 h-auto md:h-screen w-full flex flex-col justify-start md:justify-center overflow-x-auto md:overflow-hidden scrollbar-hide snap-x snap-mandatory"
+    className="static md:sticky md:top-0 h-auto md:h-screen w-full flex flex-col justify-start md:justify-center overflow-x-auto md:overflow-hidden scrollbar-hide snap-x snap-mandatory scroll-smooth"
   >
     <motion.div
-      /* 
-        Agar screen mobile hai toh animation frame object inline block empty ho jayega.
-      */
       style={isMobile ? {} : { x }}
-      /* 
-        --- MAIN FIX ---
-        Yahan right padding 'md:pr-[30vw]' aur 'lg:pr-32' apply ki hai.
-        Yeh extra right padding tablet screen par invisible empty space create karti hai, 
-        jiski wajah se last card scroll hone par screen ke edge par chipakta nahi balki poora andar dikhta hai.
-      */
       className="flex gap-5 md:gap-7 lg:gap-10 p-5 md:pt-28 md:pb-20 md:pl-20 md:pr-[30vw] lg:p-32"
     >
       {visibleCards?.map((item, i) => (
         <div
           key={i}
-          /* 
-            Tablet range par browser behavior lock na ho isliye 'md:snap-none' rakha hai 
-            taaki framer motion ka core pixel track smooth travel kare.
-          */
           className="relative flex-shrink-0 w-[280px] h-[400px] md:w-[420px] md:h-[450px] lg:w-[450px] lg:h-[450px] overflow-hidden rounded-xl bg-[#141414] p-5 lg:p-8 shadow-2xl snap-center md:snap-none"
         >
           <div className="absolute inset-0 z-0">
@@ -265,7 +287,7 @@ const [isMobileOnly, setIsMobileOnly] = useState(false);
             <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent"></div>
           </div>
 
-          {/* --- Content Layer --- */}
+          {/* Content Layer */}
           <div className="relative z-10 flex h-full flex-col justify-end">
             <div className="mb-auto">
               <span

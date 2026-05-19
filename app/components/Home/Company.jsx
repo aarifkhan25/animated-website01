@@ -4,15 +4,15 @@ import ScrollReveal from '@/components/ScrollReveal.jsx';
 import Image from 'next/image';
 export default function Company() {
     const companies = [
-    { img: "/assets/comp/logo1.svg" },
+    { img: "/assets/comp/logo1.svg",op:"1" },
     { img: "/assets/comp/logo2.png" },
-    { img: "/assets/comp/logo3.svg" },
-    { img: "/assets/comp/logo4.svg" },
+    { img: "/assets/comp/logo3.svg",op:"1" },
+    { img: "/assets/comp/logo4.svg",op:"1" },
     { img: "/assets/comp/logo5.avif" },
-    { img: "/assets/comp/logo6.svg" },
-    { img: "/assets/comp/logo7.svg" },
+    { img: "/assets/comp/logo6.svg",op:"1" },
+    { img: "/assets/comp/logo7.svg",op:"1" },
     { img: "/assets/comp/logo8.avif" },
-    { img: "/assets/comp/logo9.svg" },
+    { img: "/assets/comp/logo9.svg",op:"1" },
   ];
   return (
     <section className="grid items-center justify-center w-full  text-white px-10 py-10 md:py-20 md:px-16 -mt-5  overflow-hidden">
@@ -35,7 +35,7 @@ export default function Company() {
                          height={500}
                          alt="company logo"
                          loading="lazy"
-                         className={`w-full h-10 object-contain ${i===0 && i===2 && i===3 && i===5 && i===6 && i===8 ?"opacity-10":"opacity-70"}   hover:opacity-100`}
+                         className={`w-full h-10 object-contain ${comp.op === "1" ? "opacity-10" : "opacity-70"}   hover:opacity-100`}
                        />
                      </div>
                    );

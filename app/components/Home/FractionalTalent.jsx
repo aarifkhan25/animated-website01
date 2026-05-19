@@ -196,7 +196,7 @@ export default function FractionalTalent({
             >
               <div className="mb-8">
                 <span
-                  className="px-4 py-1.5 rounded-full text-[8px] md:text-[12px] font-jb-mono font-semibold uppercase"
+                  className="px-4 py-1.5 rounded-full text-[8px] md:text-xs font-jb-mono font-semibold uppercase"
                   style={{ backgroundColor: bgColor, color: textColor }}
                 >
                   {title}
@@ -219,7 +219,7 @@ export default function FractionalTalent({
                     {subheading}
                   </p>
                 </div>
-                <div>
+                <div className={`${role !== "work" ? "block" : "hidden"}`}>
                   <div className="flex gap-4">
                     <button 
                       onClick={() => scrollHorizontal("left")}
