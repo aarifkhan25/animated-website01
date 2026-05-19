@@ -39,14 +39,14 @@ export default function Services() {
           className="flex gap-3 md:gap-6 w-max"
           style={{ x: xRight }} // Scroll transform value attach ki
         >
-          {services.map((item, index) => (
+          {services?.map((item, index) => (
           <div
               key={index}
-              className="px-4 md:px-8 py-2 md:py-3 border border-[#ff004e] rounded-xl shadow-xl "
+              className="px-2 md:px-8 py-1 md:py-3 border border-[#ff004e] rounded-lg md:rounded-xl shadow-xl "
               
             >
             
-              <p className="text-[#ff004e] text-base md:text-2xl font-mulish">{item}</p>
+              <p className="text-[#ff004e] text-sm md:text-2xl font-mulish">{item}</p>
             </div>
           ))}
         </motion.div>
@@ -56,14 +56,14 @@ export default function Services() {
           className="flex gap-3 md:gap-6 w-max"
           style={{ x: xLeft }} // Scroll transform value attach ki
         >
-          {services.map((item, index) => (
+          {services?.reverse()?.map((item, index) => (
              <div
               key={index}
-              className="px-4 md:px-8 py-2 md:py-3 border border-[#ff004e] rounded-xl shadow-xl "
+              className="px-2 md:px-8 py-1 md:py-3 border border-[#ff004e] rounded-lg md:rounded-xl shadow-xl "
               
             >
             
-              <p className="text-[#ff004e] text-base md:text-2xl font-mulish">{item}</p>
+              <p className="text-[#ff004e] text-sm md:text-2xl font-mulish">{item}</p>
             </div>
           ))}
         </motion.div>
