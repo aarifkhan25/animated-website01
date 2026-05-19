@@ -9,7 +9,7 @@ import FadeContent from "@/components/FadeContent.jsx";
 
 export default function Main() {
   return (
-     <section className=" flex flex-col h-screen gap-8 sm:gap-10 lg:gap-0 items-center justify-center w-full  text-white py-10 px-4 md:px-6 md:py-5 overflow-hidden">
+     <section className=" flex flex-col  gap-8 sm:gap-10 lg:gap-0 items-center justify-center w-full  text-white py-10 px-4 md:px-6 md:py-5 overflow-hidden">
             
             {/* Top Badge */}
             <AnimatedContent
@@ -72,9 +72,9 @@ export default function Main() {
                 initialOpacity={0}
               >
                 {" "}
-                <button className="group flex items-center gap-2 bg-[#0886cf] hover:bg-[#0082cc] transition-colors text-black py-1 md:py-2   px-2 md:px-4  rounded-full font-mulish font-bold text-base md:text-xl">
+                <button className="group flex items-center gap-2 bg-[#009de4] hover:bg-[#0082cc] transition-colors text-black py-1 md:py-2   px-2 md:px-4  rounded-full font-mulish font-bold text-base md:text-xl">
                   <div className="flex justify-center   items-center gap-1">
-                    Start Hiring
+                    Start Hiring      
                     <GoArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </button>
