@@ -35,7 +35,7 @@ export default function Company() {
                          height={500}
                          alt="company logo"
                          loading="lazy"
-                         className="w-full h-10 object-contain opacity-70  hover:opacity-100"
+                         className={`w-full h-10 object-contain ${i===0 && i===2 && i===3 && i===5 && i===6 && i===8 ?"opacity-10":"opacity-70"}   hover:opacity-100`}
                        />
                      </div>
                    );

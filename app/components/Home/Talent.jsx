@@ -221,7 +221,7 @@ const [isMobileOnly, setIsMobileOnly] = useState(false);
     Tablet range par scroll track ko poora area travel karne dene ke liye height md:h-[250vh] ki hai 
     aur desktop par normal md:h-[200vh] apply hogi.
   */
-  className={`${role === "client" ? "hidden" : "block"} relative h-auto md:h-[250vh] lg:h-[200vh] md:-mt-20`}
+  className={`${role === "client" ? "hidden" : "block"} relative h-auto md:h-[250vh] lg:h-[200vh] md:-mt-60 lg:-mt-0`}
 >
   {/* 
     'md:overflow-hidden' track rendering glitch ko fix rakhega.

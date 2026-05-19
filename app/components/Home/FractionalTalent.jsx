@@ -63,7 +63,7 @@ const sections = [
   },
   {
     title: "Top fractional engineering roles",
-    roles: ["Web Developer"],
+    roles: [" "," ","Web Developer"],
   },
 ];
 
@@ -316,47 +316,7 @@ export default function FractionalTalent({
                     );
                   })}
         </motion.div>
-        <>
-          {textColor === "#ff0044" ? (
-            <div className="relative z-20 pb-10 px-5 md:px-20 lg:px-32 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5 justify-center items-stretch">
-              {data?.map((curE, i) => {
-                return (
-                  <FadeContent
-                    blur={true}
-                    duration={1000}
-                    delay={curE.delay}
-                    easing="ease-out"
-                    initialOpacity={0}
-                    key={i}
-                    className="h-full flex"
-                  >
-                    <div className="w-full flex-1 flex flex-col justify-center rounded-xl bg-[#141414] p-4 md:p-5 lg:p-6 shadow-2xl border border-white/5">
-                      <div className="mb-2 md:mb-3 flex items-center justify-start">
-                        {curE.delay !== 1.5 ? (
-                          <h2 className="font-jb-mono text-lg md:text-2xl lg:text-5xl font-bold text-white">
-                            {curE.name}
-                          </h2>
-                        ) : (
-                          <Image
-                            src={curE.img}
-                            width={500}
-                            height={500}
-                            alt="Product"
-                            loading="lazy"
-                            className="w-[70px] md:w-[130px] lg:w-[180px] object-contain"
-                          />
-                        )}
-                      </div>
-                      <p className="text-[10px] md:text-sm lg:text-lg font-mulish text-gray-300 leading-tight">
-                        {curE.title}
-                      </p>
-                    </div>
-                  </FadeContent>
-                );
-              })}
-            </div>
-          ) : null}
-        </>
+      
           </div> 
         </div> 
 
@@ -375,7 +335,7 @@ export default function FractionalTalent({
               initialOpacity={0}
               key={index}
             >
-              <div className="bg-[#141414] rounded-xl p-8 lg:p-12 border border-white/5 flex flex-col h-full">
+              <div className="bg-[#141414] rounded-xl p-8 lg:p-12 border border-white/5 flex flex-col justify-center lg:justify-start  item-center lg:items-start h-full">
                 <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-mulish font-semibold leading-[1.2] mb-3 md:mb-5 lg:mb-10 max-w-[90%]">
                   {section.title}
                 </h2>

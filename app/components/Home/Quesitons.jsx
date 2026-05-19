@@ -55,7 +55,7 @@ export default function Quesitons() {
                   delay={0.5}
                 >
                   <div className="mb-8">
-                    <span className="px-4 py-1.5 rounded-full bg-[#2a1205] border border-[#ff4d00]/20 text-[#ff4d00] text-[8px] md:text-[12px] font-jb-mono font-bold uppercase">
+                    <span className="px-4 py-1.5 rounded-full bg-[#370c00]   text-[#f35400] text-[8px] md:text-[12px] font-jb-mono font-bold uppercase">
                       FAQs about Fractional Hiring
                     </span>
                   </div>

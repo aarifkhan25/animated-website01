@@ -27,8 +27,8 @@ export default function Home() {
 
       {/* //talent section */}
       <Talent
-        textColor="#ff4d00"
-        bgColor="#2a1205"
+        textColor="#f35400"
+        bgColor="#370c00"
         title="Pick from high-quality fractional talent"
         heading={
           <>
@@ -42,12 +42,15 @@ export default function Home() {
       ></Talent>
 
       {/* start hiring */}
+    <div className="md:-mt-60 lg:-mt-0">
+
       <StartHiring></StartHiring>
+    </div>
 
       {/* FractionalTalent */}
       <FractionalTalent
-        textColor="#009ded"
-        bgColor="#0c1d24"
+        textColor="#009de4"
+        bgColor="#002036"
         title="The best fractional talent in the world"
         heading={
           <>
@@ -60,8 +63,10 @@ export default function Home() {
       ></FractionalTalent>
 
       {/* why choose us */}
+
+        <div className="md:-mt-80 lg:-mt-0">
       <ChooseUs
-        textColor="#ae95ff"
+        textColor="#9070ff"
         bgColor="#1c143d"
         title="Why companies choose Pangea"
         heading={
@@ -72,16 +77,17 @@ export default function Home() {
         }
         subheading="Pangea's proudly helped thousands of clients connect with talent"
       ></ChooseUs>
-
+</div>
       {/* your expectations */}
       <YourExpectations
-        textColor="#f401c0"
-        bgColor="#39002b"
+        textColor="#fb00c6"
+        bgColor="#3a002b"
       ></YourExpectations>
 
       {/* hire Fractionally */}
+       
       <FractionalTalent
-        textColor="#ff0044"
+        textColor="#ff0056"
         bgColor="#40000b"
         title="The fastest way to hire fractionally"
         heading={
@@ -95,7 +101,7 @@ export default function Home() {
       ></FractionalTalent>
 
       {/* help for hire */}
-      <ChooseUs
+       <div className="md:-mt-80 lg:-mt-0">      <ChooseUs
         textColor="#ff4d00"
         bgColor="#2a1205"
         title="End-to-End fractional hiring"
@@ -113,11 +119,11 @@ export default function Home() {
             of the way.
           </>
         }
-      ></ChooseUs>
+      ></ChooseUs></div>
 
       {/* frictional grouth */}
       <Talent
-        textColor="#009752"
+        textColor="#00ae6c"
         bgColor="#002611"
         title="From 1 to 100 to 1000"
         heading={
@@ -132,12 +138,13 @@ export default function Home() {
       ></Talent>
 
       {/* start hiring */}
-      <StartHiring></StartHiring>
+       <div className="md:-mt-60 lg:-mt-0">
+      <StartHiring></StartHiring></div>
 
       {/* our client */}
       <Talent
-        textColor="#009ded"
-        bgColor="#0c1c24"
+        textColor="#009de4"
+        bgColor="#002036"
         title="Why Innovators hire with Pangea"
         heading={
           <>
@@ -152,7 +159,7 @@ export default function Home() {
       ></Talent>
 
       <FractionalTalent
-        textColor="#8870f0"
+        textColor="#9070ff"
         bgColor="#1c143d"
         show={show}
         title="The best of the best"
@@ -166,8 +173,9 @@ export default function Home() {
       ></FractionalTalent>
 
       {/* work */}
+       <div className="md:-mt-80 lg:-mt-0">
       <FractionalTalent
-        textColor="#f700b4"
+     textColor="#fb00c6"
         bgColor="#3a002b"
         role="work"
         title="The talent you need to build faster"
@@ -179,9 +187,10 @@ export default function Home() {
           </>
         }
         subheading="Finding the right people is about hiring for the right role. Thankfully, we've got 'em covered."
-      ></FractionalTalent>
+      ></FractionalTalent></div>
       {/* questions */}
-      <Quesitons></Quesitons>
+      
+      <Quesitons ></Quesitons>
 
       <YourExpectations
         textColor="#ff4d00"
