@@ -22,7 +22,7 @@ export default function StartHiring() {
 
         <div> <button
                     
-                    className=" flex justify-between gap-1 items-center bg-[#ffffff] hover:bg-white cursor-pointer text-black font-semibold  px-2 md:px-4  py-[2px] md:py-1  rounded-full text-xs md:text-lg transition duration-150"
+                    className=" flex justify-between gap-1 items-center bg-[#ffffff] hover:bg-white cursor-pointer text-black font-semibold  px-2 md:px-4  py-1 md:py-2 lg:px-5 lg:py-3  rounded-full text-xs md:text-lg transition duration-150"
                   >
                     Start Hiring 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="h-2 md:h-5 w-3 md:w-5">
