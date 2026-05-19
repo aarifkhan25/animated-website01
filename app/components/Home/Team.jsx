@@ -68,15 +68,15 @@ export default function Team() {
 
   return (
     <section
-      className="relative w-full grid items-center justify-center  overflow-hidden pt-15 object-contain
+      className="relative w-full grid items-center justify-center  overflow-hidden pt-15
       before:content-[''] 
       before:absolute 
       before:inset-0 
-      before:bg-[url(/assets/talent/forTalentBg.png)] 
+      before:bg-[url(/assets/talentbg.png)] 
       before:bg-cover 
       before:bg-no-repeat 
       before:bg-center 
-      before:opacity-50          
+      before:opacity-10          
       before:-z-10"
     >
       <div className="flex justify-center mb-3">
@@ -90,7 +90,7 @@ export default function Team() {
         />
       </div>
 
-      <div className="flex flex-nowrap gap-3 md:gap-8 lg:gap-10 justify-center mb-5 md:mb-10 px-6">
+      <div className="flex flex-nowrap gap-3 md:gap-7 lg:gap-10 justify-center mb-5 md:mb-10 px-6">
         {items?.map((item, i) => {
           return (
             <motion.div
