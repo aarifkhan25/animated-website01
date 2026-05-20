@@ -97,7 +97,7 @@ export default function RootLayout({ children }) {
                       animateOpacity
                       scale={1}
                       threshold={0.2}
-                      delay={0.1 * i} // Staggered delay for smooth rendering
+                      delay={0.3 * i} // Staggered delay for smooth rendering
                     >
                       <FadeContent blur={true} duration={1.5} easing="ease-in" initialOpacity={0}>
                         {item.name}
@@ -170,7 +170,7 @@ export default function RootLayout({ children }) {
                       key={i} 
                       href={item.href} 
                       onClick={closeMobileMenu} // FIX: Click karne par menu close hoga
-                      className="p-4 hover:text-[#ff004e] text-white w-full text-lg font-mulish font-medium border-b border-white/5 hover:bg-white/5 transition-all rounded-lg"
+                      className="p-4 hover:text-gray-500 text-white w-full text-lg font-mulish font-medium border-b border-white/5 hover:bg-white/5 transition-all rounded-lg"
                     >
                       {item.name}
                     </Link>

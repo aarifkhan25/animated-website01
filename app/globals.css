@@ -44,3 +44,8 @@ body{
   --font-jb-mono:var(--font-jb-mono);
 --font-mulish:var(--font-mulish);
 }
+/* for breakpoints */
+@theme {
+/* for 1440px and above */
+  --breakpoint-1xl: 90rem; 
+}

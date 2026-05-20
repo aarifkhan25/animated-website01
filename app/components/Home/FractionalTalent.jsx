@@ -231,7 +231,7 @@ export default function FractionalTalent({
             >
               <div className="mb-8">
                 <span
-                  className="px-4 py-1.5 rounded-full text-[8px] md:text-xs font-jb-mono font-semibold uppercase"
+                  className="px-4 py-1.5 rounded-full text-[10px] md:text-xs font-jb-mono font-semibold uppercase"
                   style={{ backgroundColor: bgColor, color: textColor }}
                 >
                   {title}
@@ -285,7 +285,7 @@ export default function FractionalTalent({
             textColor === "#ff0044" 
               ? "h-auto md:h-[180vh] lg:h-[160vh]" 
               : "h-auto md:h-[230vh] lg:h-[200vh]"
-          } ${role === "work" ? "hidden" : "block"} -mt-10`}
+          } ${role === "work" ? "hidden" : "block"} -mt-10 `}
         >
           <div 
             ref={horizontalScrollRef}
@@ -369,8 +369,8 @@ export default function FractionalTalent({
               initialOpacity={0}
               key={index}
             >
-              <div className="bg-[#141414] rounded-xl p-8 lg:p-12 border border-white/5 flex flex-col justify-center lg:justify-start items-center lg:items-start h-full">
-                <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-mulish font-semibold leading-[1.2] mb-3 md:mb-5 lg:mb-10 max-w-[90%]">
+              <div className="bg-[#141414] rounded-xl p-8 lg:p-12 border border-white/5 flex flex-col justify-start items-start h-full">
+                <h2 className="text-white text-[22px] md:text-3xl lg:text-4xl font-mulish font-semibold leading-[1.2] mb-3 md:mb-5 lg:mb-10 max-w-[90%]">
                   {section.title}
                 </h2>
                 <ul className="space-y-1 md:space-y-2 lg:space-y-4">

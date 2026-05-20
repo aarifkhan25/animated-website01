@@ -62,7 +62,7 @@ export default function YourExpectations({textColor,bgColor}) {
                            baseRotation={0}
                          >
                     {" "}
-                    <button className="group flex items-center gap-2  transition-colors text-black py-1 md:py-2  lg:py-3  px-2 md:px-4 lg:px-6 rounded-full font-mulish font-bold text-base md:text-xl"
+                    <button className="group flex items-center gap-2  transition-colors text-black p-3 md:py-2  lg:py-3   md:px-4 lg:px-6 rounded-full font-mulish font-bold text-base md:text-xl"
                     style={{backgroundColor:textColor}}>
                       <div className="flex justify-center   items-center gap-1">
                         Start Hiring

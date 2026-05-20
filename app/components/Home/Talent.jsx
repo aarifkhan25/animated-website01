@@ -203,7 +203,7 @@ useEffect(() => {
       >
         <div className="mb-8">
           <span
-            className="px-4 py-1.5 rounded-full text-[8px] md:text-xs font-jb-mono font-bold uppercase"
+            className="px-4 py-1.5 rounded-full text-[10px] md:text-xs font-jb-mono font-bold uppercase"
             style={{ backgroundColor: bgColor, color: textColor }}
           >
             {title}
@@ -260,7 +260,7 @@ useEffect(() => {
 {/* --- Cards Scroll Section --- */}
 <section
   ref={targetRef}
-  className={`${role === "client" ? "hidden" : "block"} relative h-auto md:h-[250vh] lg:h-[200vh] md:-mt-60 lg:-mt-10   `}
+  className={`${role === "client" ? "hidden" : "block"} relative h-auto md:h-[250vh] lg:h-[200vh] md:-mt-60 lg:-mt-20 1xl:-mt-45 `}
 >
   <div 
     ref={horizontalScrollRef}
@@ -268,7 +268,7 @@ useEffect(() => {
   >
     <motion.div
       style={isMobile ? {} : { x }}
-      className="flex gap-5 md:gap-7 lg:gap-10 pl-20   lg:p-32"
+      className="flex gap-5 md:gap-7 lg:gap-10 px-10 md:px-60 lg:px-82 xl:px-120 "
     >
       {visibleCards?.map((item, i) => (
         <div
@@ -322,7 +322,7 @@ useEffect(() => {
       {/* Yahan tak ka poora chunk replace karna hai */}
 
       <section className={`${role === "client" ? "block" : "hidden"} w-full`}>
-        <div className="pb-30 lg:pb-50">
+        <div className="pb-10 md:pb-30 ">
           <div className="flex gap-5 md:gap-7 lg:gap-10 px-5 md:px-20 lg:px-32  overflow-x-auto  scrollbar-style scrollbar-hide">
             {clientInfo?.map((curE, i) => (
               <div

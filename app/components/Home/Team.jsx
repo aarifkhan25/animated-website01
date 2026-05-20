@@ -1,8 +1,9 @@
 "use client";
 import Image from "next/image";
 import { useRef } from "react";
+import FadeContent from "@/components/FadeContent.jsx";
 import { motion, useScroll, useTransform } from "framer-motion";
-
+import AnimatedContent from "@/components/AnimatedContent.jsx";
 // Individual Team Card Component jo apne scroll progressive offset ko manage karega
 function TeamCard({ item }) {
   const cardRef = useRef(null);
@@ -18,6 +19,7 @@ function TeamCard({ item }) {
   const yTransform = useTransform(scrollYProgress, [0, 1], ["0px", item.move]);
 
   return (
+    
     <motion.div
       ref={cardRef}
       style={{
@@ -147,6 +149,7 @@ export default function Team() {
   ];
 
   return (
+     
     <section
       className="relative w-full grid items-center justify-center overflow-hidden pt-15 pb-5 md:pb-10 2xl:pb-15
       before:content-[''] 
@@ -159,6 +162,19 @@ export default function Team() {
       before:opacity-10          
       before:-z-10"
     >
+        <AnimatedContent
+                                  distance={20}
+                                  direction="vertical"
+                                  reverse
+                                  duration={1.5}
+                                  ease="power3.out"
+                                  initialOpacity={0}
+                                  animateOpacity
+                                  scale={1}
+                                  threshold={0.2}
+                                  delay={0.1} // Staggered delay for smooth rendering
+                                >
+ <FadeContent blur={true} duration={1.5} easing="ease-in" initialOpacity={0}>
       <div className="flex justify-center">
         <Image
           src="/assets/Y.svg"
@@ -176,6 +192,8 @@ export default function Team() {
           <TeamCard key={i} item={item} />
         ))}
       </div>
+      </FadeContent>
+      </AnimatedContent>
     </section>
   );
 }

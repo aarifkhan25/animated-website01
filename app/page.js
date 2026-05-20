@@ -34,7 +34,7 @@ export default function Home() {
         heading={
           <>
             Access the <br /> talent you need
-          </>
+          </>   
         }
         subheading=" Interview curated candidates for every role you're hiring
                          for, hand-picked to select the world's best fractional
@@ -65,7 +65,7 @@ export default function Home() {
 
       {/* why choose us */}
 
-        <div className="md:-mt-80 lg:-mt-0">
+        <div className="md:-mt-140 lg:-mt-0 xl:-mt-60 1xl:-mt-80">
       <ChooseUs
         textColor="#9070ff"
         bgColor="#1c143d"
@@ -102,7 +102,7 @@ export default function Home() {
       ></FractionalTalent>
 
       {/* help for hire */}
-       <div className="md:-mt-80 lg:-mt-0">      <ChooseUs
+       <div className="md:-mt-140 lg:-mt-0 xl:-mt-60 1xl:-mt-80">      <ChooseUs
         textColor="#ff4d00"
         bgColor="#2a1205"
         title="End-to-End fractional hiring"
@@ -115,8 +115,8 @@ export default function Home() {
         subheading={
           <>
             Hiring with Pangea doesn't just get you access to our private
-            network of <br /> fractional experts. Our fully-featured fractional
-            work platform is fine-tuned to <br /> save you hours at every step
+            network of <br className="hidden md:block" /> fractional experts. Our fully-featured fractional
+            work platform is fine-tuned to <br className="hidden md:block" /> save you hours at every step
             of the way.
           </>
         }
@@ -174,7 +174,7 @@ export default function Home() {
       ></FractionalTalent>
 
       {/* work */}
-       <div className="md:-mt-80 lg:-mt-0">
+       <div className="md:-mt-80 lg:-mt-0 xl:-mt-60 1xl:-mt-80">
       <FractionalTalent
      textColor="#fb00c6"
         bgColor="#3a002b"
