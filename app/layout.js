@@ -64,7 +64,7 @@ export default function RootLayout({ children }) {
           {/* HEADER NAV CONTAINER */}
           <header>
             <nav
-              className={`fixed top-0 left-1/2 -translate-x-1/2 w-full z-50 px-6 md:px-10 lg:px-20 py-4 flex items-center justify-between transition-all duration-300 ${
+              className={`fixed top-0 left-1/2 -translate-x-1/2 w-full z-50 px-6 md:px-10 lg:px-20 xl:px-25 py-4 flex items-center justify-between transition-all duration-300 ${
                 isScrolled ? "bg-black/80 backdrop-blur-md border-b border-white/5" : "bg-transparent"
               }`}
             >

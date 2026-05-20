@@ -26,6 +26,7 @@ export default function Home() {
       <Company></Company>
 
       {/* //talent section */}
+      
       <Talent
         textColor="#f35400"
         bgColor="#370c00"

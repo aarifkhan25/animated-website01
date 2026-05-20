@@ -40,7 +40,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className=" text-white pt-20  px-8 md:px-10 lg:px-14 font-sans relative overflow-hidden">
+    <footer className=" text-white pt-10  md:pt-20 px-6 md:px-10 lg:px-20 xl:px-25 font-sans relative overflow-hidden">
       <div className="">
         <Image
           width={500}

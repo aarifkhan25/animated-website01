@@ -3,7 +3,7 @@ import ScrollReveal from '@/components/ScrollReveal.jsx';
 import { GoArrowRight } from "react-icons/go";
 export default function YourExpectations({textColor,bgColor}) {
   return (
-    <section className=" flex flex-col py-20 md:py-50 items-center justify-center   text-white px-4 md:px-6  overflow-hidden">
+    <section className=" flex flex-col py-10 lg:py-20 items-center justify-center   text-white px-4 md:px-6  overflow-hidden">
                 
                 {/* Top Badge */}
                 
@@ -62,7 +62,7 @@ export default function YourExpectations({textColor,bgColor}) {
                            baseRotation={0}
                          >
                     {" "}
-                    <button className="group flex items-center gap-2  transition-colors text-black py-1 md:py-2   px-2 md:px-4  rounded-full font-mulish font-bold text-base md:text-xl"
+                    <button className="group flex items-center gap-2  transition-colors text-black py-1 md:py-2  lg:py-3  px-2 md:px-4 lg:px-6 rounded-full font-mulish font-bold text-base md:text-xl"
                     style={{backgroundColor:textColor}}>
                       <div className="flex justify-center   items-center gap-1">
                         Start Hiring

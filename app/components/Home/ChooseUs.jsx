@@ -24,7 +24,7 @@ export default function ChooseUs({textColor,bgColor,title,heading,subheading}) {
 
     const [openSection, setOpenSection] = useState('quick-view');
   return (
-  <section className="w-full md:grid gap-5 md:gap-10 text-white  py-10 md:py-20 px-10 md:px-20  lg:px-32">
+  <section className="w-full md:grid gap-5 md:gap-10 text-white   py-10 lg:py-20 px-10 md:px-20  lg:px-32">
         <div className="w-full mx-auto grid  justify-center items-center  ">
          
             {/* Orange Badge */}

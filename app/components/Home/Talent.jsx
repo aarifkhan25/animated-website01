@@ -184,7 +184,7 @@ useEffect(() => {
   return (
     <>
      {/* --- Upper Header Section --- */}
-<section className="w-full text-white pt-10 md:pt-30 px-10 md:px-20 lg:px-32 xl:px-38">
+<section className="w-full text-white pt-10 lg:pt-20 px-10 md:px-20 lg:px-32 xl:px-38">
   <div className="w-full mx-auto flex flex-col justify-between gap-10">
     {/* Left Content */}
     <div className="flex-1">
@@ -260,7 +260,7 @@ useEffect(() => {
 {/* --- Cards Scroll Section --- */}
 <section
   ref={targetRef}
-  className={`${role === "client" ? "hidden" : "block"} relative h-auto md:h-[250vh] lg:h-[200vh] md:-mt-60 lg:-mt-0`}
+  className={`${role === "client" ? "hidden" : "block"} relative h-auto md:h-[250vh] lg:h-[200vh] md:-mt-60 lg:-mt-10   `}
 >
   <div 
     ref={horizontalScrollRef}
@@ -268,7 +268,7 @@ useEffect(() => {
   >
     <motion.div
       style={isMobile ? {} : { x }}
-      className="flex gap-5 md:gap-7 lg:gap-10 p-5 md:pt-28 md:pb-20 md:pl-20 md:pr-[30vw] lg:p-32"
+      className="flex gap-5 md:gap-7 lg:gap-10 pl-20   lg:p-32"
     >
       {visibleCards?.map((item, i) => (
         <div
@@ -322,7 +322,7 @@ useEffect(() => {
       {/* Yahan tak ka poora chunk replace karna hai */}
 
       <section className={`${role === "client" ? "block" : "hidden"} w-full`}>
-        <div className="pb-30 md:pb-50">
+        <div className="pb-30 lg:pb-50">
           <div className="flex gap-5 md:gap-7 lg:gap-10 px-5 md:px-20 lg:px-32  overflow-x-auto  scrollbar-style scrollbar-hide">
             {clientInfo?.map((curE, i) => (
               <div

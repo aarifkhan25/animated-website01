@@ -92,9 +92,13 @@ export default function FractionalTalent({
   const [isMobileOnly, setIsMobileOnly] = useState(false);
   const [transformXValue, setTransformXValue] = useState("-60%"); 
   
+  // States for button disabling feature
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
   // Custom motion value for absolute sync override on button click
   const manualXProgress = useMotionValue(0);
-  const smoothManualX = useSpring(manualXProgress, { stiffness: 60, damping: 15 });
+  const smoothManualX = useSpring(manualXProgress, { stiffness: 80, damping: 20 });
 
   useEffect(() => {
     const handleResize = () => {
@@ -126,16 +130,55 @@ export default function FractionalTalent({
   const [isManualOverride, setIsManualOverride] = useState(false);
   const dynamicX = isManualOverride ? manualTransform : scrollTransform;
 
-  // Listen to wheel/scroll resets to give control back to standard scrolling
+  // Reset override logic on mousewheel or touch native scrolls
   useEffect(() => {
-    const resetOverride = () => setIsManualOverride(false);
+    const resetOverride = () => {
+      if (isManualOverride) {
+        manualXProgress.set(scrollYProgress.get());
+        setIsManualOverride(false);
+      }
+    };
     window.addEventListener("wheel", resetOverride);
     window.addEventListener("touchmove", resetOverride);
     return () => {
       window.removeEventListener("wheel", resetOverride);
       window.removeEventListener("touchmove", resetOverride);
     };
-  }, []);
+  }, [isManualOverride, scrollYProgress, manualXProgress]);
+
+  // Track buttons disable/enable state
+  const checkScrollState = () => {
+    const container = horizontalScrollRef.current;
+    if (!container) return;
+
+    if (isMobileOnly) {
+      const { scrollLeft, scrollWidth, clientWidth } = container;
+      setCanScrollLeft(scrollLeft > 5);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10);
+    } else {
+      const progress = isManualOverride ? manualXProgress.get() : scrollYProgress.get();
+      setCanScrollLeft(progress > 0.05);
+      setCanScrollRight(progress < 0.95);
+    }
+  };
+
+  // FIXED: Array dependencies updated with primitives safely (.length used instead of whole array object)
+  useEffect(() => {
+    const container = horizontalScrollRef.current;
+    if (!container) return;
+
+    checkScrollState();
+    container.addEventListener("scroll", checkScrollState);
+    
+    const unsubscribeScroll = scrollYProgress.onChange(checkScrollState);
+    const unsubscribeManual = manualXProgress.onChange(checkScrollState);
+
+    return () => {
+      container.removeEventListener("scroll", checkScrollState);
+      unsubscribeScroll();
+      unsubscribeManual();
+    };
+  }, [isMobileOnly, isManualOverride, visibleCards.length]); 
 
   const scrollHorizontal = (direction) => {
     if (isMobileOnly) {
@@ -148,24 +191,16 @@ export default function FractionalTalent({
         });
       }
     } else {
-      setIsManualOverride(true);
-      const currentProgress = manualXProgress.get();
-      // Increments motion path frame calculations by 25% steps per click
-      let nextProgress = direction === "left" ? currentProgress - 0.25 : currentProgress + 0.25;
-      nextProgress = Math.max(0, Math.min(1, nextProgress));
-      manualXProgress.set(nextProgress);
-
-      // Also scroll viewport safely to align track position
-      if (targetRef.current) {
-        const rect = targetRef.current.getBoundingClientRect();
-        const totalScrollableHeight = targetRef.current.offsetHeight - window.innerHeight;
-        const targetScrollTop = window.scrollY + rect.top + (nextProgress * totalScrollableHeight);
-        
-        window.scrollTo({
-          top: targetScrollTop,
-          behavior: "smooth"
-        });
+      if (!isManualOverride) {
+        manualXProgress.set(scrollYProgress.get());
+        setIsManualOverride(true);
       }
+      
+      const currentProgress = manualXProgress.get();
+      let nextProgress = direction === "left" ? currentProgress - 0.33 : currentProgress + 0.33;
+      nextProgress = Math.max(0, Math.min(1, nextProgress));
+      
+      manualXProgress.set(nextProgress);
     }
   };
 
@@ -179,7 +214,7 @@ export default function FractionalTalent({
 
   return (
     <>
-      <section className="w-full text-white py-0 px-10 md:px-20 lg:px-32">
+      <section className="w-full text-white pt-10 lg:pt-20 px-10 md:px-20 lg:px-32">
         <div className="w-full mx-auto flex flex-col justify-between gap-10">
           <div className="flex-1">
             <AnimatedContent
@@ -223,13 +258,15 @@ export default function FractionalTalent({
                   <div className="flex gap-4">
                     <button 
                       onClick={() => scrollHorizontal("left")}
-                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30"
+                      disabled={!canScrollLeft}
+                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30 disabled:opacity-20 disabled:pointer-events-none cursor-pointer"
                     >
                       <FiChevronLeft className="md:w-8 md:h-8" />
                     </button>
                     <button 
                       onClick={() => scrollHorizontal("right")}
-                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30"
+                      disabled={!canScrollRight}
+                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30 disabled:opacity-20 disabled:pointer-events-none cursor-pointer"
                     >
                       <FiChevronRight className="md:w-8 md:h-8" />
                     </button>
@@ -248,16 +285,15 @@ export default function FractionalTalent({
             textColor === "#ff0044" 
               ? "h-auto md:h-[180vh] lg:h-[160vh]" 
               : "h-auto md:h-[230vh] lg:h-[200vh]"
-          } ${role === "work" ? "hidden" : "block"} -mt-10 md:-mt-20`}
+          } ${role === "work" ? "hidden" : "block"} -mt-10`}
         >
           <div 
-            
-            className="static md:sticky md:top-0 h-auto md:h-[80vh] w-full flex flex-col justify-start pt-16 md:pt-20 overflow-x-auto md:overflow-hidden scrollbar-hide"
+            ref={horizontalScrollRef}
+            className="static md:sticky md:top-0 h-auto md:h-[80vh] w-full flex flex-col justify-start overflow-x-auto md:overflow-hidden scrollbar-hide scroll-smooth"
           >
             <motion.div
-            ref={horizontalScrollRef}
               style={isMobileOnly ? {} : { x: dynamicX }}
-              className="flex gap-5 md:gap-7 lg:gap-10 px-5 py-10 md:px-20 md:py-12 lg:px-32 lg:py-16"
+              className="flex gap-5 md:gap-7 lg:gap-10 px-10 py-10 md:px-20 md:py-12 lg:px-32 lg:py-16"
             >
               {bgColor !== "#1c143d"
                 ? visibleCards?.map((item, i) => (
@@ -296,7 +332,7 @@ export default function FractionalTalent({
                             <img
                               alt={curE.name}
                               src={curE.img}
-                              className="w-11 h-11 md:w-13 md:h-13 lg:w-15 lg:h-15 rounded-xl"
+                              className="w-11 h-11 md:w-13 md:h-13 lg:w-15 lg:h-15 rounded-xl object-cover"
                             />
                           </div>
 
@@ -315,14 +351,12 @@ export default function FractionalTalent({
                       </div>
                     );
                   })}
-        </motion.div>
-      
+            </motion.div>
           </div> 
         </div> 
-
       </section>
 
-      <div className={`px-10 lg:px-32`}>
+      <div className="pb-10 md:pb-20 px-6 md:px-10 lg:px-20 xl:px-25">
         <div
           className={`${role === "work" ? "block" : "hidden"} grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-10 w-full mx-auto`}
         >
@@ -335,7 +369,7 @@ export default function FractionalTalent({
               initialOpacity={0}
               key={index}
             >
-              <div className="bg-[#141414] rounded-xl p-8 lg:p-12 border border-white/5 flex flex-col justify-center lg:justify-start  item-center lg:items-start h-full">
+              <div className="bg-[#141414] rounded-xl p-8 lg:p-12 border border-white/5 flex flex-col justify-center lg:justify-start items-center lg:items-start h-full">
                 <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-mulish font-semibold leading-[1.2] mb-3 md:mb-5 lg:mb-10 max-w-[90%]">
                   {section.title}
                 </h2>
