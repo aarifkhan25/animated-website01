@@ -252,12 +252,12 @@ export default function FractionalTalent({
         >
           <div 
             
-            className="static md:sticky md:top-0 h-auto md:h-[80vh] w-full flex flex-col justify-start pt-16 md:pt-20 overflow-x-auto md:overflow-hidden scrollbar-hide"
+            className="static md:sticky md:top-0 h-auto md:h-[80vh] w-full flex flex-col justify-start  overflow-x-auto md:overflow-hidden scrollbar-hide"
           >
             <motion.div
             ref={horizontalScrollRef}
               style={isMobileOnly ? {} : { x: dynamicX }}
-              className="flex gap-5 md:gap-7 lg:gap-10 px-5 py-10 md:px-20 md:py-12 lg:px-32 lg:py-16"
+              className="flex gap-5 md:gap-7 lg:gap-10 px-5 md:px-20  lg:px-32 "
             >
               {bgColor !== "#1c143d"
                 ? visibleCards?.map((item, i) => (

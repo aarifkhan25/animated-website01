@@ -109,7 +109,7 @@ export default function Home() {
         heading={
           <>
             {" "}
-            Here to help you <br className="block sm:hidden" /> hire <br /> from beginning to end
+            Here to help  <br className="block sm:hidden" /> you  hire <br /> from beginning to end
           </>
         }
         subheading={
