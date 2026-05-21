@@ -236,7 +236,7 @@ export default function FractionalTalent({
               blurStrength={1}
               baseRotation={0}
             >
-              <h2 className="text-[40px] md:text-[65px] lg:text-[72px] font-mulish leading-[1] tracking-tight mb-12">
+              <h2 className="text-[35px] md:text-[65px] lg:text-[72px] font-mulish leading-[1] tracking-tight mb-12">
                 {heading}
               </h2>
               <div className="grid md:flex justify-between gap-5 items-center">
