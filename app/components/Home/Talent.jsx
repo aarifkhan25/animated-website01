@@ -81,6 +81,10 @@ export default function Talent({
   const [visibleCards, setVisibleCards] = useState(talent);
   const [isMobileOnly, setIsMobileOnly] = useState(false);
   const [transformXValue, setTransformXValue] = useState("-60%"); 
+
+  // --- NEW FEATURE: बटन डिसेबल करने की स्टेट्स ---
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
   
   const manualXProgress = useMotionValue(0);
   const smoothManualX = useSpring(manualXProgress, { stiffness: 60, damping: 15 });
@@ -113,51 +117,91 @@ export default function Talent({
   const [isManualOverride, setIsManualOverride] = useState(false);
   const dynamicX = isManualOverride ? manualTransform : scrollTransform;
 
+  // --- NEW FEATURE: स्क्रॉल पोजीशन चेक करने का फंक्शन ---
+  const checkScrollPosition = () => {
+    const container = role === "client" ? clientScrollRef.current : horizontalScrollRef.current;
+    
+    if (container) {
+      const { scrollLeft, scrollWidth, clientWidth } = container;
+      // अगर स्क्रॉल लेफ्ट 5px से बड़ा है तो Left Button इनेबल होगा
+      setCanScrollLeft(scrollLeft > 5);
+      // अगर स्क्रॉल अभी एंड तक नहीं पहुँचा है (थोड़ा मार्जिन लेकर) तो Right Button इनेबल होगा
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
+    }
+  };
+
+  // डेस्कटॉप पर Framer motion (Talent Section) के लिए प्रोग्रेस ट्रैक करना
+  useEffect(() => {
+    if (role !== "client" && !isMobileOnly && typeof window !== 'undefined' && window.innerWidth >= 1025) {
+      return scrollYProgress.on("change", (latest) => {
+        setCanScrollLeft(latest > 0.05);
+        setCanScrollRight(latest < 0.95);
+      });
+    }
+  }, [scrollYProgress, role, isMobileOnly]);
+
+  // ओवरराइड रीसेट और व्हील इवेंट्स
   useEffect(() => {
     const resetOverride = () => setIsManualOverride(false);
     window.addEventListener("wheel", resetOverride);
     window.addEventListener("touchmove", resetOverride);
+    
+    // मोबाइल/क्लाइंट सेक्शन्स के स्क्रॉल इवेंट्स को सुनना
+    const clientContainer = clientScrollRef.current;
+    const talentContainer = horizontalScrollRef.current;
+
+    if (clientContainer) clientContainer.addEventListener("scroll", checkScrollPosition);
+    if (talentContainer) talentContainer.addEventListener("scroll", checkScrollPosition);
+
     return () => {
       window.removeEventListener("wheel", resetOverride);
       window.removeEventListener("touchmove", resetOverride);
+      if (clientContainer) clientContainer.removeEventListener("scroll", checkScrollPosition);
+      if (talentContainer) talentContainer.removeEventListener("scroll", checkScrollPosition);
     };
-  }, []);
+  }, [role, isMobileOnly]);
 
-  // --- FIXED: मोबाइल स्क्रॉलिंग के लिए परफेक्ट लॉजिक ---
+  // जब भी रोल चेंज हो, एक बार बटन की स्टेट रिफ्रेश करें
+  useEffect(() => {
+    checkScrollPosition();
+  }, [role]);
+
   const scrollHorizontal = (direction) => {
-    // 1. Client Section (चाहे मोबाइल हो या डेस्कटॉप)
     if (role === "client") {
       if (clientScrollRef.current) {
         const container = clientScrollRef.current;
         const isMobile = window.innerWidth < 768;
-        const cardAmount = isMobile ? 320 : 408; // मोबाइल कार्ड विड्थ + गैप
+        const cardAmount = isMobile ? 320 : 408;
 
         container.scrollBy({
           left: direction === "left" ? -cardAmount : cardAmount,
           behavior: "smooth",
         });
+        // स्क्रॉल के तुरंत बाद चेक करें
+        setTimeout(checkScrollPosition, 300);
       }
     } 
-    // 2. Talent Section (सिर्फ मोबाइल या टैबलेट के लिए)
     else if (window.innerWidth < 1025 || isMobileOnly) {
       if (horizontalScrollRef.current) {
         const container = horizontalScrollRef.current;
-        // मोबाइल पर एक बार में 300px (एक कार्ड जितना) स्क्रॉल करें
         const scrollAmount = 300; 
         
         container.scrollBy({
           left: direction === "left" ? -scrollAmount : scrollAmount,
           behavior: "smooth",
         });
+        setTimeout(checkScrollPosition, 300);
       }
     } 
-    // 3. Talent Section (डेस्कटॉप के लिए Framer Motion)
     else {
       setIsManualOverride(true);
       const currentProgress = manualXProgress.get();
       let nextProgress = direction === "left" ? currentProgress - 0.25 : currentProgress + 0.25;
       nextProgress = Math.max(0, Math.min(1, nextProgress));
       manualXProgress.set(nextProgress);
+      
+      setCanScrollLeft(nextProgress > 0);
+      setCanScrollRight(nextProgress < 1);
     }
   };
 
@@ -225,15 +269,19 @@ export default function Talent({
                 {/* बटन्स कंटेनर */}
                 <div className="block">
                   <div className="flex gap-4">
+                    {/* --- LEFT BUTTON WITH DISABLE STATE --- */}
                     <button 
+                      disabled={!canScrollLeft}
                       onClick={() => scrollHorizontal("left")}
-                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30"
+                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30 disabled:opacity-30 disabled:pointer-events-none"
                     >
                       <FiChevronLeft className="w-5 h-5 md:w-8 md:h-8" />
                     </button>
+                    {/* --- RIGHT BUTTON WITH DISABLE STATE --- */}
                     <button 
+                      disabled={!canScrollRight}
                       onClick={() => scrollHorizontal("right")}
-                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30"
+                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30 disabled:opacity-30 disabled:pointer-events-none"
                     >
                       <FiChevronRight className="w-5 h-5 md:w-8 md:h-8" />
                     </button>
@@ -255,12 +303,10 @@ export default function Talent({
               : "h-auto md:h-[230vh] lg:h-[200vh]"
           } ${role === "client" ? "hidden" : "block"}  `}
         >
-          {/* --- FIXED: मोबाइल पर ओवरफ्लो और स्क्रॉलिंग स्मूथ करने के लिए पैरेंट कंटेनर में बदलाव --- */}
           <div 
             ref={horizontalScrollRef}
             className="static md:sticky md:top-0 h-auto md:h-[80vh] w-full flex flex-col justify-start overflow-x-auto md:overflow-hidden scrollbar-hide scroll-smooth snap-x snap-mandatory md:snap-none"
           >
-            {/* --- FIXED: style={isMobileOnly || window.innerWidth < 1025 ? {} : { x: dynamicX }} ताकि मोबाइल पर Framer motion का ट्रांसफॉर्म डिस्टर्ब न करे --- */}
             <motion.div
               style={(typeof window !== 'undefined' && window.innerWidth < 1025) || isMobileOnly ? {} : { x: dynamicX }}
               className="flex gap-5 md:gap-7 lg:gap-10 px-5 md:px-20 lg:px-32"
