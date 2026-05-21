@@ -281,11 +281,11 @@ export default function FractionalTalent({
           <div 
             ref={horizontalScrollRef}
             onScroll={checkScrollPosition}
-            className="static md:sticky md:top-0 h-auto md:h-[80vh] w-full flex flex-col justify-start overflow-x-auto  scrollbar-hide scroll-smooth snap-x snap-mandatory md:snap-none"
+            className="static md:sticky md:top-0 h-auto md:h-[80vh] w-full flex flex-col justify-start overflow-x-auto md:overflow-hidden scrollbar-hide scroll-smooth snap-x snap-mandatory md:snap-none"
           >
             <motion.div
               style={isMobileOnly ? {} : { x: dynamicX }}
-              className="flex gap-5 md:gap-7 lg:gap-10  pb-10  px-10 md:px-20 lg:px-32 overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth"
+              className="flex gap-5 md:gap-7 lg:gap-10 px-5 pb-10  md:px-10 lg:px-32"
             >
               {bgColor !== "#1c143d"
                 ? visibleCards?.map((item, i) => (
