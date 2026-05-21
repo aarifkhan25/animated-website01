@@ -128,15 +128,15 @@ export default function ChooseUs({textColor,bgColor,title,heading,subheading}) {
           
         </div>
       </motion.div> : 
- <motion.div style={{
+ <div  className="grid gap-6 md:gap-10 overflow-hidden"> 
+  {/* 1. h-[500px] ko h-auto kiya aur mobile par padding set ki */}
+  <motion.div style={{
           rotateX,
           rotateY,
           scale,
           opacity,
           transformStyle: "preserve-3d", // Child elements ko 3D space mein rakhne ke liye
-        }} className="grid gap-6 md:gap-10 overflow-hidden"> 
-  {/* 1. h-[500px] ko h-auto kiya aur mobile par padding set ki */}
-  <div className="w-full h-auto flex flex-col lg:flex-row items-stretch gap-5 lg:gap-10 rounded-xl bg-[#141414] overflow-hidden">
+        }} className="w-full h-auto flex flex-col lg:flex-row items-stretch gap-5 lg:gap-10 rounded-xl bg-[#141414] overflow-hidden">
     
     {/* Left Side: Mockup Card - Mobile par order change aur height fix */}
     <div className="w-full lg:w-1/2 relative bg-[#1a1a1a] rounded-t-xl lg:rounded-l-xl lg:rounded-tr-none overflow-hidden shadow-2xl order-2 lg:order-1">
@@ -208,7 +208,7 @@ export default function ChooseUs({textColor,bgColor,title,heading,subheading}) {
         We've tuned our web-based platform to support you at every step of the way, from scheduling interviews, to sitting shotgun for your calls, to making the next steps feel obvious.
       </p>
     </div>
-  </div>
+  </motion.div>
 
   {/* Cards Grid */}
   <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 items-stretch">
@@ -232,7 +232,7 @@ export default function ChooseUs({textColor,bgColor,title,heading,subheading}) {
       </FadeContent>
     ))}
   </div>
-</motion.div>
+</div>
             
 
             
