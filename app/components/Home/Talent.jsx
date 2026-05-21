@@ -236,18 +236,15 @@ export default function Talent({
 
                 <div className={`${role !== "client" ? "block" : "hidden"}`}>
                   <div className="flex gap-4">
-                    <button 
+                        <button 
                       onClick={() => scrollHorizontal("left")}
-                      disabled={!canScrollLeft}
-                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all disabled:opacity-20 disabled:pointer-events-none cursor-pointer"
+                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30"
                     >
-                      <FiChevronLeft className="w-5 h-5 md:w-8 md:h-8" />
+                      <FiChevronLeft className="md:w-8 md:h-8" />
                     </button>
-                    
                     <button 
                       onClick={() => scrollHorizontal("right")}
-                      disabled={!canScrollRight}
-                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all disabled:opacity-20 disabled:pointer-events-none cursor-pointer"
+                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30"
                     >
                       <FiChevronRight className="w-5 h-5 md:w-8 md:h-8" />
                     </button>
