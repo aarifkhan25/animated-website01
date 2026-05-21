@@ -72,8 +72,8 @@ export default function Talent({
   
   const targetRef = useRef(null);
   const horizontalScrollRef = useRef(null); 
-  const clientScrollRef = useRef(null); // --- FIXED: Client Section के लिए नया Ref ---
-  
+  const clientScrollRef = useRef(null); 
+
   const { scrollYProgress } = useScroll({
     target: targetRef,
   });
@@ -123,49 +123,42 @@ export default function Talent({
     };
   }, []);
 
-  // --- FIXED: दोनों सेक्शन्स के लिए कॉमन स्क्रॉल हैंडलर ---
+  // --- FIXED & OPTIMIZED: स्क्रॉलिंग लॉजिक बिना पेज जंप किए और सेंटर अलाइनमेंट के साथ ---
   const scrollHorizontal = (direction) => {
     if (role === "client") {
-      // Client section के लिए स्क्रॉलिंग (Card Width + Gap के साथ)
       if (clientScrollRef.current) {
-        const { scrollLeft } = clientScrollRef.current;
+        const container = clientScrollRef.current;
         const isMobile = window.innerWidth < 768;
-        // मोबाइल पर 300px कार्ड + 20px गैप, डेस्कटॉप पर 380px कार्ड + 28px गैप
-        const cardSize = isMobile ? 320 : 408; 
         
-        clientScrollRef.current.scrollTo({
-          left: direction === "left" ? scrollLeft - cardSize : scrollLeft + cardSize,
+        // एक कार्ड की कुल चौड़ाई (Card width + Gap)
+        const cardAmount = isMobile ? 320 : 408; 
+
+        // scrollBy सीधे कंटेनर के अंदर हॉरिजॉन्टल मूव करता है, पेज डिस्टर्ब नहीं होता
+        container.scrollBy({
+          left: direction === "left" ? -cardAmount : cardAmount,
           behavior: "smooth",
         });
       }
     } else {
-      // Talent section के लिए आपकी पुरानी स्क्रॉलिंग लॉजिक
+      // Talent Section
       if (isMobileOnly) {
         if (horizontalScrollRef.current) {
-          const { scrollLeft, clientWidth } = horizontalScrollRef.current;
-          const scrollAmount = clientWidth * 0.75; 
-          horizontalScrollRef.current.scrollTo({
-            left: direction === "left" ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
+          const container = horizontalScrollRef.current;
+          const scrollAmount = container.clientWidth * 0.75; 
+          container.scrollBy({
+            left: direction === "left" ? -scrollAmount : scrollAmount,
             behavior: "smooth",
           });
         }
       } else {
+        // डेस्कटॉप पर Framer motion स्क्रॉलिंग (बिना window.scrollTo के ताकि स्क्रीन जंप न हो)
         setIsManualOverride(true);
         const currentProgress = manualXProgress.get();
         let nextProgress = direction === "left" ? currentProgress - 0.25 : currentProgress + 0.25;
         nextProgress = Math.max(0, Math.min(1, nextProgress));
         manualXProgress.set(nextProgress);
-
-        if (targetRef.current) {
-          const rect = targetRef.current.getBoundingClientRect();
-          const totalScrollableHeight = targetRef.current.offsetHeight - window.innerHeight;
-          const targetScrollTop = window.scrollY + rect.top + (nextProgress * totalScrollableHeight);
-          
-          window.scrollTo({
-            top: targetScrollTop,
-            behavior: "smooth"
-          });
-        }
+        
+        // नोट: यहाँ से window.scrollTo हटा दिया गया है ताकि पेज ऊपर न भागे!
       }
     }
   };
@@ -231,7 +224,6 @@ export default function Talent({
                   </p>
                 </div>
 
-                {/* --- FIXED: यह बटन अब हमेशा दिखेंगे, चाहे कोई भी role हो --- */}
                 <div className="block">
                   <div className="flex gap-4">
                     <button 
@@ -323,10 +315,11 @@ export default function Talent({
       {/* --- Client Section --- */}
       <section className={`${role === "client" ? "block" : "hidden"} w-full`}>
         <div className="pb-10 md:pb-30 ">
-          {/* --- FIXED: यहाँ ref={clientScrollRef} लगाया गया है --- */}
+          {/* --- FIXED: snap-x, snap-mandatory और scroll-smooth को कंटेनर में अच्छे से हैंडल किया --- */}
           <div 
             ref={clientScrollRef}
-            className="flex gap-5 md:gap-7 lg:gap-10 px-[calc(50vw-150px)] md:px-[calc(50vw-190px)] overflow-x-auto snap-x snap-mandatory scrollbar-hide"
+            className="flex gap-5 md:gap-7 lg:gap-10 px-5 md:px-[25vw] lg:px-[35vw] overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth"
+            style={{ scrollSnapType: "x mandatory" }}
           >
             {clientInfo?.map((curE, i) => (
               <div
