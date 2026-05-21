@@ -264,7 +264,7 @@ export default function Talent({
             textColor === "#ff0044" 
               ? "h-auto md:h-[180vh] lg:h-[160vh]" 
               : "h-auto md:h-[230vh] lg:h-[200vh]"
-          } ${role === "client" ? "hidden" : "block"}  md:-mt-20`}
+          } ${role === "client" ? "hidden" : "block"}  `}
         >
           <div 
             
