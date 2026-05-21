@@ -1,5 +1,5 @@
 "use client"
-import {useState,useRef} from "react"
+import { useState, useRef, useEffect } from "react"
 import ScrollReveal from "@/components/ScrollReveal.jsx";
 import AnimatedContent from "@/components/AnimatedContent.jsx";
 import FadeContent  from "@/components/FadeContent.jsx";
@@ -23,25 +23,36 @@ const sections = [
     {icon:<FaBlenderPhone className="w-4 h-4 md:w-6 md:h-6" />,title:'Painless Invoicing',des:"Schedule your contractors invoices, pay via ACH or CC with Stri",delay:1.5}]
 export default function ChooseUs({textColor,bgColor,title,heading,subheading}) {
 
-    const [openSection, setOpenSection] = useState('quick-view');
+  const [openSection, setOpenSection] = useState('quick-view');
     const containerRef = useRef(null);
+    const [isMobile, setIsMobile] = useState(false);
+
+    // --- FIX: Mobile screen detect karne ke liye useEffect ---
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        checkMobile(); // Initial check
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
     
-      // 1. Container ke scroll progress ko track karein
-      const { scrollYProgress } = useScroll({
+    // 1. Container ke scroll progress ko track karein
+    const { scrollYProgress } = useScroll({
         target: containerRef,
-        // "start end" = Jab card ka top screen ke bottom se enter karega
-        // "center center" = Jab card screen ke bilkul center mein pahunchega
-        // "end start" = Jab card screen ke top se poora bahar nikal jayega
         offset: ["start end", "center center", "end start"],
-      });
+    });
     
-      // 2. 3D Transforms: Shuruat mein 3D tilt -> Center mein normal (0) -> Baahar jaate waqt fir se 3D tilt
-      // scrollYProgress:  [   0,     0.5,      1   ]  (0 = Bottom, 0.5 = Center, 1 = Top)
-      
-      const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [45, 0, -45]); // X axis par tilt
-      const rotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-25, 0, 25]); // Y axis par tilt
-      const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);  // Center mein aate hi zoom-in hoga
-      const opacity = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0, 0.5, 1, 0.5, 0]); // Fade effect
+    // 2. Base transforms variables
+    const baseRotateX = useTransform(scrollYProgress, [0, 0.5, 1], [45, 0, -45]);
+    const baseRotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-25, 0, 25]);
+    const baseScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
+    const opacity = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0, 0.5, 1, 0.5, 0]);
+
+    // --- FIX: Agar mobile hai toh 3D transforms ko static (0 और 1) kar dein ---
+    const rotateX = isMobile ? 0 : baseRotateX;
+    const rotateY = isMobile ? 0 : baseRotateY;
+    const scale = isMobile ? 1 : baseScale;
   return (
   <section className="w-full md:grid gap-5 md:gap-10 text-white   py-10 lg:py-20 px-10 md:px-20  lg:px-32">
         <div className="w-full mx-auto grid  justify-center items-center  ">
@@ -90,14 +101,17 @@ export default function ChooseUs({textColor,bgColor,title,heading,subheading}) {
              
             </ScrollReveal>
           </div>
-          <div ref={containerRef} style={{ perspective: "1000px" }} >
-   {textColor !=="#ff4d00"?   <motion.div style={{
-          rotateX,
-          rotateY,
-          scale,
-          opacity,
-          transformStyle: "preserve-3d", // Child elements ko 3D space mein rakhne ke liye
-        }} className="flex flex-col md:flex-row bg-[#1A1141] w-full md:h-[350px] lg:h-[470px] w-full rounded-xl overflow-hidden shadow-2xl">
+        <div ref={containerRef} style={isMobile ? {} : { perspective: "1000px" }} >
+   {textColor !=="#ff4d00"?   <motion.div 
+                        style={{
+                            rotateX,
+                            rotateY,
+                            scale,
+                            opacity,
+                            transformStyle: isMobile ? "flat" : "preserve-3d",
+                        }} 
+                        className="flex flex-col md:flex-row bg-[#1A1141] w-full md:h-[350px] lg:h-[470px] rounded-xl overflow-hidden shadow-2xl"
+                    >
         {/* Left Side (Text Content) */}
         <div className="w-full md:w-1/2 p-5 md:p-8 lg:p-12  flex flex-col justify-center order-2 md:order-1">
           <p className="text-xs md:text-sm lg:text-base font-semibold  uppercase font-jb-mono tracking-wider mb-6"

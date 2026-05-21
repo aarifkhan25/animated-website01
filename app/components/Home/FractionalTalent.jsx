@@ -285,7 +285,7 @@ export default function FractionalTalent({
           >
             <motion.div
               style={isMobileOnly ? {} : { x: dynamicX }}
-              className="flex gap-5 md:gap-7 lg:gap-10 px-5 pb-10  md:px-10 lg:px-32"
+              className="flex gap-5 md:gap-7 lg:gap-10 px-10 pb-10  md:px-20 lg:px-32"
             >
               {bgColor !== "#1c143d"
                 ? visibleCards?.map((item, i) => (
