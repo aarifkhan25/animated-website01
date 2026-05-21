@@ -8,7 +8,7 @@ export default function Main() {
     <section className="flex flex-col sm:gap-10 lg:gap-0 items-center justify-center w-full text-white py-10 px-4 md:px-6 md:py-5 overflow-hidden">
       
       {/* Top Badge */}
-      <div className="mt-10 md:mt-25 mb-10 md:mb-0">
+      <div className="mt-15 md:mt-25 mb-5 md:mb-0">
       <AnimatedContent
                             distance={20}
                             direction="vertical"
