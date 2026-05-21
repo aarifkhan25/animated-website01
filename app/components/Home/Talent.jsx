@@ -365,7 +365,7 @@ export default function Talent({
         <div className="pb-10 md:pb-30 ">
           <div 
             ref={clientScrollRef}
-            className="flex gap-5 md:gap-7 lg:gap-10 px-5  md:px-10 lg:px-20 2xl:px-32 overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth"
+            className="flex gap-5 md:gap-7 lg:gap-10 px-10 md:px-20 lg:px-32 overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth"
             style={{ scrollSnapType: "x mandatory" }}
           >
             {clientInfo?.map((curE, i) => (
