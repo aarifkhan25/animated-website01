@@ -1,5 +1,5 @@
 "use client"
-import {useState} from "react"
+import {useState,useRef} from "react"
 import ScrollReveal from "@/components/ScrollReveal.jsx";
 import AnimatedContent from "@/components/AnimatedContent.jsx";
 import FadeContent  from "@/components/FadeContent.jsx";
