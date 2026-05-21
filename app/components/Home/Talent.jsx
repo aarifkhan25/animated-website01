@@ -416,6 +416,6 @@ export default function Talent({
           </div>
         </div>
       </section>
-    </>sssss
+    </>
   );
 }
