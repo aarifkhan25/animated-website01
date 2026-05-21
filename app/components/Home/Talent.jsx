@@ -8,7 +8,6 @@ import ReactPlayer from "react-player";
 
 import { IoPlay, IoPause, IoVolumeMedium, IoVolumeMute } from "react-icons/io5";
 import { HiOutlineChevronRight } from "react-icons/hi";
-import { RiArrowRightLine } from "react-icons/ri";
 import Image from "next/image";
 
 const talent = [
@@ -40,7 +39,7 @@ const talent = [
 
 const clientInfo = [
   {
-    id: 1, // प्रत्येक कार्ड के लिए यूनीक कंट्रोल्स मैनेज करने के लिए
+    id: 1,
     name: "Anam",
     post: "co-founder & co-ceo",
     img: "/assets/clientImg/img.svg",
@@ -73,6 +72,7 @@ export default function Talent({
   
   const targetRef = useRef(null);
   const horizontalScrollRef = useRef(null); 
+  const clientScrollRef = useRef(null); // --- FIXED: Client Section के लिए नया Ref ---
   
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -123,38 +123,54 @@ export default function Talent({
     };
   }, []);
 
+  // --- FIXED: दोनों सेक्शन्स के लिए कॉमन स्क्रॉल हैंडलर ---
   const scrollHorizontal = (direction) => {
-    if (isMobileOnly) {
-      if (horizontalScrollRef.current) {
-        const { scrollLeft, clientWidth } = horizontalScrollRef.current;
-        const scrollAmount = clientWidth * 0.75; 
-        horizontalScrollRef.current.scrollTo({
-          left: direction === "left" ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
+    if (role === "client") {
+      // Client section के लिए स्क्रॉलिंग (Card Width + Gap के साथ)
+      if (clientScrollRef.current) {
+        const { scrollLeft } = clientScrollRef.current;
+        const isMobile = window.innerWidth < 768;
+        // मोबाइल पर 300px कार्ड + 20px गैप, डेस्कटॉप पर 380px कार्ड + 28px गैप
+        const cardSize = isMobile ? 320 : 408; 
+        
+        clientScrollRef.current.scrollTo({
+          left: direction === "left" ? scrollLeft - cardSize : scrollLeft + cardSize,
           behavior: "smooth",
         });
       }
     } else {
-      setIsManualOverride(true);
-      const currentProgress = manualXProgress.get();
-      let nextProgress = direction === "left" ? currentProgress - 0.25 : currentProgress + 0.25;
-      nextProgress = Math.max(0, Math.min(1, nextProgress));
-      manualXProgress.set(nextProgress);
+      // Talent section के लिए आपकी पुरानी स्क्रॉलिंग लॉजिक
+      if (isMobileOnly) {
+        if (horizontalScrollRef.current) {
+          const { scrollLeft, clientWidth } = horizontalScrollRef.current;
+          const scrollAmount = clientWidth * 0.75; 
+          horizontalScrollRef.current.scrollTo({
+            left: direction === "left" ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
+            behavior: "smooth",
+          });
+        }
+      } else {
+        setIsManualOverride(true);
+        const currentProgress = manualXProgress.get();
+        let nextProgress = direction === "left" ? currentProgress - 0.25 : currentProgress + 0.25;
+        nextProgress = Math.max(0, Math.min(1, nextProgress));
+        manualXProgress.set(nextProgress);
 
-      if (targetRef.current) {
-        const rect = targetRef.current.getBoundingClientRect();
-        const totalScrollableHeight = targetRef.current.offsetHeight - window.innerHeight;
-        const targetScrollTop = window.scrollY + rect.top + (nextProgress * totalScrollableHeight);
-        
-        window.scrollTo({
-          top: targetScrollTop,
-          behavior: "smooth"
-        });
+        if (targetRef.current) {
+          const rect = targetRef.current.getBoundingClientRect();
+          const totalScrollableHeight = targetRef.current.offsetHeight - window.innerHeight;
+          const targetScrollTop = window.scrollY + rect.top + (nextProgress * totalScrollableHeight);
+          
+          window.scrollTo({
+            top: targetScrollTop,
+            behavior: "smooth"
+          });
+        }
       }
     }
   };
 
-
-  // --- ReactPlayer के लिए सही स्टेट मैनेजमेंट ---
+  // player states
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -215,7 +231,8 @@ export default function Talent({
                   </p>
                 </div>
 
-                <div className={`${role !== "client" ? "block" : "hidden"}`}>
+                {/* --- FIXED: यह बटन अब हमेशा दिखेंगे, चाहे कोई भी role हो --- */}
+                <div className="block">
                   <div className="flex gap-4">
                     <button 
                       onClick={() => scrollHorizontal("left")}
@@ -303,13 +320,15 @@ export default function Talent({
         </div>
       </section>
 
-      {/* --- Client Section (FIXED FOR CENTER SNAPPING) --- */}
+      {/* --- Client Section --- */}
       <section className={`${role === "client" ? "block" : "hidden"} w-full`}>
         <div className="pb-10 md:pb-30 ">
-          {/* 1. कंटेनर में snap-x, snap-mandatory और px की पैडिंग एडजेस्ट की गई है */}
-          <div className="flex gap-5 md:gap-7 lg:gap-10 px-[calc(50vw-150px)] md:px-[calc(50vw-190px)] overflow-x-auto snap-x snap-mandatory scrollbar-hide">
+          {/* --- FIXED: यहाँ ref={clientScrollRef} लगाया गया है --- */}
+          <div 
+            ref={clientScrollRef}
+            className="flex gap-5 md:gap-7 lg:gap-10 px-[calc(50vw-150px)] md:px-[calc(50vw-190px)] overflow-x-auto snap-x snap-mandatory scrollbar-hide"
+          >
             {clientInfo?.map((curE, i) => (
-              /* 2. प्रत्येक कार्ड में snap-center क्लास ऐड की गई है */
               <div
                 key={curE.id}
                 className="relative flex-shrink-0 w-[300px] md:w-[380px] h-[600px] aspect-[9/16] bg-[#111] rounded-[2.5rem] overflow-hidden group snap-center"
@@ -324,7 +343,6 @@ export default function Talent({
                     height="100%"
                     playsinline
                     className="absolute top-0 left-0"
-                    // सही प्रोग्रेस और करंट टाइम स्टेट अपडेट
                     onProgress={(state) => {
                       setProgress(state.played * 100);
                       setCurrentTime(state.playedSeconds);
