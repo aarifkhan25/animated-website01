@@ -13,7 +13,7 @@ export default function ForTalent() {
       <Main   />
       <section className="w-full pt-10">
         <div
-          className="w-full h-[100px] md:h-[200px] lg:h-[350px] bg-[#ff004e] object-contain opacity-50 hover:opacity-100  transition duration-500"
+          className="w-full h-[100px] md:h-[200px] lg:h-[350px] bg-[#ff004e] object-contain opacity-20 hover:opacity-100  transition duration-500"
           style={{
             maskImage: "url('/assets/talent/forTalentBg.png')",
             WebkitMaskImage: "url('/assets/talent/forTalentBg.png')",
