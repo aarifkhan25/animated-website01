@@ -4,11 +4,11 @@ import ScrollReveal from "@/components/ScrollReveal.jsx";
 import AnimatedContent from "@/components/AnimatedContent.jsx";
 import FadeContent  from "@/components/FadeContent.jsx";
 import { FaArrowRightLong } from "react-icons/fa6";
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { TbContract } from "react-icons/tb";
 import { FaBlenderPhone } from "react-icons/fa";
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import Image from "next/image";
 const sections = [
     { id: 'quick-view', title: 'Quick view', content: "Jeremy applied for the role of Graphic Designer with a proposed compensation of $75/hr." },
