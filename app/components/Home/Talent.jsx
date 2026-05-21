@@ -67,33 +67,95 @@ export default function Talent({
   subheading,
   role,
 }) {
-  const targetRef = useRef(null);
-  const horizontalScrollRef = useRef(null);
-
+  
+ const targetRef = useRef(null);
+  const horizontalScrollRef = useRef(null); 
+  
   const { scrollYProgress } = useScroll({
     target: targetRef,
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
-
-  const [visibleCards, setVisibleCards] = useState([]);
-  const [isMobile, setIsMobile] = useState(false); 
-
-  const handleResize = () => {
-    if (window.innerWidth < 768) {
-      setVisibleCards(talent?.slice(0, -1));
-      setIsMobile(true);
-    } else {
-      setVisibleCards(talent);
-      setIsMobile(false); 
-    }
-  };
+  const [visibleCards, setVisibleCards] = useState(talent);
+  const [isMobileOnly, setIsMobileOnly] = useState(false);
+  const [transformXValue, setTransformXValue] = useState("-60%"); 
+  
+  // Custom motion value for absolute sync override on button click
+  const manualXProgress = useMotionValue(0);
+  const smoothManualX = useSpring(manualXProgress, { stiffness: 60, damping: 15 });
 
   useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 768) {
+        setVisibleCards(talent?.slice(0, -1));
+        setIsMobileOnly(true);
+      } else if (width >= 768 && width < 1025) {
+        setVisibleCards(talent);
+        setIsMobileOnly(false);
+        setTransformXValue("-110%"); 
+      } else {
+        setVisibleCards(talent);
+        setIsMobileOnly(false);
+        setTransformXValue("-60%"); 
+      }
+    };
+
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [talent]);
+  }, []);
+
+  // Sync scrollYProgress or manual click progress into the layout transformation
+  const scrollTransform = useTransform(scrollYProgress, [0, 1], ["0%", transformXValue]);
+  const manualTransform = useTransform(smoothManualX, [0, 1], ["0%", transformXValue]);
+  
+  // Dynamic handler that switches source of truth automatically
+  const [isManualOverride, setIsManualOverride] = useState(false);
+  const dynamicX = isManualOverride ? manualTransform : scrollTransform;
+
+  // Listen to wheel/scroll resets to give control back to standard scrolling
+  useEffect(() => {
+    const resetOverride = () => setIsManualOverride(false);
+    window.addEventListener("wheel", resetOverride);
+    window.addEventListener("touchmove", resetOverride);
+    return () => {
+      window.removeEventListener("wheel", resetOverride);
+      window.removeEventListener("touchmove", resetOverride);
+    };
+  }, []);
+
+  const scrollHorizontal = (direction) => {
+    if (isMobileOnly) {
+      if (horizontalScrollRef.current) {
+        const { scrollLeft, clientWidth } = horizontalScrollRef.current;
+        const scrollAmount = clientWidth * 0.75; 
+        horizontalScrollRef.current.scrollTo({
+          left: direction === "left" ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
+          behavior: "smooth",
+        });
+      }
+    } else {
+      setIsManualOverride(true);
+      const currentProgress = manualXProgress.get();
+      // Increments motion path frame calculations by 25% steps per click
+      let nextProgress = direction === "left" ? currentProgress - 0.25 : currentProgress + 0.25;
+      nextProgress = Math.max(0, Math.min(1, nextProgress));
+      manualXProgress.set(nextProgress);
+
+      // Also scroll viewport safely to align track position
+      if (targetRef.current) {
+        const rect = targetRef.current.getBoundingClientRect();
+        const totalScrollableHeight = targetRef.current.offsetHeight - window.innerHeight;
+        const targetScrollTop = window.scrollY + rect.top + (nextProgress * totalScrollableHeight);
+        
+        window.scrollTo({
+          top: targetScrollTop,
+          behavior: "smooth"
+        });
+      }
+    }
+  };
+
 
   // player
   const videoRef = useRef(null);
@@ -119,49 +181,13 @@ export default function Talent({
     setIsMuted(!isMuted);
   };
 
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const checkScrollPosition = () => {
-    const container = horizontalScrollRef.current;
-    if (!container) return;
 
-    const { scrollLeft, scrollWidth, clientWidth } = container;
-    setCanScrollLeft(scrollLeft > 2);
-    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
-  };
+  
 
-  const scrollHorizontal = (direction) => {
-    const container = horizontalScrollRef.current;
-    if (!container) return;
-    const scrollAmount = 490; 
 
-    if (direction === "left") {
-      container.scrollBy({
-        left: -scrollAmount,
-        behavior: "smooth",
-      });
-    } else if (direction === "right") {
-      container.scrollBy({
-        left: scrollAmount,
-        behavior: "smooth",
-      });
-    }
-  };
 
-  useEffect(() => {
-    const container = horizontalScrollRef.current;
-    if (!container) return;
 
-    checkScrollPosition();
-    container.addEventListener("scroll", checkScrollPosition);
-    window.addEventListener("resize", checkScrollPosition);
-
-    return () => {
-      container.removeEventListener("scroll", checkScrollPosition);
-      window.removeEventListener("resize", checkScrollPosition);
-    };
-  }, [visibleCards]);
 
   return (
     <>
@@ -234,18 +260,24 @@ export default function Talent({
       </section>
 
       {/* --- FIXED SECTION: Space issue fixed here --- */}
-      <section
-        ref={targetRef}
-        className={`${role === "client" ? "hidden" : "block"} relative h-auto md:h-[250vh] lg:h-[200vh] -mt-10`}
-      >
-        <div 
-          ref={horizontalScrollRef}
-          className="static md:sticky md:top-0 h-auto md:h-screen w-full flex flex-col justify-start md:justify-center overflow-x-auto md:overflow-hidden scrollbar-hide snap-x snap-mandatory scroll-smooth"
+   <section className="relative">
+        <div
+          ref={targetRef}
+          className={`relative ${
+            textColor === "#ff0044" 
+              ? "h-auto md:h-[180vh] lg:h-[160vh]" 
+              : "h-auto md:h-[230vh] lg:h-[200vh]"
+          } ${role === "client" ? "hidden" : "block"}  md:-mt-20`}
         >
-          <motion.div
-            style={isMobile ? {} : { x }}
-            className="flex gap-5 md:gap-7 lg:gap-10 px-10 md:px-60 lg:px-82 xl:px-120 "
+          <div 
+            
+            className="static md:sticky md:top-0 h-auto md:h-[80vh] w-full flex flex-col justify-start pt-16 md:pt-20 overflow-x-auto md:overflow-hidden scrollbar-hide"
           >
+            <motion.div
+            ref={horizontalScrollRef}
+              style={isMobileOnly ? {} : { x: dynamicX }}
+              className="flex gap-5 md:gap-7 lg:gap-10 px-5 py-10 md:px-20 md:py-12 lg:px-32 lg:py-16"
+            >
             {visibleCards?.map((item, i) => (
               <div
                 key={i}
@@ -292,13 +324,14 @@ export default function Talent({
               </div>
             ))}
           </motion.div>
+          </div>
         </div>
       </section>
 
       {/* --- Client Section --- */}
       <section className={`${role === "client" ? "block" : "hidden"} w-full`}>
         <div className="pb-10 md:pb-30 ">
-          <div className="flex gap-5 md:gap-7 lg:gap-10 px-5 md:px-20 lg:px-32  overflow-x-auto  scrollbar-style scrollbar-hide">
+          <div className="flex gap-5 md:gap-7 lg:gap-10 px-5 md:px-20 lg:px- 1xl:px-32  overflow-x-auto  scrollbar-style scrollbar-hide">
             {clientInfo?.map((curE, i) => (
               <div
                 key={i}
