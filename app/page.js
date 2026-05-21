@@ -102,7 +102,7 @@ export default function Home() {
       ></FractionalTalent>
 
       {/* help for hire */}
-       <div className="md:-mt-120 lg:-mt-0 xl:-mt-60 1xl:-mt-80 2xl:-mt-140">      <ChooseUs
+       <div className="md:-mt-140 lg:-mt-0 xl:-mt-60 1xl:-mt-80 2xl:-mt-140">      <ChooseUs
         textColor="#ff4d00"
         bgColor="#2a1205"
         title="End-to-End fractional hiring"
