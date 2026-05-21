@@ -79,10 +79,9 @@ export default function Talent({
   });
 
   const [visibleCards, setVisibleCards] = useState(talent);
-  const [isMobileOnly, setIsMobileOnly] = useState(false);
+  const [isMobileOnly, setIsMobileOnly] = useState(false); // सिर्फ मोबाइल के लिए नेटिव स्क्रॉल
   const [transformXValue, setTransformXValue] = useState("-60%"); 
 
-  // --- NEW FEATURE: बटन डिसेबल करने की स्टेट्स ---
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   
@@ -93,13 +92,16 @@ export default function Talent({
     const handleResize = () => {
       const width = window.innerWidth;
       if (width < 768) {
+        // मोबाइल
         setVisibleCards(talent?.slice(0, -1));
         setIsMobileOnly(true);
       } else if (width >= 768 && width < 1025) {
+        // --- FIXED FOR TABLET: टैबलेट पर भी Framer Motion चलेगा, बस वैल्यू परफेक्ट की है ---
         setVisibleCards(talent);
-        setIsMobileOnly(false);
-        setTransformXValue("-110%"); 
+        setIsMobileOnly(false); 
+        setTransformXValue("-48%"); // टैबलेट स्क्रीन के हिसाब से परफेक्ट ट्रांसफॉर्म वैल्यू
       } else {
+        // डेस्कटॉप
         setVisibleCards(talent);
         setIsMobileOnly(false);
         setTransformXValue("-60%"); 
@@ -117,36 +119,31 @@ export default function Talent({
   const [isManualOverride, setIsManualOverride] = useState(false);
   const dynamicX = isManualOverride ? manualTransform : scrollTransform;
 
-  // --- NEW FEATURE: स्क्रॉल पोजीशन चेक करने का फंक्शन ---
+  // नेटिव स्क्रॉल पोजीशन चेक करने के लिए (सिर्फ मोबाइल और क्लाइंट सेक्शन में काम आएगा)
   const checkScrollPosition = () => {
     const container = role === "client" ? clientScrollRef.current : horizontalScrollRef.current;
-    
-    if (container) {
+    if (container && (isMobileOnly || role === "client")) {
       const { scrollLeft, scrollWidth, clientWidth } = container;
-      // अगर स्क्रॉल लेफ्ट 5px से बड़ा है तो Left Button इनेबल होगा
       setCanScrollLeft(scrollLeft > 5);
-      // अगर स्क्रॉल अभी एंड तक नहीं पहुँचा है (थोड़ा मार्जिन लेकर) तो Right Button इनेबल होगा
       setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
     }
   };
 
-  // डेस्कटॉप पर Framer motion (Talent Section) के लिए प्रोग्रेस ट्रैक करना
+  // --- FIXED: टैबलेट और डेस्कटॉप दोनों पर Framer Motion का प्रोग्रेस लिसनर ---
   useEffect(() => {
-    if (role !== "client" && !isMobileOnly && typeof window !== 'undefined' && window.innerWidth >= 1025) {
+    if (role !== "client" && !isMobileOnly) {
       return scrollYProgress.on("change", (latest) => {
-        setCanScrollLeft(latest > 0.05);
-        setCanScrollRight(latest < 0.95);
+        setCanScrollLeft(latest > 0.02);
+        setCanScrollRight(latest < 0.98);
       });
     }
   }, [scrollYProgress, role, isMobileOnly]);
 
-  // ओवरराइड रीसेट और व्हील इवेंट्स
   useEffect(() => {
     const resetOverride = () => setIsManualOverride(false);
     window.addEventListener("wheel", resetOverride);
     window.addEventListener("touchmove", resetOverride);
     
-    // मोबाइल/क्लाइंट सेक्शन्स के स्क्रॉल इवेंट्स को सुनना
     const clientContainer = clientScrollRef.current;
     const talentContainer = horizontalScrollRef.current;
 
@@ -161,10 +158,11 @@ export default function Talent({
     };
   }, [role, isMobileOnly]);
 
-  // जब भी रोल चेंज हो, एक बार बटन की स्टेट रिफ्रेश करें
   useEffect(() => {
-    checkScrollPosition();
-  }, [role]);
+    if (isMobileOnly || role === "client") {
+      checkScrollPosition();
+    }
+  }, [role, isMobileOnly]);
 
   const scrollHorizontal = (direction) => {
     if (role === "client") {
@@ -177,26 +175,27 @@ export default function Talent({
           left: direction === "left" ? -cardAmount : cardAmount,
           behavior: "smooth",
         });
-        // स्क्रॉल के तुरंत बाद चेक करें
         setTimeout(checkScrollPosition, 300);
       }
     } 
-    else if (window.innerWidth < 1025 || isMobileOnly) {
+    // --- सिर्फ मोबाइल के लिए सीएसएस स्क्रॉल ---
+    else if (isMobileOnly) {
       if (horizontalScrollRef.current) {
         const container = horizontalScrollRef.current;
-        const scrollAmount = 300; 
-        
         container.scrollBy({
-          left: direction === "left" ? -scrollAmount : scrollAmount,
+          left: direction === "left" ? -300 : 300,
           behavior: "smooth",
         });
         setTimeout(checkScrollPosition, 300);
       }
     } 
+    // --- FIXED FOR TABLET & DESKTOP: टैबलेट और डेस्कटॉप दोनों पर बटन से Framer motion कंट्रोल होगा ---
     else {
       setIsManualOverride(true);
       const currentProgress = manualXProgress.get();
-      let nextProgress = direction === "left" ? currentProgress - 0.25 : currentProgress + 0.25;
+      // टैबलेट पर 4 कार्ड्स के हिसाब से 0.30 का जम्प परफेक्ट रहेगा
+      const step = window.innerWidth < 1025 ? 0.30 : 0.25; 
+      let nextProgress = direction === "left" ? currentProgress - step : currentProgress + step;
       nextProgress = Math.max(0, Math.min(1, nextProgress));
       manualXProgress.set(nextProgress);
       
@@ -269,7 +268,6 @@ export default function Talent({
                 {/* बटन्स कंटेनर */}
                 <div className="block">
                   <div className="flex gap-4">
-                    {/* --- LEFT BUTTON WITH DISABLE STATE --- */}
                     <button 
                       disabled={!canScrollLeft}
                       onClick={() => scrollHorizontal("left")}
@@ -277,7 +275,6 @@ export default function Talent({
                     >
                       <FiChevronLeft className="w-5 h-5 md:w-8 md:h-8" />
                     </button>
-                    {/* --- RIGHT BUTTON WITH DISABLE STATE --- */}
                     <button 
                       disabled={!canScrollRight}
                       onClick={() => scrollHorizontal("right")}
@@ -303,12 +300,14 @@ export default function Talent({
               : "h-auto md:h-[230vh] lg:h-[200vh]"
           } ${role === "client" ? "hidden" : "block"}  `}
         >
+          {/* --- FIXED: md:overflow-hidden किया गया है ताकि टैबलेट पर भी Framer Motion परफेक्ट स्टिकी होकर चले --- */}
           <div 
             ref={horizontalScrollRef}
             className="static md:sticky md:top-0 h-auto md:h-[80vh] w-full flex flex-col justify-start overflow-x-auto md:overflow-hidden scrollbar-hide scroll-smooth snap-x snap-mandatory md:snap-none"
           >
+            {/* --- FIXED: style={{ x: dynamicX }} अब टैबलेट पर भी एनिमेशन रेंडर करेगा --- */}
             <motion.div
-              style={(typeof window !== 'undefined' && window.innerWidth < 1025) || isMobileOnly ? {} : { x: dynamicX }}
+              style={isMobileOnly ? {} : { x: dynamicX }}
               className="flex gap-5 md:gap-7 lg:gap-10 px-5 md:px-20 lg:px-32"
             >
               {visibleCards?.map((item, i) => (
