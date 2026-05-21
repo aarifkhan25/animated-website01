@@ -230,7 +230,7 @@ useEffect(() => {
             </p>
           </div>
 
-          <div>
+          <div className={`${role !== "client" ? "block" : "hidden"}`}>
             <div className="flex gap-4">
               {/* LEFT BUTTON */}
              <button 
@@ -273,7 +273,7 @@ useEffect(() => {
       {visibleCards?.map((item, i) => (
         <div
           key={i}
-          className="relative flex-shrink-0 w-[280px] h-[400px] md:w-[420px] md:h-[450px] lg:w-[450px] lg:h-[450px] overflow-hidden rounded-xl bg-[#141414] p-5 lg:p-8 shadow-2xl snap-center md:snap-none"
+          className="relative flex-shrink-0 w-[280px] h-[400px] md:w-[420px] md:h-[450px] lg:w-[450px] lg:h-[450px] 2xl:h-[600px] overflow-hidden rounded-xl bg-[#141414] p-5 lg:p-8 2xl:p-10 shadow-2xl snap-center md:snap-none"
         >
           <div className="absolute inset-0 z-0">
             <Image
@@ -291,14 +291,14 @@ useEffect(() => {
           <div className="relative z-10 flex h-full flex-col justify-end">
             <div className="mb-auto">
               <span
-                className="rounded-full px-3 py-1 text-[8px] md:text-[10px] font-jb-mono uppercase tracking-wider"
+                className="rounded-full px-3 py-1 text-[8px] md:text-[10px] 2xl:text-xs font-jb-mono uppercase tracking-wider"
                 style={{ backgroundColor: bgColor, color: textColor }}
               >
                 {item.title}
               </span>
             </div>
 
-            <h2 className="mb-1 md:mb-3 lg:mb-4 text-2xl md:text-3xl lg:text-4xl font-mulish text-white">
+            <h2 className="mb-1 md:mb-3 lg:mb-4 text-2xl md:text-3xl lg:text-4xl 2xl:text-5xl font-mulish text-white">
               {item.name}
             </h2>
 
@@ -307,7 +307,7 @@ useEffect(() => {
             </p>
 
             <button
-              className="group flex w-fit items-center gap-1 md:gap-2 text-[10px] md:text-base lg:text-lg rounded-full px-3 md:px-4 lg:px-6 py-1 md:py-2 lg:py-3 font-mulish font-bold text-black transition-transform hover:scale-105 active:scale-95"
+              className="group flex w-fit items-center gap-1 md:gap-2 text-[10px] md:text-base lg:text-lg 2xl:text-xl rounded-full px-3 md:px-4 lg:px-6 py-1 md:py-2 lg:py-3 font-mulish font-bold text-black transition-transform hover:scale-105 active:scale-95"
               style={{ backgroundColor: textColor }}
             >
               Learn More

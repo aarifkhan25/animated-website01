@@ -299,7 +299,7 @@ export default function FractionalTalent({
                 ? visibleCards?.map((item, i) => (
                     <div
                       key={i}
-                      className="relative flex-shrink-0 w-[240px] h-[180px] md:w-[350px] md:h-[200px] lg:w-[450px] lg:h-[250px] overflow-hidden rounded-xl bg-[#141414] p-3 lg:p-5 font-sans shadow-2xl snap-center md:snap-none"
+                      className="relative flex-shrink-0 w-[240px] h-[180px] md:w-[350px] md:h-[200px] lg:w-[450px] lg:h-[250px] 2xl:h-[400px] overflow-hidden rounded-xl bg-[#141414] p-3 lg:p-5 font-sans shadow-2xl snap-center md:snap-none"
                     >
                       <div className="grid h-full gap-5 lg:gap-10 justify-between">
                         <div>
@@ -325,7 +325,7 @@ export default function FractionalTalent({
                     return (
                       <div
                         key={i}
-                        className="relative flex-shrink-0 w-[240px] h-[180px] md:w-[330px] md:h-[200px] lg:w-[430px] lg:h-[250px] overflow-hidden rounded-xl bg-[#141414] p-3 lg:p-5 font-sans shadow-2xl snap-center md:snap-none"
+                        className="relative flex-shrink-0 w-[240px] h-[180px] md:w-[330px] md:h-[200px] lg:w-[430px] lg:h-[250px] 2xl:h-[400px] overflow-hidden rounded-xl bg-[#141414] p-3 lg:p-5 font-sans shadow-2xl snap-center md:snap-none"
                       >
                         <div className="grid h-full gap-5 lg:gap-10 justify-between">
                           <div>
@@ -358,7 +358,7 @@ export default function FractionalTalent({
 
       <div className="pb-10 md:pb-20 px-6 md:px-10 lg:px-20 xl:px-25">
         <div
-          className={`${role === "work" ? "block" : "hidden"} grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-10 w-full mx-auto`}
+          className={`${role === "work" ? "block" : "hidden"} grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-5 lg:gap-10 w-full mx-auto`}
         >
           {sections.map((section, index) => (
             <FadeContent
@@ -370,7 +370,7 @@ export default function FractionalTalent({
               key={index}
             >
               <div className="bg-[#141414] rounded-xl p-8 lg:p-12 border border-white/5 flex flex-col justify-start items-start h-full">
-                <h2 className="text-white text-[22px] md:text-3xl lg:text-4xl font-mulish font-semibold leading-[1.2] mb-3 md:mb-5 lg:mb-10 max-w-[90%]">
+                <h2 className="text-white text-xl md:text-3xl lg:text-4xl font-mulish font-semibold leading-[1.2] mb-3 md:mb-5 lg:mb-10 max-w-[90%]">
                   {section.title}
                 </h2>
                 <ul className="space-y-1 md:space-y-2 lg:space-y-4">

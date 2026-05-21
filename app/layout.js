@@ -64,7 +64,7 @@ export default function RootLayout({ children }) {
           {/* HEADER NAV CONTAINER */}
           <header>
             <nav
-              className={`fixed top-0 left-1/2 -translate-x-1/2 w-full z-50 px-6 md:px-10 lg:px-20 xl:px-25 py-4 flex items-center justify-between transition-all duration-300 ${
+              className={`fixed top-0 left-1/2 -translate-x-1/2 w-full z-50 px-6 md:px-10 lg:px-20 xl:px-25 2xl:px-30 py-4 flex items-center justify-between transition-all duration-300 ${
                 isScrolled ? "bg-black/80 backdrop-blur-md border-b border-white/5" : "bg-transparent"
               }`}
             >
@@ -164,25 +164,27 @@ export default function RootLayout({ children }) {
                 initialOpacity={0}
                 animateOpacity
               >
-                <div className="flex flex-col px-6 py-8 gap-2">
-                  {nav?.map((item, i) => (
-                    <Link 
-                      key={i} 
-                      href={item.href} 
-                      onClick={closeMobileMenu} // FIX: Click karne par menu close hoga
-                      className="p-4 hover:text-gray-500 text-white w-full text-lg font-mulish font-medium border-b border-white/5 hover:bg-white/5 transition-all rounded-lg"
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                  <Link
-                    href="#courses"
-                    onClick={closeMobileMenu}
-                    className="mt-4 sm:hidden bg-white text-black font-bold text-center p-4 rounded-full text-base"
-                  >
-                    Start Hiring Talents
-                  </Link>
-                </div>
+               <div className="flex flex-col px-6 py-8 gap-2">
+  {nav?.map((item, i) => (
+    <Link 
+      key={i} 
+      href={item.href} 
+      onClick={closeMobileMenu} 
+      className="p-4 hover:text-gray-500 text-white w-full text-lg font-mulish font-medium border-b border-white/5 hover:bg-white/5 transition-all rounded-lg"
+    >
+      {item.name}
+    </Link>
+  ))}
+  
+  {/* FIXED BUTTON: Ab yeh full width nahi lega aur exact center mein rahega */}
+  <Link
+    href="#courses"
+    onClick={closeMobileMenu}
+    className="mt-4 sm:hidden bg-white text-black font-bold text-center py-2 px-6 rounded-full text-base self-center transition-transform active:scale-95"
+  >
+    Start Hiring Talents
+  </Link>
+</div>
               </AnimatedContent>
             </div>
           </header>

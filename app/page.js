@@ -65,7 +65,7 @@ export default function Home() {
 
       {/* why choose us */}
 
-        <div className="md:-mt-140 lg:-mt-0 xl:-mt-60 1xl:-mt-80">
+        <div className="md:-mt-140 lg:-mt-0 xl:-mt-60 1xl:-mt-80 2xl:-mt-140">
       <ChooseUs
         textColor="#9070ff"
         bgColor="#1c143d"
@@ -102,7 +102,7 @@ export default function Home() {
       ></FractionalTalent>
 
       {/* help for hire */}
-       <div className="md:-mt-140 lg:-mt-0 xl:-mt-60 1xl:-mt-80">      <ChooseUs
+       <div className="md:-mt-140 lg:-mt-0 xl:-mt-60 1xl:-mt-80 2xl:-mt-140">      <ChooseUs
         textColor="#ff4d00"
         bgColor="#2a1205"
         title="End-to-End fractional hiring"
@@ -174,7 +174,7 @@ export default function Home() {
       ></FractionalTalent>
 
       {/* work */}
-       <div className="md:-mt-80 lg:-mt-0 xl:-mt-60 1xl:-mt-80">
+       <div className="md:-mt-80 lg:-mt-0 xl:-mt-60 1xl:-mt-80 ">
       <FractionalTalent
      textColor="#fb00c6"
         bgColor="#3a002b"
