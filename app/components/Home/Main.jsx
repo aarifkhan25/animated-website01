@@ -34,7 +34,7 @@ export default function Main() {
       {/* Main Heading */}
       <div className="text-center max-w-5xl">
        
-          <h1 className="text-[47px] md:text-8xl lg:text-9xl/32 tracking-wide leading-[1.1] mb-9 font-mulish">
+          <h1 className="text-[47px] md:text-7xl lg:text-9xl/32 tracking-wide leading-[1.1] mb-9 font-mulish">
           <AnimatedContent
                             distance={20}
                             direction="vertical"

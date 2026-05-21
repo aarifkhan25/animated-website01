@@ -43,7 +43,7 @@ export default function Home() {
       ></Talent>
 
       {/* start hiring */}
-    <div className="md:-mt-60 lg:-mt-0">
+    <div className="md:-mt-30 lg:-mt-0">
 
       <StartHiring></StartHiring>
     </div>
@@ -65,7 +65,7 @@ export default function Home() {
 
       {/* why choose us */}
 
-        <div className="md:-mt-140 lg:-mt-0 xl:-mt-60 1xl:-mt-80 2xl:-mt-140">
+        <div className="md:-mt-90 lg:-mt-0 xl:-mt-60 1xl:-mt-80 2xl:-mt-140">
       <ChooseUs
         textColor="#9070ff"
         bgColor="#1c143d"
@@ -109,7 +109,7 @@ export default function Home() {
         heading={
           <>
             {" "}
-            Here to help you hire <br /> from beginning to end
+            Here to help you <br className="block sm:hidden" /> hire <br /> from beginning to end
           </>
         }
         subheading={

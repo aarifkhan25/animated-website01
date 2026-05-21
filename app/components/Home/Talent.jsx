@@ -260,11 +260,11 @@ useEffect(() => {
 {/* --- Cards Scroll Section --- */}
 <section
   ref={targetRef}
-  className={`${role === "client" ? "hidden" : "block"} relative h-auto md:h-[250vh] lg:h-[200vh] md:-mt-60 lg:-mt-20 1xl:-mt-45 `}
+  className={`${role === "client" ? "hidden" : "block"} relative -mt-10 `}
 >
   <div 
     ref={horizontalScrollRef}
-    className="static md:sticky md:top-0 h-auto md:h-screen w-full flex flex-col justify-start md:justify-center overflow-x-auto md:overflow-hidden scrollbar-hide snap-x snap-mandatory scroll-smooth"
+     className="static md:sticky md:top-0 h-auto md:h-[80vh] w-full flex flex-col justify-start overflow-x-auto md:overflow-hidden scrollbar-hide scroll-smooth"
   >
     <motion.div
       style={isMobile ? {} : { x }}
