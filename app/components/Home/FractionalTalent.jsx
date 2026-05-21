@@ -67,12 +67,6 @@ const sections = [
   },
 ];
 
-const data = [
-  { name: "160+", title: "Countries", delay: 0.5 },
-  { name: "4.6/5", title: "Rating on G2", delay: 1 },
-  { name: "1st", title: "Product Hunt Approved", delay: 1.5, img: '/assets/product1.svg' },
-];
-
 export default function FractionalTalent({
   textColor,
   bgColor,
@@ -100,6 +94,9 @@ export default function FractionalTalent({
   const manualXProgress = useMotionValue(0);
   const smoothManualX = useSpring(manualXProgress, { stiffness: 60, damping: 15 });
 
+  // Dynamic handler that switches source of truth automatically
+  const [isManualOverride, setIsManualOverride] = useState(false);
+
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
@@ -107,7 +104,6 @@ export default function FractionalTalent({
         setVisibleCards(talent?.slice(0, -1));
         setIsMobileOnly(true);
       } else if (width >= 768 && width < 1025) {
-        // --- CALIBRATED FOR TABLET: Keeps Framer Motion active but fixes flying bounds ---
         setVisibleCards(talent);
         setIsMobileOnly(false);
         setTransformXValue("-48%"); 
@@ -127,11 +123,9 @@ export default function FractionalTalent({
   const scrollTransform = useTransform(scrollYProgress, [0, 1], ["0%", transformXValue]);
   const manualTransform = useTransform(smoothManualX, [0, 1], ["0%", transformXValue]);
   
-  // Dynamic handler that switches source of truth automatically
-  const [isManualOverride, setIsManualOverride] = useState(false);
   const dynamicX = isManualOverride ? manualTransform : scrollTransform;
 
-  // --- LOGIC: Mobile Native Swiping Scroll Tracker ---
+  // --- FIX: Mobile Native Swiping Scroll Tracker ---
   const checkScrollPosition = () => {
     if (horizontalScrollRef.current && isMobileOnly) {
       const { scrollLeft, scrollWidth, clientWidth } = horizontalScrollRef.current;
@@ -140,15 +134,18 @@ export default function FractionalTalent({
     }
   };
 
-  // --- LOGIC: Desktop & Tablet Wheel/Progress Tracker ---
+  // --- FIX: Desktop & Tablet Wheel/Progress Tracker ---
   useEffect(() => {
     if (!isMobileOnly) {
       return scrollYProgress.on("change", (latest) => {
-        setCanScrollLeft(latest > 0.02);
-        setCanScrollRight(latest < 0.98);
+        // अगर यूजर व्हील स्क्रॉल कर रहा है, तभी यह बटन स्टेट को संभालेगा
+        if (!isManualOverride) {
+          setCanScrollLeft(latest > 0.02);
+          setCanScrollRight(latest < 0.98);
+        }
       });
     }
-  }, [scrollYProgress, isMobileOnly]);
+  }, [scrollYProgress, isMobileOnly, isManualOverride]);
 
   // Listen to wheel/scroll resets to give control back to standard scrolling
   useEffect(() => {
@@ -168,6 +165,7 @@ export default function FractionalTalent({
     }
   }, [isMobileOnly]);
 
+  // --- FIX: बटन क्लिक करने पर डिसेबल और जंप लॉजिक ---
   const scrollHorizontal = (direction) => {
     if (isMobileOnly) {
       if (horizontalScrollRef.current) {
@@ -177,32 +175,23 @@ export default function FractionalTalent({
           left: direction === "left" ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
           behavior: "smooth",
         });
-        // Delay checks to ensure coordinates settled down after scroll completion
         setTimeout(checkScrollPosition, 300);
       }
     } else {
+      // मैन्युअल ओवरराइड चालू करें ताकि यह scrollYProgress को कुछ देर के लिए अनदेखा करे
       setIsManualOverride(true);
+      
       const currentProgress = manualXProgress.get();
-      // Step size optimization for cleaner skips across different viewport breaks
-      const step = window.innerWidth < 1025 ? 0.30 : 0.25;
+      const step = window.innerWidth < 1025 ? 0.33 : 0.25; // 4 कार्ड्स के लिए बेस्ट स्टेप्स
+      
       let nextProgress = direction === "left" ? currentProgress - step : currentProgress + step;
       nextProgress = Math.max(0, Math.min(1, nextProgress));
+      
       manualXProgress.set(nextProgress);
 
-      setCanScrollLeft(nextProgress > 0);
-      setCanScrollRight(nextProgress < 1);
-
-      // Also scroll viewport safely to align track position
-      if (targetRef.current) {
-        const rect = targetRef.current.getBoundingClientRect();
-        const totalScrollableHeight = targetRef.current.offsetHeight - window.innerHeight;
-        const targetScrollTop = window.scrollY + rect.top + (nextProgress * totalScrollableHeight);
-        
-        window.scrollTo({
-          top: targetScrollTop,
-          behavior: "smooth"
-        });
-      }
+      // तुरंत बटन इनेबल/डिसेबल स्टेट्स अपडेट करें
+      setCanScrollLeft(nextProgress > 0.01);
+      setCanScrollRight(nextProgress < 0.99);
     }
   };
 
@@ -258,7 +247,6 @@ export default function FractionalTalent({
                 </div>
                 <div>
                   <div className="flex gap-4">
-                    {/* --- IMPLEMENTED: Smart disabled and unified state toggling --- */}
                     <button 
                       disabled={!canScrollLeft}
                       onClick={() => scrollHorizontal("left")}
@@ -290,7 +278,6 @@ export default function FractionalTalent({
               : "h-auto md:h-[230vh] lg:h-[200vh]"
           } ${role === "work" ? "hidden" : "block"} `}
         >
-          {/* --- IMPLEMENTED: Added native onScroll layout bind and container lock conditions --- */}
           <div 
             ref={horizontalScrollRef}
             onScroll={checkScrollPosition}
@@ -298,7 +285,7 @@ export default function FractionalTalent({
           >
             <motion.div
               style={isMobileOnly ? {} : { x: dynamicX }}
-              className="flex gap-5 md:gap-7 lg:gap-10 px-5 pb-10 md:px-20 md:pb-12 lg:px-32 lg:pb-16"
+              className="flex gap-5 md:gap-7 lg:gap-10 px-5 pb-10  md:px-[25vw] lg:px-[35vw] 2xl:px-[45vw] md:pb-12  lg:pb-16"
             >
               {bgColor !== "#1c143d"
                 ? visibleCards?.map((item, i) => (
@@ -385,7 +372,7 @@ export default function FractionalTalent({
                       className="text-[#f5f5f5] font-mulish text-xs md:text-base lg:text-lg font-medium opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
                     >
                       {role}
-                    </td>
+                    </li>
                   ))}
                 </ul>
               </div>
