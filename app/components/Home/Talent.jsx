@@ -10,6 +10,7 @@ import { IoPlay, IoPause, IoVolumeMedium, IoVolumeMute } from "react-icons/io5";
 import { HiOutlineChevronRight } from "react-icons/hi";
 import { RiArrowRightLine } from "react-icons/ri";
 import Image from "next/image";
+
 const talent = [
   {
     img: "/assets/talent/t1.avif",
@@ -23,7 +24,6 @@ const talent = [
     name: "Oprations",
     des: "Project + Product Managers to keep your team running smoothly",
   },
-
   {
     img: "/assets/talent/t3.avif",
     title: "Fractional devs",
@@ -58,6 +58,7 @@ const clientInfo = [
     video: "https://www.youtube.com/watch?v=zxjfxrXfROc",
   },
 ];
+
 export default function Talent({
   textColor,
   bgColor,
@@ -67,18 +68,17 @@ export default function Talent({
   role,
 }) {
   const targetRef = useRef(null);
-    const horizontalScrollRef = useRef(null);
-  // 1. Vertical Scroll track
+  const horizontalScrollRef = useRef(null);
+
   const { scrollYProgress } = useScroll({
     target: targetRef,
   });
 
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
 
-  
   const [visibleCards, setVisibleCards] = useState([]);
   const [isMobile, setIsMobile] = useState(false); 
-const [isMobileOnly, setIsMobileOnly] = useState(false);
+
   const handleResize = () => {
     if (window.innerWidth < 768) {
       setVisibleCards(talent?.slice(0, -1));
@@ -119,218 +119,191 @@ const [isMobileOnly, setIsMobileOnly] = useState(false);
     setIsMuted(!isMuted);
   };
 
-  const handleTimeUpdate = () => {
-    const duration = videoRef.current.duration;
-    const currentTime = videoRef.current.currentTime;
-    setProgress((currentTime / duration) * 100);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScrollPosition = () => {
+    const container = horizontalScrollRef.current;
+    if (!container) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = container;
+    setCanScrollLeft(scrollLeft > 2);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
   };
 
- const [canScrollLeft, setCanScrollLeft] = useState(false);
-const [canScrollRight, setCanScrollRight] = useState(true);
+  const scrollHorizontal = (direction) => {
+    const container = horizontalScrollRef.current;
+    if (!container) return;
+    const scrollAmount = 490; 
 
-// Scroll position check karne ka function
-const checkScrollPosition = () => {
-  const container = horizontalScrollRef.current;
-  if (!container) return;
-
-  const { scrollLeft, scrollWidth, clientWidth } = container;
-  
-  // 1. Agar scrollLeft 2 se bada hai, toh left scroll possible hai
-  setCanScrollLeft(scrollLeft > 2);
-  
-  // 2. Agar current scroll + viewable width lagbhag total width ke barabar hai, toh right end ho gaya
-  // (Halki margin error 5px ki rakhi hai safe side ke liye)
-  setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
-};
-const scrollHorizontal = (direction) => {
-  const container = horizontalScrollRef.current;
-  if (!container) return;
-
-  // Ek click par kitna door scroll hoga (Card ki width + Gap)
-  // 450px card width + 40px gap = ~490px
-  const scrollAmount = 490; 
-
-  if (direction === "left") {
-    container.scrollBy({
-      left: -scrollAmount,
-      behavior: "smooth",
-    });
-  } else if (direction === "right") {
-    container.scrollBy({
-      left: scrollAmount,
-      behavior: "smooth",
-    });
-  }
-};
-// Event listener attach karna jab page render ho
-useEffect(() => {
-  const container = horizontalScrollRef.current;
-  if (!container) return;
-
-  // Shuruat me check karein
-  checkScrollPosition();
-
-  // Scroll hone par track karein
-  container.addEventListener("scroll", checkScrollPosition);
-  
-  // Resize hone par bhi check karein (responsiveness ke liye)
-  window.addEventListener("resize", checkScrollPosition);
-
-  return () => {
-    container.removeEventListener("scroll", checkScrollPosition);
-    window.removeEventListener("resize", checkScrollPosition);
+    if (direction === "left") {
+      container.scrollBy({
+        left: -scrollAmount,
+        behavior: "smooth",
+      });
+    } else if (direction === "right") {
+      container.scrollBy({
+        left: scrollAmount,
+        behavior: "smooth",
+      });
+    }
   };
-}, [visibleCards]); // visibleCards change hone par recalculate hoga
+
+  useEffect(() => {
+    const container = horizontalScrollRef.current;
+    if (!container) return;
+
+    checkScrollPosition();
+    container.addEventListener("scroll", checkScrollPosition);
+    window.addEventListener("resize", checkScrollPosition);
+
+    return () => {
+      container.removeEventListener("scroll", checkScrollPosition);
+      window.removeEventListener("resize", checkScrollPosition);
+    };
+  }, [visibleCards]);
+
   return (
     <>
-     {/* --- Upper Header Section --- */}
-<section className="w-full text-white pt-10 lg:pt-20 px-10 md:px-20 lg:px-32 xl:px-38">
-  <div className="w-full mx-auto flex flex-col justify-between gap-10">
-    {/* Left Content */}
-    <div className="flex-1">
-      {/* Orange Badge */}
-      <AnimatedContent
-        distance={20}
-        direction="horizontal"
-        reverse
-        duration={0.5}
-        ease="power3.out"
-        initialOpacity={0}
-        animateOpacity
-        scale={1}
-        threshold={0.2}
-        delay={0.2}
-      >
-        <div className="mb-8">
-          <span
-            className="px-4 py-1.5 rounded-full text-[10px] md:text-xs font-jb-mono font-bold uppercase"
-            style={{ backgroundColor: bgColor, color: textColor }}
-          >
-            {title}
-          </span>
-        </div>
-      </AnimatedContent>
-
-      {/* Heading */}
-      <ScrollReveal
-        baseOpacity={0.1}
-        enableBlur
-        blurStrength={1}
-        baseRotation={0}
-      >
-        <h2 className="text-[50px] md:text-[65px] lg:text-[72px] font-mulish leading-[1] tracking-tight mb-12">
-          {heading}
-        </h2>
-        
-        {/* Subtext & Navigation Buttons */}
-        <div className="grid md:flex justify-between gap-5 items-center">
-          <div>
-            <p className="max-w-xl text-white text-xs md:text-sm lg:text-base font-mulish leading-relaxed">
-              {subheading}
-            </p>
-          </div>
-
-          <div className={`${role !== "client" ? "block" : "hidden"}`}>
-            <div className="flex gap-4">
-              {/* LEFT BUTTON */}
-             <button 
-                onClick={() => scrollHorizontal("left")}
-                disabled={!canScrollLeft} // <-- Disable Feature Add Hua
-                className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all disabled:opacity-20 disabled:pointer-events-none cursor-pointer"
-              >
-                <FiChevronLeft className="w-5 h-5 md:w-8 md:h-8" />
-              </button>
-              
-              {/* RIGHT BUTTON */}
-              <button 
-                onClick={() => scrollHorizontal("right")}
-                disabled={!canScrollRight} // <-- Disable Feature Add Hua
-                className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all disabled:opacity-20 disabled:pointer-events-none cursor-pointer"
-              >
-                <FiChevronRight className="w-5 h-5 md:w-8 md:h-8" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </ScrollReveal>
-    </div>
-  </div>
-</section>
-
-{/* --- Cards Scroll Section --- */}
-<section
-  ref={targetRef}
-  className={`${role === "client" ? "hidden" : "block"} relative -mt-10 `}
->
-  <div 
-    ref={horizontalScrollRef}
-     className="static md:sticky md:top-0 h-auto md:h-[80vh] w-full flex flex-col justify-start overflow-x-auto md:overflow-hidden scrollbar-hide scroll-smooth"
-  >
-    <motion.div
-      style={isMobile ? {} : { x }}
-      className="flex gap-5 md:gap-7 lg:gap-10 px-10 md:px-60 lg:px-82 xl:px-120 "
-    >
-      {visibleCards?.map((item, i) => (
-        <div
-          key={i}
-          className="relative flex-shrink-0 w-[280px] h-[400px] md:w-[420px] md:h-[450px] lg:w-[450px] lg:h-[450px] 2xl:h-[600px] overflow-hidden rounded-xl bg-[#141414] p-5 lg:p-8 2xl:p-10 shadow-2xl snap-center md:snap-none"
-        >
-          <div className="absolute inset-0 z-0">
-            <Image
-              width={500}
-              height={500}
-              src={item.img}
-              className="h-full w-full object-cover opacity-20 grayscale"
-              alt={item.name}
-            />
-            <div className="absolute inset-0 bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:4px_4px] opacity-40"></div>
-            <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent"></div>
-          </div>
-
-          {/* Content Layer */}
-          <div className="relative z-10 flex h-full flex-col justify-end">
-            <div className="mb-auto">
-              <span
-                className="rounded-full px-3 py-1 text-[8px] md:text-[10px] 2xl:text-xs font-jb-mono uppercase tracking-wider"
-                style={{ backgroundColor: bgColor, color: textColor }}
-              >
-                {item.title}
-              </span>
-            </div>
-
-            <h2 className="mb-1 md:mb-3 lg:mb-4 text-2xl md:text-3xl lg:text-4xl 2xl:text-5xl font-mulish text-white">
-              {item.name}
-            </h2>
-
-            <p className="mb-2 md:mb-5 lg:mb-8 text-xs md:text-base lg:text-lg font-mulish md:leading-relaxed text-white">
-              {item.des}
-            </p>
-
-            <button
-              className="group flex w-fit items-center gap-1 md:gap-2 text-[10px] md:text-base lg:text-lg 2xl:text-xl rounded-full px-3 md:px-4 lg:px-6 py-1 md:py-2 lg:py-3 font-mulish font-bold text-black transition-transform hover:scale-105 active:scale-95"
-              style={{ backgroundColor: textColor }}
+      {/* --- Upper Header Section --- */}
+      <section className="w-full text-white pt-10 lg:pt-20 px-10 md:px-20 lg:px-32 xl:px-38">
+        <div className="w-full mx-auto flex flex-col justify-between gap-10">
+          <div className="flex-1">
+            <AnimatedContent
+              distance={20}
+              direction="horizontal"
+              reverse
+              duration={0.5}
+              ease="power3.out"
+              initialOpacity={0}
+              animateOpacity
+              scale={1}
+              threshold={0.2}
+              delay={0.2}
             >
-              Learn More
-              <FiChevronRight className="h-3 w-3 md:h-5 md:w-5 stroke-[2.5]" />
-            </button>
+              <div className="mb-8">
+                <span
+                  className="px-4 py-1.5 rounded-full text-[10px] md:text-xs font-jb-mono font-bold uppercase"
+                  style={{ backgroundColor: bgColor, color: textColor }}
+                >
+                  {title}
+                </span>
+              </div>
+            </AnimatedContent>
+
+            <ScrollReveal
+              baseOpacity={0.1}
+              enableBlur
+              blurStrength={1}
+              baseRotation={0}
+            >
+              <h2 className="text-[50px] md:text-[65px] lg:text-[72px] font-mulish leading-[1] tracking-tight mb-12">
+                {heading}
+              </h2>
+              
+              <div className="grid md:flex justify-between gap-5 items-center">
+                <div>
+                  <p className="max-w-xl text-white text-xs md:text-sm lg:text-base font-mulish leading-relaxed">
+                    {subheading}
+                  </p>
+                </div>
+
+                <div className={`${role !== "client" ? "block" : "hidden"}`}>
+                  <div className="flex gap-4">
+                    <button 
+                      onClick={() => scrollHorizontal("left")}
+                      disabled={!canScrollLeft}
+                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all disabled:opacity-20 disabled:pointer-events-none cursor-pointer"
+                    >
+                      <FiChevronLeft className="w-5 h-5 md:w-8 md:h-8" />
+                    </button>
+                    
+                    <button 
+                      onClick={() => scrollHorizontal("right")}
+                      disabled={!canScrollRight}
+                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all disabled:opacity-20 disabled:pointer-events-none cursor-pointer"
+                    >
+                      <FiChevronRight className="w-5 h-5 md:w-8 md:h-8" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
-      ))}
-    </motion.div>
-  </div>
-</section>
-      {/* Yahan tak ka poora chunk replace karna hai */}
+      </section>
 
+      {/* --- FIXED SECTION: Space issue fixed here --- */}
+      <section
+        ref={targetRef}
+        className={`${role === "client" ? "hidden" : "block"} relative h-auto md:h-[250vh] lg:h-[200vh] -mt-10`}
+      >
+        <div 
+          ref={horizontalScrollRef}
+          className="static md:sticky md:top-0 h-auto md:h-screen w-full flex flex-col justify-start md:justify-center overflow-x-auto md:overflow-hidden scrollbar-hide snap-x snap-mandatory scroll-smooth"
+        >
+          <motion.div
+            style={isMobile ? {} : { x }}
+            className="flex gap-5 md:gap-7 lg:gap-10 px-10 md:px-60 lg:px-82 xl:px-120 "
+          >
+            {visibleCards?.map((item, i) => (
+              <div
+                key={i}
+                className="relative flex-shrink-0 w-[280px] h-[400px] md:w-[420px] md:h-[450px] lg:w-[450px] lg:h-[450px] 2xl:h-[600px] overflow-hidden rounded-xl bg-[#141414] p-5 lg:p-8 2xl:p-10 shadow-2xl snap-center md:snap-none"
+              >
+                <div className="absolute inset-0 z-0">
+                  <Image
+                    width={500}
+                    height={500}
+                    src={item.img}
+                    className="h-full w-full object-cover opacity-20 grayscale"
+                    alt={item.name}
+                  />
+                  <div className="absolute inset-0 bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:4px_4px] opacity-40"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent"></div>
+                </div>
+
+                <div className="relative z-10 flex h-full flex-col justify-end">
+                  <div className="mb-auto">
+                    <span
+                      className="rounded-full px-3 py-1 text-[8px] md:text-[10px] 2xl:text-xs font-jb-mono uppercase tracking-wider"
+                      style={{ backgroundColor: bgColor, color: textColor }}
+                    >
+                      {item.title}
+                    </span>
+                  </div>
+
+                  <h2 className="mb-1 md:mb-3 lg:mb-4 text-2xl md:text-3xl lg:text-4xl 2xl:text-5xl font-mulish text-white">
+                    {item.name}
+                  </h2>
+
+                  <p className="mb-2 md:mb-5 lg:mb-8 text-xs md:text-base lg:text-lg font-mulish md:leading-relaxed text-white">
+                    {item.des}
+                  </p>
+
+                  <button
+                    className="group flex w-fit items-center gap-1 md:gap-2 text-[10px] md:text-base lg:text-lg 2xl:text-xl rounded-full px-3 md:px-4 lg:px-6 py-1 md:py-2 lg:py-3 font-mulish font-bold text-black transition-transform hover:scale-105 active:scale-95"
+                    style={{ backgroundColor: textColor }}
+                  >
+                    Learn More
+                    <FiChevronRight className="h-3 w-3 md:h-5 md:w-5 stroke-[2.5]" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* --- Client Section --- */}
       <section className={`${role === "client" ? "block" : "hidden"} w-full`}>
         <div className="pb-10 md:pb-30 ">
           <div className="flex gap-5 md:gap-7 lg:gap-10 px-5 md:px-20 lg:px-32  overflow-x-auto  scrollbar-style scrollbar-hide">
             {clientInfo?.map((curE, i) => (
               <div
                 key={i}
-                className="relative   flex-shrink-0 w-[300px] md:w-[380px] h-[600px] aspect-[9/16] bg-[#111] rounded-[2.5rem] overflow-hidden group"
+                className="relative flex-shrink-0 w-[300px] md:w-[380px] h-[600px] aspect-[9/16] bg-[#111] rounded-[2.5rem] overflow-hidden group"
               >
-                {/* --- YouTube Player Layer --- */}
-                {/* --- Video Layer --- */}
                 <div className="absolute inset-0 w-full h-full pointer-events-none">
                   <ReactPlayer
                     url={curE.video}
@@ -340,9 +313,8 @@ useEffect(() => {
                     width="100%"
                     height="100%"
                     playsinline
-                    // style tag ko hatakar wrapper class use karein
                     className="absolute top-0 left-0"
-                    onProgress={(state) => setProgress(state.played * 100)} // Progress handle karne ka sahi tarika
+                    onProgress={(state) => setProgress(state.played * 100)}
                     config={{
                       youtube: {
                         playerVars: {
@@ -356,10 +328,8 @@ useEffect(() => {
                     }}
                   />
                 </div>
-                {/* Overlay to catch clicks and manage gradients */}
                 <div className="absolute inset-0 z-10 cursor-pointer bg-gradient-to-b from-black/50 via-transparent to-black/70"></div>
 
-                {/* --- Top Info Card --- */}
                 <div className="absolute top-4 group-hover:hidden transition duration-500  left-4 right-4 bg-[#021d2e]/90 backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-white/10 z-20">
                   <div className="flex justify-between items-start">
                     <div>
@@ -385,10 +355,8 @@ useEffect(() => {
                   </div>
                 </div>
 
-                {/* --- Bottom Controls --- */}
                 <div className="absolute bottom-6 left-0 right-0 px-6 z-20">
                   <div className="flex items-center gap-4">
-                    {/* React Icons: Play/Pause */}
                     <button
                       onClick={togglePlay}
                       className="text-white text-xl sm:text-2xl hover:scale-110 transition-transform"
@@ -396,7 +364,6 @@ useEffect(() => {
                       {isPlaying ? <IoPause /> : <IoPlay />}
                     </button>
 
-                    {/* Progress Bar */}
                     <div className="flex-grow h-1 bg-white/20 rounded-full relative overflow-hidden">
                       <div
                         className="absolute top-0 left-0 h-full bg-white transition-all duration-100"
@@ -411,7 +378,6 @@ useEffect(() => {
                         .padStart(2, "0")}
                     </span>
 
-                    {/* React Icons: Volume/Mute */}
                     <button
                       onClick={toggleMute}
                       className="text-white text-lg sm:text-xl hover:opacity-80 transition-opacity"
