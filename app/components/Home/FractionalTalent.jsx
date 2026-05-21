@@ -248,7 +248,7 @@ export default function FractionalTalent({
             textColor === "#ff0044" 
               ? "h-auto md:h-[180vh] lg:h-[160vh]" 
               : "h-auto md:h-[230vh] lg:h-[200vh]"
-          } ${role === "work" ? "hidden" : "block"}  md:-mt-20`}
+          } ${role === "work" ? "hidden" : "block"} `}
         >
           <div 
             
