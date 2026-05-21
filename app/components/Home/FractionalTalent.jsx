@@ -92,6 +92,10 @@ export default function FractionalTalent({
   const [isMobileOnly, setIsMobileOnly] = useState(false);
   const [transformXValue, setTransformXValue] = useState("-60%"); 
   
+  // Smart Button Disable States
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
   // Custom motion value for absolute sync override on button click
   const manualXProgress = useMotionValue(0);
   const smoothManualX = useSpring(manualXProgress, { stiffness: 60, damping: 15 });
@@ -103,9 +107,10 @@ export default function FractionalTalent({
         setVisibleCards(talent?.slice(0, -1));
         setIsMobileOnly(true);
       } else if (width >= 768 && width < 1025) {
+        // --- CALIBRATED FOR TABLET: Keeps Framer Motion active but fixes flying bounds ---
         setVisibleCards(talent);
         setIsMobileOnly(false);
-        setTransformXValue("-110%"); 
+        setTransformXValue("-48%"); 
       } else {
         setVisibleCards(talent);
         setIsMobileOnly(false);
@@ -126,6 +131,25 @@ export default function FractionalTalent({
   const [isManualOverride, setIsManualOverride] = useState(false);
   const dynamicX = isManualOverride ? manualTransform : scrollTransform;
 
+  // --- LOGIC: Mobile Native Swiping Scroll Tracker ---
+  const checkScrollPosition = () => {
+    if (horizontalScrollRef.current && isMobileOnly) {
+      const { scrollLeft, scrollWidth, clientWidth } = horizontalScrollRef.current;
+      setCanScrollLeft(scrollLeft > 5);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
+    }
+  };
+
+  // --- LOGIC: Desktop & Tablet Wheel/Progress Tracker ---
+  useEffect(() => {
+    if (!isMobileOnly) {
+      return scrollYProgress.on("change", (latest) => {
+        setCanScrollLeft(latest > 0.02);
+        setCanScrollRight(latest < 0.98);
+      });
+    }
+  }, [scrollYProgress, isMobileOnly]);
+
   // Listen to wheel/scroll resets to give control back to standard scrolling
   useEffect(() => {
     const resetOverride = () => setIsManualOverride(false);
@@ -137,6 +161,13 @@ export default function FractionalTalent({
     };
   }, []);
 
+  // Sync state initially for Mobile view bounds
+  useEffect(() => {
+    if (isMobileOnly) {
+      checkScrollPosition();
+    }
+  }, [isMobileOnly]);
+
   const scrollHorizontal = (direction) => {
     if (isMobileOnly) {
       if (horizontalScrollRef.current) {
@@ -146,14 +177,20 @@ export default function FractionalTalent({
           left: direction === "left" ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
           behavior: "smooth",
         });
+        // Delay checks to ensure coordinates settled down after scroll completion
+        setTimeout(checkScrollPosition, 300);
       }
     } else {
       setIsManualOverride(true);
       const currentProgress = manualXProgress.get();
-      // Increments motion path frame calculations by 25% steps per click
-      let nextProgress = direction === "left" ? currentProgress - 0.25 : currentProgress + 0.25;
+      // Step size optimization for cleaner skips across different viewport breaks
+      const step = window.innerWidth < 1025 ? 0.30 : 0.25;
+      let nextProgress = direction === "left" ? currentProgress - step : currentProgress + step;
       nextProgress = Math.max(0, Math.min(1, nextProgress));
       manualXProgress.set(nextProgress);
+
+      setCanScrollLeft(nextProgress > 0);
+      setCanScrollRight(nextProgress < 1);
 
       // Also scroll viewport safely to align track position
       if (targetRef.current) {
@@ -221,15 +258,18 @@ export default function FractionalTalent({
                 </div>
                 <div>
                   <div className="flex gap-4">
+                    {/* --- IMPLEMENTED: Smart disabled and unified state toggling --- */}
                     <button 
+                      disabled={!canScrollLeft}
                       onClick={() => scrollHorizontal("left")}
-                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30"
+                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30 disabled:opacity-25 disabled:pointer-events-none"
                     >
                       <FiChevronLeft className="md:w-8 md:h-8" />
                     </button>
                     <button 
+                      disabled={!canScrollRight}
                       onClick={() => scrollHorizontal("right")}
-                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30"
+                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30 disabled:opacity-25 disabled:pointer-events-none"
                     >
                       <FiChevronRight className="md:w-8 md:h-8" />
                     </button>
@@ -250,12 +290,13 @@ export default function FractionalTalent({
               : "h-auto md:h-[230vh] lg:h-[200vh]"
           } ${role === "work" ? "hidden" : "block"} `}
         >
+          {/* --- IMPLEMENTED: Added native onScroll layout bind and container lock conditions --- */}
           <div 
-            
-            className="static md:sticky md:top-0 h-auto md:h-[80vh] w-full flex flex-col justify-start overflow-x-auto md:overflow-hidden scrollbar-hide"
+            ref={horizontalScrollRef}
+            onScroll={checkScrollPosition}
+            className="static md:sticky md:top-0 h-auto md:h-[80vh] w-full flex flex-col justify-start overflow-x-auto md:overflow-hidden scrollbar-hide scroll-smooth snap-x snap-mandatory md:snap-none"
           >
             <motion.div
-            ref={horizontalScrollRef}
               style={isMobileOnly ? {} : { x: dynamicX }}
               className="flex gap-5 md:gap-7 lg:gap-10 px-5 pb-10 md:px-20 md:pb-12 lg:px-32 lg:pb-16"
             >
@@ -263,7 +304,7 @@ export default function FractionalTalent({
                 ? visibleCards?.map((item, i) => (
                     <div
                       key={i}
-                      className="relative flex-shrink-0 w-[240px] h-[180px] md:w-[350px] md:h-[200px] lg:w-[450px] lg:h-[250px] overflow-hidden rounded-xl bg-[#141414] p-3 lg:p-5 font-sans shadow-2xl snap-center md:snap-none"
+                      className="relative flex-shrink-0 w-[240px] h-[180px] md:w-[350px] md:h-[200px] lg:w-[450px] lg:h-[250px] overflow-hidden rounded-xl bg-[#141414] p-3 lg:p-5 font-sans shadow-2xl snap-center"
                     >
                       <div className="grid h-full gap-5 lg:gap-10 justify-between">
                         <div>
@@ -289,7 +330,7 @@ export default function FractionalTalent({
                     return (
                       <div
                         key={i}
-                        className="relative flex-shrink-0 w-[240px] h-[180px] md:w-[330px] md:h-[200px] lg:w-[430px] lg:h-[250px] overflow-hidden rounded-xl bg-[#141414] p-3 lg:p-5 font-sans shadow-2xl snap-center md:snap-none"
+                        className="relative flex-shrink-0 w-[240px] h-[180px] md:w-[330px] md:h-[200px] lg:w-[430px] lg:h-[250px] overflow-hidden rounded-xl bg-[#141414] p-3 lg:p-5 font-sans shadow-2xl snap-center"
                       >
                         <div className="grid h-full gap-5 lg:gap-10 justify-between">
                           <div>
@@ -315,11 +356,9 @@ export default function FractionalTalent({
                       </div>
                     );
                   })}
-        </motion.div>
-      
+            </motion.div>
           </div> 
         </div> 
-
       </section>
 
       <div className={`px-10 lg:px-32`}>
@@ -346,7 +385,7 @@ export default function FractionalTalent({
                       className="text-[#f5f5f5] font-mulish text-xs md:text-base lg:text-lg font-medium opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
                     >
                       {role}
-                    </li>
+                    </td>
                   ))}
                 </ul>
               </div>
