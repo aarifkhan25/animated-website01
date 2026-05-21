@@ -123,43 +123,41 @@ export default function Talent({
     };
   }, []);
 
-  // --- FIXED & OPTIMIZED: स्क्रॉलिंग लॉजिक बिना पेज जंप किए और सेंटर अलाइनमेंट के साथ ---
+  // --- FIXED: मोबाइल स्क्रॉलिंग के लिए परफेक्ट लॉजिक ---
   const scrollHorizontal = (direction) => {
+    // 1. Client Section (चाहे मोबाइल हो या डेस्कटॉप)
     if (role === "client") {
       if (clientScrollRef.current) {
         const container = clientScrollRef.current;
         const isMobile = window.innerWidth < 768;
-        
-        // एक कार्ड की कुल चौड़ाई (Card width + Gap)
-        const cardAmount = isMobile ? 320 : 408; 
+        const cardAmount = isMobile ? 320 : 408; // मोबाइल कार्ड विड्थ + गैप
 
-        // scrollBy सीधे कंटेनर के अंदर हॉरिजॉन्टल मूव करता है, पेज डिस्टर्ब नहीं होता
         container.scrollBy({
           left: direction === "left" ? -cardAmount : cardAmount,
           behavior: "smooth",
         });
       }
-    } else {
-      // Talent Section
-      if (isMobileOnly) {
-        if (horizontalScrollRef.current) {
-          const container = horizontalScrollRef.current;
-          const scrollAmount = container.clientWidth * 0.75; 
-          container.scrollBy({
-            left: direction === "left" ? -scrollAmount : scrollAmount,
-            behavior: "smooth",
-          });
-        }
-      } else {
-        // डेस्कटॉप पर Framer motion स्क्रॉलिंग (बिना window.scrollTo के ताकि स्क्रीन जंप न हो)
-        setIsManualOverride(true);
-        const currentProgress = manualXProgress.get();
-        let nextProgress = direction === "left" ? currentProgress - 0.25 : currentProgress + 0.25;
-        nextProgress = Math.max(0, Math.min(1, nextProgress));
-        manualXProgress.set(nextProgress);
+    } 
+    // 2. Talent Section (सिर्फ मोबाइल या टैबलेट के लिए)
+    else if (window.innerWidth < 1025 || isMobileOnly) {
+      if (horizontalScrollRef.current) {
+        const container = horizontalScrollRef.current;
+        // मोबाइल पर एक बार में 300px (एक कार्ड जितना) स्क्रॉल करें
+        const scrollAmount = 300; 
         
-        // नोट: यहाँ से window.scrollTo हटा दिया गया है ताकि पेज ऊपर न भागे!
+        container.scrollBy({
+          left: direction === "left" ? -scrollAmount : scrollAmount,
+          behavior: "smooth",
+        });
       }
+    } 
+    // 3. Talent Section (डेस्कटॉप के लिए Framer Motion)
+    else {
+      setIsManualOverride(true);
+      const currentProgress = manualXProgress.get();
+      let nextProgress = direction === "left" ? currentProgress - 0.25 : currentProgress + 0.25;
+      nextProgress = Math.max(0, Math.min(1, nextProgress));
+      manualXProgress.set(nextProgress);
     }
   };
 
@@ -224,13 +222,14 @@ export default function Talent({
                   </p>
                 </div>
 
+                {/* बटन्स कंटेनर */}
                 <div className="block">
                   <div className="flex gap-4">
                     <button 
                       onClick={() => scrollHorizontal("left")}
                       className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30"
                     >
-                      <FiChevronLeft className="md:w-8 md:h-8" />
+                      <FiChevronLeft className="w-5 h-5 md:w-8 md:h-8" />
                     </button>
                     <button 
                       onClick={() => scrollHorizontal("right")}
@@ -256,16 +255,20 @@ export default function Talent({
               : "h-auto md:h-[230vh] lg:h-[200vh]"
           } ${role === "client" ? "hidden" : "block"}  `}
         >
-          <div className="static md:sticky md:top-0 h-auto md:h-[80vh] w-full flex flex-col justify-start overflow-x-auto md:overflow-hidden scrollbar-hide">
+          {/* --- FIXED: मोबाइल पर ओवरफ्लो और स्क्रॉलिंग स्मूथ करने के लिए पैरेंट कंटेनर में बदलाव --- */}
+          <div 
+            ref={horizontalScrollRef}
+            className="static md:sticky md:top-0 h-auto md:h-[80vh] w-full flex flex-col justify-start overflow-x-auto md:overflow-hidden scrollbar-hide scroll-smooth snap-x snap-mandatory md:snap-none"
+          >
+            {/* --- FIXED: style={isMobileOnly || window.innerWidth < 1025 ? {} : { x: dynamicX }} ताकि मोबाइल पर Framer motion का ट्रांसफॉर्म डिस्टर्ब न करे --- */}
             <motion.div
-              ref={horizontalScrollRef}
-              style={isMobileOnly ? {} : { x: dynamicX }}
+              style={(typeof window !== 'undefined' && window.innerWidth < 1025) || isMobileOnly ? {} : { x: dynamicX }}
               className="flex gap-5 md:gap-7 lg:gap-10 px-5 md:px-20 lg:px-32"
             >
               {visibleCards?.map((item, i) => (
                 <div
                   key={i}
-                  className="relative flex-shrink-0 w-[280px] h-[400px] md:w-[420px] md:h-[450px] lg:w-[450px] lg:h-[450px] 2xl:h-[600px] overflow-hidden rounded-xl bg-[#141414] p-5 lg:p-8 2xl:p-10 shadow-2xl snap-center md:snap-none"
+                  className="relative flex-shrink-0 w-[280px] h-[400px] md:w-[420px] md:h-[450px] lg:w-[450px] lg:h-[450px] 2xl:h-[600px] overflow-hidden rounded-xl bg-[#141414] p-5 lg:p-8 2xl:p-10 shadow-2xl snap-center"
                 >
                   <div className="absolute inset-0 z-0">
                     <Image
@@ -315,7 +318,6 @@ export default function Talent({
       {/* --- Client Section --- */}
       <section className={`${role === "client" ? "block" : "hidden"} w-full`}>
         <div className="pb-10 md:pb-30 ">
-          {/* --- FIXED: snap-x, snap-mandatory और scroll-smooth को कंटेनर में अच्छे से हैंडल किया --- */}
           <div 
             ref={clientScrollRef}
             className="flex gap-5 md:gap-7 lg:gap-10 px-5 md:px-[25vw] lg:px-[35vw] overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth"
@@ -414,6 +416,6 @@ export default function Talent({
           </div>
         </div>
       </section>
-    </>
+    </>sssss
   );
 }
