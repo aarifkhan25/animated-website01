@@ -40,18 +40,21 @@ const talent = [
 
 const clientInfo = [
   {
+    id: 1, // प्रत्येक कार्ड के लिए यूनीक कंट्रोल्स मैनेज करने के लिए
     name: "Anam",
     post: "co-founder & co-ceo",
     img: "/assets/clientImg/img.svg",
     video: "https://www.youtube.com/watch?v=zxjfxrXfROc",
   },
   {
+    id: 2,
     name: "Jae",
     post: "founder & managing principal",
     img: "/assets/clientImg/img2.png",
     video: "https://vimeo.com/949215348",
   },
   {
+    id: 3,
     name: "Arianna",
     post: "Founder & ceo",
     img: "/assets/clientImg/img3.svg",
@@ -68,7 +71,7 @@ export default function Talent({
   role,
 }) {
   
- const targetRef = useRef(null);
+  const targetRef = useRef(null);
   const horizontalScrollRef = useRef(null); 
   
   const { scrollYProgress } = useScroll({
@@ -79,7 +82,6 @@ export default function Talent({
   const [isMobileOnly, setIsMobileOnly] = useState(false);
   const [transformXValue, setTransformXValue] = useState("-60%"); 
   
-  // Custom motion value for absolute sync override on button click
   const manualXProgress = useMotionValue(0);
   const smoothManualX = useSpring(manualXProgress, { stiffness: 60, damping: 15 });
 
@@ -105,15 +107,12 @@ export default function Talent({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Sync scrollYProgress or manual click progress into the layout transformation
   const scrollTransform = useTransform(scrollYProgress, [0, 1], ["0%", transformXValue]);
   const manualTransform = useTransform(smoothManualX, [0, 1], ["0%", transformXValue]);
   
-  // Dynamic handler that switches source of truth automatically
   const [isManualOverride, setIsManualOverride] = useState(false);
   const dynamicX = isManualOverride ? manualTransform : scrollTransform;
 
-  // Listen to wheel/scroll resets to give control back to standard scrolling
   useEffect(() => {
     const resetOverride = () => setIsManualOverride(false);
     window.addEventListener("wheel", resetOverride);
@@ -137,12 +136,10 @@ export default function Talent({
     } else {
       setIsManualOverride(true);
       const currentProgress = manualXProgress.get();
-      // Increments motion path frame calculations by 25% steps per click
       let nextProgress = direction === "left" ? currentProgress - 0.25 : currentProgress + 0.25;
       nextProgress = Math.max(0, Math.min(1, nextProgress));
       manualXProgress.set(nextProgress);
 
-      // Also scroll viewport safely to align track position
       if (targetRef.current) {
         const rect = targetRef.current.getBoundingClientRect();
         const totalScrollableHeight = targetRef.current.offsetHeight - window.innerHeight;
@@ -157,37 +154,21 @@ export default function Talent({
   };
 
 
-  // player
-  const videoRef = useRef(null);
+  // --- ReactPlayer के लिए सही स्टेट मैनेजमेंट ---
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
 
   const togglePlay = (e) => {
     e.stopPropagation();
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        videoRef.current.play();
-        setIsPlaying(true);
-      } else {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      }
-    }
+    setIsPlaying(!isPlaying);
   };
 
-  const toggleMute = () => {
-    videoRef.current.muted = !isMuted;
+  const toggleMute = (e) => {
+    e.stopPropagation();
     setIsMuted(!isMuted);
   };
-
-
-
-  
-
-
-
-
 
   return (
     <>
@@ -236,7 +217,7 @@ export default function Talent({
 
                 <div className={`${role !== "client" ? "block" : "hidden"}`}>
                   <div className="flex gap-4">
-                        <button 
+                    <button 
                       onClick={() => scrollHorizontal("left")}
                       className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30"
                     >
@@ -256,8 +237,8 @@ export default function Talent({
         </div>
       </section>
 
-      {/* --- FIXED SECTION: Space issue fixed here --- */}
-   <section className="relative">
+      {/* --- Talent Section --- */}
+      <section className="relative">
         <div
           ref={targetRef}
           className={`relative ${
@@ -266,73 +247,72 @@ export default function Talent({
               : "h-auto md:h-[230vh] lg:h-[200vh]"
           } ${role === "client" ? "hidden" : "block"}  `}
         >
-          <div 
-            
-            className="static md:sticky md:top-0 h-auto md:h-[80vh] w-full flex flex-col justify-start  overflow-x-auto md:overflow-hidden scrollbar-hide"
-          >
+          <div className="static md:sticky md:top-0 h-auto md:h-[80vh] w-full flex flex-col justify-start overflow-x-auto md:overflow-hidden scrollbar-hide">
             <motion.div
-            ref={horizontalScrollRef}
+              ref={horizontalScrollRef}
               style={isMobileOnly ? {} : { x: dynamicX }}
-              className="flex gap-5 md:gap-7 lg:gap-10 px-5  md:px-20  lg:px-32 "
+              className="flex gap-5 md:gap-7 lg:gap-10 px-5 md:px-20 lg:px-32"
             >
-            {visibleCards?.map((item, i) => (
-              <div
-                key={i}
-                className="relative flex-shrink-0 w-[280px] h-[400px] md:w-[420px] md:h-[450px] lg:w-[450px] lg:h-[450px] 2xl:h-[600px] overflow-hidden rounded-xl bg-[#141414] p-5 lg:p-8 2xl:p-10 shadow-2xl snap-center md:snap-none"
-              >
-                <div className="absolute inset-0 z-0">
-                  <Image
-                    width={500}
-                    height={500}
-                    src={item.img}
-                    className="h-full w-full object-cover opacity-20 grayscale"
-                    alt={item.name}
-                  />
-                  <div className="absolute inset-0 bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:4px_4px] opacity-40"></div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent"></div>
-                </div>
-
-                <div className="relative z-10 flex h-full flex-col justify-end">
-                  <div className="mb-auto">
-                    <span
-                      className="rounded-full px-3 py-1 text-[8px] md:text-[10px] 2xl:text-xs font-jb-mono uppercase tracking-wider"
-                      style={{ backgroundColor: bgColor, color: textColor }}
-                    >
-                      {item.title}
-                    </span>
+              {visibleCards?.map((item, i) => (
+                <div
+                  key={i}
+                  className="relative flex-shrink-0 w-[280px] h-[400px] md:w-[420px] md:h-[450px] lg:w-[450px] lg:h-[450px] 2xl:h-[600px] overflow-hidden rounded-xl bg-[#141414] p-5 lg:p-8 2xl:p-10 shadow-2xl snap-center md:snap-none"
+                >
+                  <div className="absolute inset-0 z-0">
+                    <Image
+                      width={500}
+                      height={500}
+                      src={item.img}
+                      className="h-full w-full object-cover opacity-20 grayscale"
+                      alt={item.name}
+                    />
+                    <div className="absolute inset-0 bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:4px_4px] opacity-40"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent"></div>
                   </div>
 
-                  <h2 className="mb-1 md:mb-3 lg:mb-4 text-2xl md:text-3xl lg:text-4xl 2xl:text-5xl font-mulish text-white">
-                    {item.name}
-                  </h2>
+                  <div className="relative z-10 flex h-full flex-col justify-end">
+                    <div className="mb-auto">
+                      <span
+                        className="rounded-full px-3 py-1 text-[8px] md:text-[10px] 2xl:text-xs font-jb-mono uppercase tracking-wider"
+                        style={{ backgroundColor: bgColor, color: textColor }}
+                      >
+                        {item.title}
+                      </span>
+                    </div>
 
-                  <p className="mb-2 md:mb-5 lg:mb-8 text-xs md:text-base lg:text-lg font-mulish md:leading-relaxed text-white">
-                    {item.des}
-                  </p>
+                    <h2 className="mb-1 md:mb-3 lg:mb-4 text-2xl md:text-3xl lg:text-4xl 2xl:text-5xl font-mulish text-white">
+                      {item.name}
+                    </h2>
 
-                  <button
-                    className="group flex w-fit items-center gap-1 md:gap-2 text-[10px] md:text-base lg:text-lg 2xl:text-xl rounded-full px-3 md:px-4 lg:px-6 py-1 md:py-2 lg:py-3 font-mulish font-bold text-black transition-transform hover:scale-105 active:scale-95"
-                    style={{ backgroundColor: textColor }}
-                  >
-                    Learn More
-                    <FiChevronRight className="h-3 w-3 md:h-5 md:w-5 stroke-[2.5]" />
-                  </button>
+                    <p className="mb-2 md:mb-5 lg:mb-8 text-xs md:text-base lg:text-lg font-mulish md:leading-relaxed text-white">
+                      {item.des}
+                    </p>
+
+                    <button
+                      className="group flex w-fit items-center gap-1 md:gap-2 text-[10px] md:text-base lg:text-lg 2xl:text-xl rounded-full px-3 md:px-4 lg:px-6 py-1 md:py-2 lg:py-3 font-mulish font-bold text-black transition-transform hover:scale-105 active:scale-95"
+                      style={{ backgroundColor: textColor }}
+                    >
+                      Learn More
+                      <FiChevronRight className="h-3 w-3 md:h-5 md:w-5 stroke-[2.5]" />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </motion.div>
+              ))}
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* --- Client Section --- */}
+      {/* --- Client Section (FIXED FOR CENTER SNAPPING) --- */}
       <section className={`${role === "client" ? "block" : "hidden"} w-full`}>
         <div className="pb-10 md:pb-30 ">
-          <div className="flex gap-5 md:gap-7 lg:gap-10 px-5 md:px-20 lg:px- 1xl:px-32  overflow-x-auto  scrollbar-style scrollbar-hide">
+          {/* 1. कंटेनर में snap-x, snap-mandatory और px की पैडिंग एडजेस्ट की गई है */}
+          <div className="flex gap-5 md:gap-7 lg:gap-10 px-[calc(50vw-150px)] md:px-[calc(50vw-190px)] overflow-x-auto snap-x snap-mandatory scrollbar-hide">
             {clientInfo?.map((curE, i) => (
+              /* 2. प्रत्येक कार्ड में snap-center क्लास ऐड की गई है */
               <div
-                key={i}
-                className="relative flex-shrink-0 w-[300px] md:w-[380px] h-[600px] aspect-[9/16] bg-[#111] rounded-[2.5rem] overflow-hidden group"
+                key={curE.id}
+                className="relative flex-shrink-0 w-[300px] md:w-[380px] h-[600px] aspect-[9/16] bg-[#111] rounded-[2.5rem] overflow-hidden group snap-center"
               >
                 <div className="absolute inset-0 w-full h-full pointer-events-none">
                   <ReactPlayer
@@ -344,7 +324,11 @@ export default function Talent({
                     height="100%"
                     playsinline
                     className="absolute top-0 left-0"
-                    onProgress={(state) => setProgress(state.played * 100)}
+                    // सही प्रोग्रेस और करंट टाइम स्टेट अपडेट
+                    onProgress={(state) => {
+                      setProgress(state.played * 100);
+                      setCurrentTime(state.playedSeconds);
+                    }}
                     config={{
                       youtube: {
                         playerVars: {
@@ -360,7 +344,7 @@ export default function Talent({
                 </div>
                 <div className="absolute inset-0 z-10 cursor-pointer bg-gradient-to-b from-black/50 via-transparent to-black/70"></div>
 
-                <div className="absolute top-4 group-hover:hidden transition duration-500  left-4 right-4 bg-[#021d2e]/90 backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-white/10 z-20">
+                <div className="absolute top-4 group-hover:hidden transition duration-500 left-4 right-4 bg-[#021d2e]/90 backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-white/10 z-20">
                   <div className="flex justify-between items-start">
                     <div>
                       <h2 className="text-2xl sm:text-3xl font-mulish font-medium text-white mb-0.5">
@@ -403,9 +387,7 @@ export default function Talent({
 
                     <span className="text-[10px] sm:text-xs font-medium text-white tabular-nums">
                       00:
-                      {Math.floor(videoRef.current?.currentTime || 0)
-                        .toString()
-                        .padStart(2, "0")}
+                      {Math.floor(currentTime).toString().padStart(2, "0")}
                     </span>
 
                     <button
