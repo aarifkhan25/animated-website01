@@ -65,7 +65,7 @@ export default function Home() {
 
       {/* why choose us */}
 
-        <div className="md:-mt-200 lg:-mt-0 xl:-mt-60 1xl:-mt-80 2xl:-mt-140">
+        <div className="md:-mt-180 lg:-mt-0 xl:-mt-60 1xl:-mt-80 2xl:-mt-140">
       <ChooseUs
         textColor="#9070ff"
         bgColor="#1c143d"
