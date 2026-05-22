@@ -331,7 +331,7 @@ export default function FractionalTalent({
                 : comptition?.map((curE, i) => (
                     <div
                       key={i}
-                      className="relative flex-shrink-0 w-[240px] h-[180px] md:w-[330px] md:h-[200px] lg:w-[430px] lg:h-[250px] 1xl:h-[300px] 2xl:h-[400px] overflow-hidden rounded-xl bg-[#141414] p-3 lg:p-5 font-sans shadow-2xl snap-center"
+                      className="relative flex-shrink-0 w-[240px] h-[180px] md:w-[330px] md:h-[200px] lg:w-[430px] lg:h-[250px] 1xl:h-[270px] 2xl:h-[320px] overflow-hidden rounded-xl bg-[#141414] p-3 lg:p-5 font-sans shadow-2xl snap-center"
                     >
                       <div className="grid h-full gap-5 lg:gap-10 justify-between">
                         <div>
