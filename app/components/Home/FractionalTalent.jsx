@@ -261,7 +261,7 @@ export default function FractionalTalent({
                   </p>
                 </div>
                 <div>
-                  <div className="flex gap-4">
+                  <div className={`${role === "work" ? "hidden" : "block"} flex gap-4`}>
                     <button 
                       disabled={!canScrollLeft}
                       onClick={() => scrollHorizontal("left")}
@@ -364,7 +364,7 @@ export default function FractionalTalent({
       {/* --- Grid Roles Section --- */}
       <div className="px-10 lg:px-32">
         <div
-          className={`${role === "work" ? "block" : "hidden"} grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-10 w-full mx-auto`}
+          className={`${role === "work" ? "block" : "hidden"} grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-5 lg:gap-10 w-full mx-auto`}
         >
           {sections.map((section, index) => (
             <FadeContent
