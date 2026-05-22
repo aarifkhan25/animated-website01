@@ -5,11 +5,8 @@ import ScrollReveal from "@/components/ScrollReveal.jsx";
 import AnimatedContent from "@/components/AnimatedContent.jsx";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import ReactPlayer from "react-player";
-
-import { IoPlay, IoPause, IoVolumeMedium, IoVolumeMute } from "react-icons/io5";
 import { HiOutlineChevronRight } from "react-icons/hi";
 import Image from "next/image";
-
 const talent = [
   {
     img: "/assets/talent/t1.avif",
@@ -61,7 +58,7 @@ const clientInfo = [
   },
 ];
 
-export default function Talent({
+export default function FractionalTalent({
   textColor,
   bgColor,
   title,
@@ -69,161 +66,151 @@ export default function Talent({
   subheading,
   role,
 }) {
-  
   const targetRef = useRef(null);
   const horizontalScrollRef = useRef(null); 
-  const clientScrollRef = useRef(null); 
-
-  // --- FIX 1: एक्स्ट्रा स्पेस खत्म करने के लिए offset को ट्रैक किया ---
+  const containerRef = useRef(null); 
+    const clientScrollRef = useRef(null); 
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start start", "end end"]
   });
 
   const [visibleCards, setVisibleCards] = useState(talent);
-  const [isMobileOnly, setIsMobileOnly] = useState(false); 
-  const [transformXValue, setTransformXValue] = useState("-60%"); 
-  const [dynamicSectionHeight, setDynamicSectionHeight] = useState("auto");
-
+  const [isMobileOnly, setIsMobileOnly] = useState(false);
+  
+  const [maxScrollX, setMaxScrollX] = useState(-1000); 
+  const [dynamicSectionHeight, setDynamicSectionHeight] = useState("200vh");
+  
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
   const manualXProgress = useMotionValue(0);
   const smoothManualX = useSpring(manualXProgress, { stiffness: 60, damping: 15 });
+  const [isManualOverride, setIsManualOverride] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
+    const calculateScrollValues = () => {
       const width = window.innerWidth;
+      
       if (width < 768) {
         setVisibleCards(talent?.slice(0, -1));
         setIsMobileOnly(true);
         setDynamicSectionHeight("auto");
-      }else {
-  setIsMobileOnly(false);
-  
-  // माइनस (-) का निशान हटा दिया है, अब वैल्यू पॉजिटिव है
-  const xValue = width >= 768 && width < 1025 ? "45%" : "55%";
-  setTransformXValue(xValue);
-
-  const baseHeight = width >= 1536 ? 650 : 500; 
-  // यहाँ भाग (/) के बाद माइनस हटाकर नॉर्मल 100 किया
-  const scrollDistanceInPixels = width * (parseFloat(xValue) / 100);
-  setDynamicSectionHeight(`${baseHeight + scrollDistanceInPixels}px`);
+        setMaxScrollX(0);
+      } else {
+        setIsMobileOnly(false);
+        setVisibleCards(talent);
+        
+        if (containerRef.current) {
+          const scrollWidth = containerRef.current.scrollWidth; 
+          const clientWidth = containerRef.current.clientWidth; 
+          
+          const scrollDistance = scrollWidth - clientWidth;
+          
+          if (scrollDistance > 0) {
+            setMaxScrollX(-scrollDistance); 
+            // यहाँ 400px हमारी ट्रैक हाइट (sticky height) को बैलेंस करता है
+            setDynamicSectionHeight(`${400 + scrollDistance}px`);
+          }
+        }
+      }
     };
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }}, []);
+    const timer = setTimeout(() => {
+      calculateScrollValues();
+    }, 50);
 
+    const observer = new ResizeObserver(() => {
+      calculateScrollValues();
+    });
 
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+    
+    window.addEventListener("resize", calculateScrollValues);
+    
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+      window.removeEventListener("resize", calculateScrollValues);
+    };
+  }, [bgColor, visibleCards]);
 
-  const scrollTransform = useTransform(scrollYProgress, [1, 0], ["0%", transformXValue]);
-const manualTransform = useTransform(smoothManualX, [1, 0], ["0%", transformXValue]);
+  const scrollTransform = useTransform(scrollYProgress, [0, 1], [0, maxScrollX], { clamp: true });
+  const manualTransform = useTransform(smoothManualX, [0, 1], [0, maxScrollX], { clamp: true });
   
-  const [isManualOverride, setIsManualOverride] = useState(false);
   const dynamicX = isManualOverride ? manualTransform : scrollTransform;
 
   const checkScrollPosition = () => {
-    const container = role === "client" ? clientScrollRef.current : horizontalScrollRef.current;
-    if (container && (isMobileOnly || role === "client")) {
-      const { scrollLeft, scrollWidth, clientWidth } = container;
+    if (horizontalScrollRef.current && isMobileOnly) {
+      const { scrollLeft, scrollWidth, clientWidth } = horizontalScrollRef.current;
       setCanScrollLeft(scrollLeft > 5);
       setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
     }
   };
 
   useEffect(() => {
-    if (role !== "client" && !isMobileOnly) {
+    if (!isMobileOnly) {
       return scrollYProgress.on("change", (latest) => {
-        setCanScrollLeft(latest > 0.02);
-        setCanScrollRight(latest < 0.98);
+        if (!isManualOverride) {
+          setCanScrollLeft(latest > 0.01);
+          setCanScrollRight(latest < 0.99);
+        }
       });
     }
-  }, [scrollYProgress, role, isMobileOnly]);
+  }, [scrollYProgress, isMobileOnly, isManualOverride]);
 
   useEffect(() => {
-    const resetOverride = () => setIsManualOverride(false);
-    window.addEventListener("wheel", resetOverride);
-    window.addEventListener("touchmove", resetOverride);
-    
-    const clientContainer = clientScrollRef.current;
-    const talentContainer = horizontalScrollRef.current;
-
-    if (clientContainer) clientContainer.addEventListener("scroll", checkScrollPosition);
-    if (talentContainer) talentContainer.addEventListener("scroll", checkScrollPosition);
-
+    const resetOverride = () => {
+      if (isManualOverride) {
+        setIsManualOverride(false);
+        manualXProgress.set(scrollYProgress.get());
+      }
+    };
+    window.addEventListener("wheel", resetOverride, { passive: true });
+    window.addEventListener("touchmove", resetOverride, { passive: true });
     return () => {
       window.removeEventListener("wheel", resetOverride);
       window.removeEventListener("touchmove", resetOverride);
-      if (clientContainer) clientContainer.removeEventListener("scroll", checkScrollPosition);
-      if (talentContainer) talentContainer.removeEventListener("scroll", checkScrollPosition);
     };
-  }, [role, isMobileOnly]);
-
-  useEffect(() => {
-    if (isMobileOnly || role === "client") {
-      checkScrollPosition();
-    }
-  }, [role, isMobileOnly]);
+  }, [isManualOverride, scrollYProgress, manualXProgress]);
 
   const scrollHorizontal = (direction) => {
-    if (role === "client") {
-      if (clientScrollRef.current) {
-        const container = clientScrollRef.current;
-        const isMobile = window.innerWidth < 768;
-        const cardAmount = isMobile ? 320 : 408;
-
-        container.scrollBy({
-          left: direction === "left" ? -cardAmount : cardAmount,
-          behavior: "smooth",
-        });
-        setTimeout(checkScrollPosition, 300);
-      }
-    } 
-    else if (isMobileOnly) {
+    if (isMobileOnly) {
       if (horizontalScrollRef.current) {
-        const container = horizontalScrollRef.current;
-        container.scrollBy({
-          left: direction === "left" ? -300 : 300,
+        const { scrollLeft, clientWidth } = horizontalScrollRef.current;
+        const scrollAmount = clientWidth * 0.75; 
+        horizontalScrollRef.current.scrollTo({
+          left: direction === "left" ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
           behavior: "smooth",
         });
         setTimeout(checkScrollPosition, 300);
       }
-    } 
-    else {
+    } else {
       setIsManualOverride(true);
+      
+      if (manualXProgress.get() === 0 && scrollYProgress.get() !== 0) {
+        manualXProgress.set(scrollYProgress.get());
+      }
+
       const currentProgress = manualXProgress.get();
-      const step = window.innerWidth < 1025 ? 0.30 : 0.25; 
+      const totalCards = bgColor === "#1c143d" ? comptition.length : visibleCards.length;
+      const step = 1 / (totalCards - 1); 
+      
       let nextProgress = direction === "left" ? currentProgress - step : currentProgress + step;
       nextProgress = Math.max(0, Math.min(1, nextProgress));
-      manualXProgress.set(nextProgress);
       
-      setCanScrollLeft(nextProgress > 0);
-      setCanScrollRight(nextProgress < 1);
+      manualXProgress.set(nextProgress);
+      setCanScrollLeft(nextProgress > 0.01);
+      setCanScrollRight(nextProgress < 0.99);
     }
-  };
-
-  // player states
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
-  const [progress, setProgress] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
-
-  const togglePlay = (e) => {
-    e.stopPropagation();
-    setIsPlaying(!isPlaying);
-  };
-
-  const toggleMute = (e) => {
-    e.stopPropagation();
-    setIsMuted(!isMuted);
   };
 
   return (
     <>
       {/* --- Upper Header Section --- */}
-      <section className="w-full text-white pt-10 lg:pt-20 px-10 md:px-20 lg:px-32 xl:px-38">
+      <section className="w-full text-white py-0 px-10 md:px-20 lg:px-32 pt-10 md:pt-20 1xl:pt-30">
         <div className="w-full mx-auto flex flex-col justify-between gap-10">
           <div className="flex-1">
             <AnimatedContent
@@ -240,7 +227,7 @@ const manualTransform = useTransform(smoothManualX, [1, 0], ["0%", transformXVal
             >
               <div className="mb-8">
                 <span
-                  className="px-4 py-1.5 rounded-full text-[10px] md:text-xs font-jb-mono font-bold uppercase"
+                  className="px-4 py-1.5 rounded-full text-[8px] md:text-[12px] font-jb-mono font-semibold uppercase"
                   style={{ backgroundColor: bgColor, color: textColor }}
                 >
                   {title}
@@ -248,39 +235,31 @@ const manualTransform = useTransform(smoothManualX, [1, 0], ["0%", transformXVal
               </div>
             </AnimatedContent>
 
-            <ScrollReveal
-              baseOpacity={0.1}
-              enableBlur
-              blurStrength={1}
-              baseRotation={0}
-            >
+            <ScrollReveal baseOpacity={0.1} enableBlur blurStrength={1} baseRotation={0}>
               <h2 className="text-[35px] md:text-[65px] lg:text-[72px] font-mulish leading-[1] tracking-tight mb-12">
                 {heading}
               </h2>
-              
               <div className="grid md:flex justify-between gap-5 items-center">
                 <div>
                   <p className="max-w-xl text-white text-xs md:text-sm lg:text-base font-mulish leading-relaxed">
                     {subheading}
                   </p>
                 </div>
-
-                {/* बटन्स कंटेनर */}
-                <div className="block">
+                <div>
                   <div className="flex gap-4">
                     <button 
                       disabled={!canScrollLeft}
                       onClick={() => scrollHorizontal("left")}
-                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30 disabled:opacity-30 disabled:pointer-events-none"
+                      className="w-8 md:w-13 h-8 md:h-13 1xl:h-15 1xl:w-15 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30 disabled:opacity-25 disabled:pointer-events-none"
                     >
-                      <FiChevronLeft className="w-5 h-5 md:w-8 md:h-8" />
+                      <FiChevronLeft className="md:w-8 md:h-8 1xl:w-10 1xl:h-10" />
                     </button>
                     <button 
                       disabled={!canScrollRight}
                       onClick={() => scrollHorizontal("right")}
-                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30 disabled:opacity-30 disabled:pointer-events-none"
+                      className="w-8 md:w-13 h-8 md:h-13  1xl:h-15 1xl:w-15 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30 disabled:opacity-25 disabled:pointer-events-none"
                     >
-                      <FiChevronRight className="w-5 h-5 md:w-8 md:h-8" />
+                      <FiChevronRight className="md:w-8 md:h-8 1xl:w-10 1xl:h-10" />
                     </button>
                   </div>
                 </div>
@@ -290,26 +269,28 @@ const manualTransform = useTransform(smoothManualX, [1, 0], ["0%", transformXVal
         </div>
       </section>
 
-      {/* --- Talent Section --- */}
+      {/* --- Horizontal Scroll Section --- */}
       <section className="relative">
         <div
           ref={targetRef}
           style={{ height: dynamicSectionHeight }}
           className={`relative w-full ${role === "client" ? "hidden" : "block"}`}
         >
-          {/* h-auto md:h-[500px] 2xl:h-[650px] रखने से ऊपर नीचे का फालतू स्पेस खत्म रहेगा */}
+          {/* --- FIX FIXED: md:h-screen को हटाकर md:h-[380px] किया ताकि गैप खत्म हो और md:top-[10%] से स्क्रीन के ऊपरी हिस्से में स्टिकी रहे --- */}
           <div 
             ref={horizontalScrollRef}
-            className="static md:sticky md:top-[10%] h-auto md:h-[500px] 2xl:h-[650px] w-full flex flex-col justify-start overflow-x-auto md:overflow-hidden scrollbar-hide scroll-smooth snap-x snap-mandatory md:snap-none"
+            onScroll={checkScrollPosition}
+            className="static md:sticky md:top-[20%] h-auto md:h-[600px] w-full flex flex-col justify-start items-start overflow-x-auto md:overflow-hidden scrollbar-hide scroll-smooth snap-x snap-mandatory md:snap-none pt-4"
           >
-           <motion.div
-  style={isMobileOnly ? {} : { x: dynamicX }}
-  className="flex w-max gap-5 md:gap-7 lg:gap-10 px-5 md:px-20 lg:px-32 xl:px-38" 
->
-              {visibleCards?.map((item, i) => (
+            <motion.div
+              ref={containerRef}
+              style={isMobileOnly ? {} : { x: dynamicX }}
+              className="flex w-max gap-5 md:gap-7 lg:gap-10 px-10  md:px-20 lg:px-32"
+            >
+               {visibleCards?.map((item, i) => (
                 <div
                   key={i}
-                  className="relative flex-shrink-0 w-[280px] h-[400px] md:w-[420px] md:h-[450px] lg:w-[450px] lg:h-[450px] 2xl:h-[600px] overflow-hidden rounded-xl bg-[#141414] p-5 lg:p-8 2xl:p-10 shadow-2xl snap-center"
+                  className="relative flex-shrink-0 w-[280px] h-[400px] md:w-[420px] md:h-[450px] lg:w-[450px] lg:h-[450px] 1x:h-[500px] 2xl:h-[600px] overflow-hidden rounded-xl bg-[#141414] p-5 lg:p-8 2xl:p-10 shadow-2xl snap-center"
                 >
                   <div className="absolute inset-0 z-0">
                     <Image
@@ -352,12 +333,11 @@ const manualTransform = useTransform(smoothManualX, [1, 0], ["0%", transformXVal
                 </div>
               ))}
             </motion.div>
-          </div>
-        </div>
+          </div> 
+        </div> 
       </section>
-
-      {/* --- Client Section --- */}
-      <section className={`${role === "client" ? "block" : "hidden"} w-full`}>
+      {/* client section */}
+<section className={`${role === "client" ? "block" : "hidden"} w-full`}>
         <div className="pb-10 md:pb-30 ">
           <div 
             ref={clientScrollRef}
@@ -372,28 +352,14 @@ const manualTransform = useTransform(smoothManualX, [1, 0], ["0%", transformXVal
                 <div className="absolute inset-0 w-full h-full pointer-events-none">
                   <ReactPlayer
                     url={curE.video}
-                    playing={isPlaying}
-                    muted={isMuted}
+                 
                     loop={true}
                     width="100%"
                     height="100%"
                     playsinline
                     className="absolute top-0 left-0"
-                    onProgress={(state) => {
-                      setProgress(state.played * 100);
-                      setCurrentTime(state.playedSeconds);
-                    }}
-                    config={{
-                      youtube: {
-                        playerVars: {
-                          controls: 0,
-                          showinfo: 0,
-                          modestbranding: 1,
-                          rel: 0,
-                          iv_load_policy: 3,
-                        },
-                      },
-                    }}
+                 
+                  
                   />
                 </div>
                 <div className="absolute inset-0 z-10 cursor-pointer bg-gradient-to-b from-black/50 via-transparent to-black/70"></div>
@@ -423,40 +389,13 @@ const manualTransform = useTransform(smoothManualX, [1, 0], ["0%", transformXVal
                   </div>
                 </div>
 
-                <div className="absolute bottom-6 left-0 right-0 px-6 z-20">
-                  <div className="flex items-center gap-4">
-                    <button
-                      onClick={togglePlay}
-                      className="text-white text-xl sm:text-2xl hover:scale-110 transition-transform"
-                    >
-                      {isPlaying ? <IoPause /> : <IoPlay />}
-                    </button>
-
-                    <div className="flex-grow h-1 bg-white/20 rounded-full relative overflow-hidden">
-                      <div
-                        className="absolute top-0 left-0 h-full bg-white transition-all duration-100"
-                        style={{ width: `${progress}%` }}
-                      ></div>
-                    </div>
-
-                    <span className="text-[10px] sm:text-xs font-medium text-white tabular-nums">
-                      00:
-                      {Math.floor(currentTime).toString().padStart(2, "0")}
-                    </span>
-
-                    <button
-                      onClick={toggleMute}
-                      className="text-white text-lg sm:text-xl hover:opacity-80 transition-opacity"
-                    >
-                      {isMuted ? <IoVolumeMute /> : <IoVolumeMedium />}
-                    </button>
-                  </div>
-                </div>
+                
               </div>
             ))}
           </div>
         </div>
       </section>
+ 
     </>
   );
 }

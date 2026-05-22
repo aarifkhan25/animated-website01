@@ -54,7 +54,7 @@ export default function ChooseUs({textColor,bgColor,title,heading,subheading}) {
     const rotateY = isMobile ? 0 : baseRotateY;
     const scale = isMobile ? 1 : baseScale;
   return (
-  <section className="w-full md:grid gap-5 md:gap-10 text-white   py-10 lg:py-20 px-10 md:px-20  lg:px-32">
+  <section className="w-full md:grid gap-5 md:gap-10 text-white   py-10 lg:py-20 1xl:py-30 px-10 md:px-20  lg:px-32">
         <div className="w-full mx-auto grid  justify-center items-center  ">
          
             {/* Orange Badge */}

@@ -3,7 +3,7 @@ import ScrollReveal from '@/components/ScrollReveal.jsx';
 import { GoArrowRight } from "react-icons/go";
 export default function YourExpectations({textColor,bgColor}) {
   return (
-    <section className=" flex flex-col py-10 lg:py-20 items-center justify-center   text-white px-4 md:px-6  overflow-hidden">
+    <section className=" flex flex-col py-10 lg:py-20 1xl:py-30 items-center justify-center   text-white px-4 md:px-6  overflow-hidden">
                 
                 {/* Top Badge */}
                 

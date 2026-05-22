@@ -15,7 +15,7 @@ export default function Company() {
     { img: "/assets/comp/logo9.svg",op:"1" },
   ];
   return (
-    <section className="grid items-center justify-center w-full  text-white px-10 py-10 lg:py-20 md:px-16 -mt-5  overflow-hidden">
+    <section className="grid items-center justify-center w-full  text-white px-10 py-10 lg:py-20 1xl:py-30 md:px-16 -mt-5  overflow-hidden">
            <div>
              <ScrollReveal baseOpacity={0.1} enableBlur blurStrength={1}   baseRotation={0}>
                <h1 className="text-center text-white text-sm md:text-lg font-jb-mono  uppercase ">

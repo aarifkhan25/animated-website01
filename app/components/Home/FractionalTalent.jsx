@@ -225,7 +225,7 @@ export default function FractionalTalent({
   return (
     <>
       {/* --- Upper Header Section --- */}
-      <section className="w-full text-white py-0 px-10 md:px-20 lg:px-32">
+      <section className="w-full text-white py-0 px-10 md:px-20 lg:px-32 pt-10 md:pt-20 1xl:pt-30">
         <div className="w-full mx-auto flex flex-col justify-between gap-10">
           <div className="flex-1">
             <AnimatedContent
@@ -265,16 +265,16 @@ export default function FractionalTalent({
                     <button 
                       disabled={!canScrollLeft}
                       onClick={() => scrollHorizontal("left")}
-                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30 disabled:opacity-25 disabled:pointer-events-none"
+                      className="w-8 md:w-13 h-8 md:h-13 1xl:h-15 1xl:w-15 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30 disabled:opacity-25 disabled:pointer-events-none"
                     >
-                      <FiChevronLeft className="md:w-8 md:h-8" />
+                      <FiChevronLeft className="md:w-8 md:h-8 1xl:w-10 1xl:h-10" />
                     </button>
                     <button 
                       disabled={!canScrollRight}
                       onClick={() => scrollHorizontal("right")}
-                      className="w-8 md:w-13 h-8 md:h-13 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30 disabled:opacity-25 disabled:pointer-events-none"
+                      className="w-8 md:w-13 h-8 md:h-13  1xl:h-15 1xl:w-15 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all z-30 disabled:opacity-25 disabled:pointer-events-none"
                     >
-                      <FiChevronRight className="md:w-8 md:h-8" />
+                      <FiChevronRight className="md:w-8 md:h-8 1xl:w-10 1xl:h-10" />
                     </button>
                   </div>
                 </div>
@@ -295,7 +295,7 @@ export default function FractionalTalent({
           <div 
             ref={horizontalScrollRef}
             onScroll={checkScrollPosition}
-            className="static md:sticky md:top-[20%] h-auto md:h-[380px] w-full flex flex-col justify-start items-start overflow-x-auto md:overflow-hidden scrollbar-hide scroll-smooth snap-x snap-mandatory md:snap-none pt-4"
+            className="static md:sticky md:top-[20%] h-auto md:h-[400px] w-full flex flex-col justify-start items-start overflow-x-auto md:overflow-hidden scrollbar-hide scroll-smooth snap-x snap-mandatory md:snap-none pt-4"
           >
             <motion.div
               ref={containerRef}
@@ -306,7 +306,7 @@ export default function FractionalTalent({
                 ? visibleCards?.map((item, i) => (
                     <div
                       key={i}
-                      className="relative flex-shrink-0 w-[240px] h-[180px] md:w-[350px] md:h-[200px] lg:w-[450px] lg:h-[250px] overflow-hidden rounded-xl bg-[#141414] p-3 lg:p-5 font-sans shadow-2xl snap-center"
+                      className="relative flex-shrink-0 w-[240px] h-[180px] md:w-[350px] md:h-[200px] lg:w-[450px] lg:h-[250px] 1xl:h-[300px] 2xl:h-[400px]  overflow-hidden rounded-xl bg-[#141414] p-3 lg:p-5 font-sans shadow-2xl snap-center"
                     >
                       <div className="grid h-full gap-5 lg:gap-10 justify-between">
                         <div>
@@ -331,7 +331,7 @@ export default function FractionalTalent({
                 : comptition?.map((curE, i) => (
                     <div
                       key={i}
-                      className="relative flex-shrink-0 w-[240px] h-[180px] md:w-[330px] md:h-[200px] lg:w-[430px] lg:h-[250px] overflow-hidden rounded-xl bg-[#141414] p-3 lg:p-5 font-sans shadow-2xl snap-center"
+                      className="relative flex-shrink-0 w-[240px] h-[180px] md:w-[330px] md:h-[200px] lg:w-[430px] lg:h-[250px] 1xl:h-[300px] 2xl:h-[400px] overflow-hidden rounded-xl bg-[#141414] p-3 lg:p-5 font-sans shadow-2xl snap-center"
                     >
                       <div className="grid h-full gap-5 lg:gap-10 justify-between">
                         <div>
