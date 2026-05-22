@@ -5,7 +5,6 @@ import ScrollReveal from "@/components/ScrollReveal.jsx";
 import AnimatedContent from "@/components/AnimatedContent.jsx";
 import FadeContent from "@/components/FadeContent";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import Image from "next/image";
 
 const talent = [
   {
@@ -43,7 +42,6 @@ const sections = [
       "Product Designer",
       "UI Designer",
       "Graphic Designer",
-      "Graphic Designer",
       "Web Designer",
     ],
   },
@@ -67,6 +65,14 @@ const sections = [
   },
 ];
 
+const comptition = [
+  { img: "/assets/comperision/img1.png", name: "Upwork" },
+  { img: "/assets/comperision/img2.png", name: "Toptal" },
+  { img: "/assets/comperision/img3.jpg", name: "Marketerhire" },
+  { img: "/assets/comperision/img4.jpg", name: "Braintrust" },
+  { img: "/assets/comperision/img5.png", name: "Fivver" },
+];
+
 export default function FractionalTalent({
   textColor,
   bgColor,
@@ -77,55 +83,80 @@ export default function FractionalTalent({
 }) {
   const targetRef = useRef(null);
   const horizontalScrollRef = useRef(null); 
+  const containerRef = useRef(null); 
   
   const { scrollYProgress } = useScroll({
     target: targetRef,
+    offset: ["start start", "end end"]
   });
 
   const [visibleCards, setVisibleCards] = useState(talent);
   const [isMobileOnly, setIsMobileOnly] = useState(false);
-  const [transformXValue, setTransformXValue] = useState("-60%"); 
   
-  // Smart Button Disable States
+  const [maxScrollX, setMaxScrollX] = useState(-1000); 
+  const [dynamicSectionHeight, setDynamicSectionHeight] = useState("200vh");
+  
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  // Custom motion value for absolute sync override on button click
   const manualXProgress = useMotionValue(0);
   const smoothManualX = useSpring(manualXProgress, { stiffness: 60, damping: 15 });
-
-  // Dynamic handler that switches source of truth automatically
   const [isManualOverride, setIsManualOverride] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
+    const calculateScrollValues = () => {
       const width = window.innerWidth;
+      
       if (width < 768) {
         setVisibleCards(talent?.slice(0, -1));
         setIsMobileOnly(true);
-      } else if (width >= 768 && width < 1025) {
-        setVisibleCards(talent);
-        setIsMobileOnly(false);
-        setTransformXValue("-48%"); 
+        setDynamicSectionHeight("auto");
+        setMaxScrollX(0);
       } else {
-        setVisibleCards(talent);
         setIsMobileOnly(false);
-        setTransformXValue("-60%"); 
+        setVisibleCards(talent);
+        
+        if (containerRef.current) {
+          const scrollWidth = containerRef.current.scrollWidth; 
+          const clientWidth = containerRef.current.clientWidth; 
+          
+          const scrollDistance = scrollWidth - clientWidth;
+          
+          if (scrollDistance > 0) {
+            setMaxScrollX(-scrollDistance); 
+            // यहाँ 400px हमारी ट्रैक हाइट (sticky height) को बैलेंस करता है
+            setDynamicSectionHeight(`${400 + scrollDistance}px`);
+          }
+        }
       }
     };
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    const timer = setTimeout(() => {
+      calculateScrollValues();
+    }, 50);
 
-  // Sync scrollYProgress or manual click progress into the layout transformation
-  const scrollTransform = useTransform(scrollYProgress, [0, 1], ["0%", transformXValue]);
-  const manualTransform = useTransform(smoothManualX, [0, 1], ["0%", transformXValue]);
+    const observer = new ResizeObserver(() => {
+      calculateScrollValues();
+    });
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+    
+    window.addEventListener("resize", calculateScrollValues);
+    
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+      window.removeEventListener("resize", calculateScrollValues);
+    };
+  }, [bgColor, visibleCards]);
+
+  const scrollTransform = useTransform(scrollYProgress, [0, 1], [0, maxScrollX], { clamp: true });
+  const manualTransform = useTransform(smoothManualX, [0, 1], [0, maxScrollX], { clamp: true });
   
   const dynamicX = isManualOverride ? manualTransform : scrollTransform;
 
-  // --- FIX: Mobile Native Swiping Scroll Tracker ---
   const checkScrollPosition = () => {
     if (horizontalScrollRef.current && isMobileOnly) {
       const { scrollLeft, scrollWidth, clientWidth } = horizontalScrollRef.current;
@@ -134,38 +165,32 @@ export default function FractionalTalent({
     }
   };
 
-  // --- FIX: Desktop & Tablet Wheel/Progress Tracker ---
   useEffect(() => {
     if (!isMobileOnly) {
       return scrollYProgress.on("change", (latest) => {
-        // अगर यूजर व्हील स्क्रॉल कर रहा है, तभी यह बटन स्टेट को संभालेगा
         if (!isManualOverride) {
-          setCanScrollLeft(latest > 0.02);
-          setCanScrollRight(latest < 0.98);
+          setCanScrollLeft(latest > 0.01);
+          setCanScrollRight(latest < 0.99);
         }
       });
     }
   }, [scrollYProgress, isMobileOnly, isManualOverride]);
 
-  // Listen to wheel/scroll resets to give control back to standard scrolling
   useEffect(() => {
-    const resetOverride = () => setIsManualOverride(false);
-    window.addEventListener("wheel", resetOverride);
-    window.addEventListener("touchmove", resetOverride);
+    const resetOverride = () => {
+      if (isManualOverride) {
+        setIsManualOverride(false);
+        manualXProgress.set(scrollYProgress.get());
+      }
+    };
+    window.addEventListener("wheel", resetOverride, { passive: true });
+    window.addEventListener("touchmove", resetOverride, { passive: true });
     return () => {
       window.removeEventListener("wheel", resetOverride);
       window.removeEventListener("touchmove", resetOverride);
     };
-  }, []);
+  }, [isManualOverride, scrollYProgress, manualXProgress]);
 
-  // Sync state initially for Mobile view bounds
-  useEffect(() => {
-    if (isMobileOnly) {
-      checkScrollPosition();
-    }
-  }, [isMobileOnly]);
-
-  // --- FIX: बटन क्लिक करने पर डिसेबल और जंप लॉजिक ---
   const scrollHorizontal = (direction) => {
     if (isMobileOnly) {
       if (horizontalScrollRef.current) {
@@ -178,33 +203,28 @@ export default function FractionalTalent({
         setTimeout(checkScrollPosition, 300);
       }
     } else {
-      // मैन्युअल ओवरराइड चालू करें ताकि यह scrollYProgress को कुछ देर के लिए अनदेखा करे
       setIsManualOverride(true);
       
+      if (manualXProgress.get() === 0 && scrollYProgress.get() !== 0) {
+        manualXProgress.set(scrollYProgress.get());
+      }
+
       const currentProgress = manualXProgress.get();
-      const step = window.innerWidth < 1025 ? 0.33 : 0.25; // 4 कार्ड्स के लिए बेस्ट स्टेप्स
+      const totalCards = bgColor === "#1c143d" ? comptition.length : visibleCards.length;
+      const step = 1 / (totalCards - 1); 
       
       let nextProgress = direction === "left" ? currentProgress - step : currentProgress + step;
       nextProgress = Math.max(0, Math.min(1, nextProgress));
       
       manualXProgress.set(nextProgress);
-
-      // तुरंत बटन इनेबल/डिसेबल स्टेट्स अपडेट करें
       setCanScrollLeft(nextProgress > 0.01);
       setCanScrollRight(nextProgress < 0.99);
     }
   };
 
-  const comptition = [
-    { img: "/assets/comperision/img1.png", name: "Upwork" },
-    { img: "/assets/comperision/img2.png", name: "Toptal" },
-    { img: "/assets/comperision/img3.jpg", name: "Marketerhire" },
-    { img: "/assets/comperision/img4.jpg", name: "Braintrust" },
-    { img: "/assets/comperision/img5.png", name: "Fivver" },
-  ];
-
   return (
     <>
+      {/* --- Upper Header Section --- */}
       <section className="w-full text-white py-0 px-10 md:px-20 lg:px-32">
         <div className="w-full mx-auto flex flex-col justify-between gap-10">
           <div className="flex-1">
@@ -230,12 +250,7 @@ export default function FractionalTalent({
               </div>
             </AnimatedContent>
 
-            <ScrollReveal
-              baseOpacity={0.1}
-              enableBlur
-              blurStrength={1}
-              baseRotation={0}
-            >
+            <ScrollReveal baseOpacity={0.1} enableBlur blurStrength={1} baseRotation={0}>
               <h2 className="text-[35px] md:text-[65px] lg:text-[72px] font-mulish leading-[1] tracking-tight mb-12">
                 {heading}
               </h2>
@@ -269,23 +284,23 @@ export default function FractionalTalent({
         </div>
       </section>
 
+      {/* --- Horizontal Scroll Section --- */}
       <section className="relative">
         <div
           ref={targetRef}
-          className={`relative ${
-            textColor === "#ff0044" 
-              ? "h-auto md:h-[180vh] lg:h-[160vh]" 
-              : "h-auto md:h-[230vh] lg:h-[200vh]"
-          } ${role === "work" ? "hidden" : "block"} `}
+          style={{ height: dynamicSectionHeight }}
+          className={`relative w-full ${role === "work" ? "hidden" : "block"}`}
         >
+          {/* --- FIX FIXED: md:h-screen को हटाकर md:h-[380px] किया ताकि गैप खत्म हो और md:top-[10%] से स्क्रीन के ऊपरी हिस्से में स्टिकी रहे --- */}
           <div 
             ref={horizontalScrollRef}
             onScroll={checkScrollPosition}
-            className="static md:sticky md:top-0 h-auto md:h-[80vh] w-full flex flex-col justify-start overflow-x-auto md:overflow-hidden scrollbar-hide scroll-smooth snap-x snap-mandatory md:snap-none"
+            className="static md:sticky md:top-[20%] h-auto md:h-[380px] w-full flex flex-col justify-start items-start overflow-x-auto md:overflow-hidden scrollbar-hide scroll-smooth snap-x snap-mandatory md:snap-none pt-4"
           >
             <motion.div
+              ref={containerRef}
               style={isMobileOnly ? {} : { x: dynamicX }}
-              className="flex gap-5 md:gap-7 lg:gap-10 px-10 pb-10  md:px-20 lg:px-32"
+              className="flex w-max gap-5 md:gap-7 lg:gap-10 px-10 pb-10 md:px-20 lg:px-32"
             >
               {bgColor !== "#1c143d"
                 ? visibleCards?.map((item, i) => (
@@ -313,42 +328,41 @@ export default function FractionalTalent({
                       </div>
                     </div>
                   ))
-                : comptition?.map((curE, i) => {
-                    return (
-                      <div
-                        key={i}
-                        className="relative flex-shrink-0 w-[240px] h-[180px] md:w-[330px] md:h-[200px] lg:w-[430px] lg:h-[250px] overflow-hidden rounded-xl bg-[#141414] p-3 lg:p-5 font-sans shadow-2xl snap-center"
-                      >
-                        <div className="grid h-full gap-5 lg:gap-10 justify-between">
-                          <div>
-                            <img
-                              alt={curE.name}
-                              src={curE.img}
-                              className="w-11 h-11 md:w-13 md:h-13 lg:w-15 lg:h-15 rounded-xl"
-                            />
-                          </div>
-
-                          <h2 className="text-lg md:text-2xl lg:text-3xl font-mulish text-white">
-                            Pangeya vs {curE.name}
-                          </h2>
-
-                          <button
-                            className="group flex w-fit items-center gap-1 md:gap-2 text-[10px] md:text-sm lg:text-base rounded-full px-2 md:px-3 lg:px-5 py-1 md:py-1.5 lg:py-2 font-mulish font-bold text-black transition-transform hover:scale-105 active:scale-95"
-                            style={{ backgroundColor: textColor }}
-                          >
-                            Compare
-                            <FiChevronRight className="h-3 w-3 md:h-5 md:w-5 stroke-[2.5]" />
-                          </button>
+                : comptition?.map((curE, i) => (
+                    <div
+                      key={i}
+                      className="relative flex-shrink-0 w-[240px] h-[180px] md:w-[330px] md:h-[200px] lg:w-[430px] lg:h-[250px] overflow-hidden rounded-xl bg-[#141414] p-3 lg:p-5 font-sans shadow-2xl snap-center"
+                    >
+                      <div className="grid h-full gap-5 lg:gap-10 justify-between">
+                        <div>
+                          <img
+                            alt={curE.name}
+                            src={curE.img}
+                            className="w-11 h-11 md:w-13 md:h-13 lg:w-15 lg:h-15 rounded-xl"
+                          />
                         </div>
+
+                        <h2 className="text-lg md:text-2xl lg:text-3xl font-mulish text-white">
+                          Pangeya vs {curE.name}
+                        </h2>
+
+                        <button
+                          className="group flex w-fit items-center gap-1 md:gap-2 text-[10px] md:text-sm lg:text-base rounded-full px-2 md:px-3 lg:px-5 py-1 md:py-1.5 lg:py-2 font-mulish font-bold text-black transition-transform hover:scale-105 active:scale-95"
+                          style={{ backgroundColor: textColor }}
+                        >
+                          Compare
+                          <FiChevronRight className="h-3 w-3 md:h-5 md:w-5 stroke-[2.5]" />
+                        </button>
                       </div>
-                    );
-                  })}
+                    </div>
+                  ))}
             </motion.div>
           </div> 
         </div> 
       </section>
 
-      <div className={`px-10 lg:px-32`}>
+      {/* --- Grid Roles Section --- */}
+      <div className="px-10 lg:px-32">
         <div
           className={`${role === "work" ? "block" : "hidden"} grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-10 w-full mx-auto`}
         >

@@ -43,10 +43,10 @@ export default function Home() {
       ></Talent>
 
       {/* start hiring */}
-    <div className="md:-mt-80 lg:-mt-0">
+  
 
       <StartHiring></StartHiring>
-    </div>
+    
 
       {/* FractionalTalent */}
       <FractionalTalent
@@ -65,7 +65,8 @@ export default function Home() {
 
       {/* why choose us */}
 
-        <div className="md:-mt-100 lg:-mt-0 xl:-mt-60 1xl:-mt-30 2xl:-mt-140">
+   
+   
       <ChooseUs
         textColor="#9070ff"
         bgColor="#1c143d"
@@ -78,7 +79,8 @@ export default function Home() {
         }
         subheading="Pangea's proudly helped thousands of clients connect with talent"
       ></ChooseUs>
-</div>
+
+
       {/* your expectations */}
       <YourExpectations
         textColor="#fb00c6"
@@ -102,7 +104,8 @@ export default function Home() {
       ></FractionalTalent>
 
       {/* help for hire */}
-       <div className="md:-mt-110 lg:-mt-0 xl:-mt-60 1xl:-mt-30 2xl:-mt-140">      <ChooseUs
+      
+           <ChooseUs
         textColor="#ff4d00"
         bgColor="#2a1205"
         title="End-to-End fractional hiring"
@@ -120,7 +123,8 @@ export default function Home() {
             of the way.
           </>
         }
-      ></ChooseUs></div>
+      ></ChooseUs>
+      
 
       {/* frictional grouth */}
       <Talent
@@ -139,8 +143,10 @@ export default function Home() {
       ></Talent>
 
       {/* start hiring */}
-       <div className="md:-mt-80 lg:-mt-0 1xl:-mt-30">
-      <StartHiring></StartHiring></div>
+       
+       
+      <StartHiring></StartHiring>
+      
 
       {/* our client */}
       <Talent
@@ -174,7 +180,8 @@ export default function Home() {
       ></FractionalTalent>
 
       {/* work */}
-       <div className="md:-mt-120 lg:-mt-0 xl:-mt-60 1xl:-mt-30 ">
+      
+      
       <FractionalTalent
      textColor="#fb00c6"
         bgColor="#3a002b"
@@ -188,7 +195,9 @@ export default function Home() {
           </>
         }
         subheading="Finding the right people is about hiring for the right role. Thankfully, we've got 'em covered."
-      ></FractionalTalent></div>
+      ></FractionalTalent>
+     
+     
       {/* questions */}
       
       <Quesitons ></Quesitons>
