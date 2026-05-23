@@ -137,6 +137,7 @@ export default function ChooseUs({textColor,bgColor,title,heading,subheading}) {
               alt="Man walking past large billboard advertisement"
               width={500}
               height={500}
+              loading="lazy"
               className="w-full h-full object-cover rounded-2xl"
             />
           

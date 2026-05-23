@@ -3,7 +3,7 @@ import { HiOutlineArrowRight } from 'react-icons/hi';
 
 export default function FindNextRoleCTA() {
   return (
-    <section className="relative w-full h-[400px] md:h-[600px]  lg:h-screen bg-[#0b0c10] flex items-center justify-center overflow-hidden ">
+    <section className="relative w-full h-[400px] md:h-[600px] py-10 lg:py-20 1xl:py-30 lg:h-screen bg-[#0b0c10] flex items-center justify-center overflow-hidden ">
      
       <div 
         className="absolute top-0 left-0 w-[20%] w md:w-[30%] h-[60%] md:h-full bg-gradient-to-br from-[#ff004e] via-[#ff004e]/60 to-transparent opacity-60 md:opacity-80 pointer-events-none"
