@@ -1,28 +1,26 @@
 import React from 'react'
 import FadeContent from '@/components/FadeContent.jsx';
 import { GoArrowRight } from "react-icons/go";
+
 export default function Main() {
   return (
-   <section className="grid w-full gap-8 sm:gap-10 lg:gap-0 justify-center md:justify-start text-white py-10 md:py-5 pt-20 md:pt-30 px-6 md:px-10 lg:px-20 overflow-hidden">
+   <section className="grid w-full gap-15 justify-center md:justify-start text-white py-10 md:py-5 pt-30 md:pt-30 1xl:pt-50 px-6 md:px-10 lg:px-20 1xl:px-25 overflow-hidden">
   
-  {/* Main Heading */}
-  <FadeContent
-    blur={true}
-    duration={1.5}
-    delay={3}
-    easing="ease-out"
-    initialOpacity={0}
-  >
+    {/* Main Heading */}
     <div>
-      <h1 className="text-4xl md:text-6xl lg:text-8xl tracking-wide leading-[1.1] mb-9 font-mulish">
-        Get matched to<br/> the <span className="text-[#ff004e]">perfect</span> role
-      </h1>
+      <FadeContent
+        blur={true}
+        duration={1.5}
+        delay={3}
+        easing="ease-out"
+        initialOpacity={0}
+      >
+        <h1 className="flex flex-col justify-center items-center md:block text-4xl md:text-6xl lg:text-8xl tracking-wide leading-[1.1] font-mulish">
+          Get matched to<br/> <span className="">the</span> <br className="block md:hidden"/> <span className="-mt-10 md:-mt-0"><span className="text-[#ff004e]">perfect</span> role</span> 
+        </h1>
+      </FadeContent>
     </div>
-  </FadeContent>
 
-  {/* Subtext & Button Container */}
-  {/* FIX 1: 'w-full' add kiya taaki sub-grid poori width le sake */}
-  <div className="grid w-full justify-center md:justify-start gap-5 md:gap-10 lg:gap-15">
     <div className="text-center md:text-start">
       <FadeContent
         blur={true}
@@ -40,27 +38,24 @@ export default function Main() {
     </div>
 
     {/* Button Wrapper */}
-    {/* FIX 2: 'w-full' add kiya taaki FadeContent ka parent container poori width stretch kare */}
-    <div className="flex justify-center md:justify-start w-full">
+    <div className="flex justify-center md:justify-start">
       <FadeContent
         blur={true}
         duration={1.5}
         delay={3}
         easing="ease-out"
         initialOpacity={0}
-        className="w-full" // FadeContent component ke andar w-full add karein agar yeh className support karta hai
       >
-        {/* FIX 3: 'max-w-[380px]' hata kar 'w-full' lagaya */}
-        <button className="flex justify-center items-center group gap-2 bg-[#ff004e] hover:bg-[#ff185e] transition-colors text-black py-2 md:py-3 px-4 md:px-5 rounded-full font-mulish font-bold text-base md:text-xl lg:text-3xl w-full">
+        {/* FIX: 'w-full' हटाकर पैडिंग को बढ़ाया ताकि बटन कंटेंट के हिसाब से सही चौड़ाई ले */}
+        <button className="flex justify-center items-center group gap-2 bg-[#ff004e] hover:bg-[#ff185e] transition-colors text-black py-2.5 md:py-4 px-8 md:px-12 rounded-full font-mulish font-bold text-base md:text-xl lg:text-2xl w-max md:w-[350px] xl:w-[400px] shadow-lg shadow-[#ff004e]/20 hover:shadow-[#ff004e]/40">
           <div className="flex justify-center items-center gap-1">
             Get Started
-            <GoArrowRight className="w-7 h-7 group-hover:translate-x-1 transition-transform" />
+            <GoArrowRight className="w-5 h-5 md:w-7 md:h-7 group-hover:translate-x-1 transition-transform" />
           </div>
         </button>
       </FadeContent>
     </div>
-  </div>
 
-</section>
+   </section>
   )
 }

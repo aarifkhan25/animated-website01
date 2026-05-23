@@ -347,7 +347,7 @@ export default function FractionalTalent({
                         </h2>
 
                         <button
-                          className="group flex w-fit items-center gap-1 md:gap-2 text-[10px] md:text-sm lg:text-base 2xl:text-lg rounded-full px-2 md:px-3 lg:px-5 py-1 md:py-1.5 lg:py-2 font-mulish font-bold text-black transition-transform hover:scale-105 active:scale-95"
+                          className="group flex w-fit items-center gap-1 md:gap-2 text-[10px] md:text-sm lg:text-base 2xl:text-xl rounded-full px-2 md:px-3 lg:px-5 py-1 md:py-1.5 lg:py-2 font-mulish font-bold text-black transition-transform hover:scale-105 active:scale-95"
                           style={{ backgroundColor: textColor }}
                         >
                           Compare

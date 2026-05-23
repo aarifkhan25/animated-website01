@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef,useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion"
 import { GoArrowRight } from "react-icons/go";
 
@@ -11,8 +11,9 @@ const companies = [
 ];
 export default function Card() {
  const containerRef = useRef(null);
+const [isMobile,setIsMobile]=useState(false);
+ 
 
-  // 1. Container ke scroll progress ko track karein
   const { scrollYProgress } = useScroll({
     target: containerRef,
     // "start end" = Jab card ka top screen ke bottom se enter karega
@@ -30,7 +31,7 @@ export default function Card() {
   const opacity = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0, 0.5, 1, 0.5, 0]); // Fade effect
 
   return (
-    <div     ref={containerRef}    style={{ perspective: "1000px" }}  className="flex items-center justify-center min-h-screen px-6 md:px-10 lg:px-20 ">
+    <div     ref={containerRef}    style={{ perspective: "1000px" }}  className="flex items-center justify-center min-h-screen px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-30 ">
       {/* Main Parent Container */}
       <motion.div style={{
           rotateX,
@@ -58,7 +59,7 @@ export default function Card() {
           </div>
 
           <div className="mt-12">
-            <button className="group flex items-center justify-center gap-2 bg-[#ff004e] hover:bg-[#ff185e] transition-all text-black px-8 py-4 rounded-full font-bold text-sm md:text-lg">
+            <button className="group flex items-center justify-center gap-2 bg-[#ff004e] hover:bg-[#ff185e] transition-all text-black  rounded-full font-bold font-mulish p-3 lg:py-3 lg:px-4  1xl:py-6 1xl:px-8 text-sm lg:text-lg 1xl:text-2xl ">
               Get Started
               <GoArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
             </button>
@@ -70,7 +71,7 @@ export default function Card() {
           {companies?.map((comp, i) => (
             <div
               key={i}
-              className="bg-[#0d0d0d] rounded-2xl py-6 px-4 flex items-center justify-center border border-white/5 shadow-2xl min-h-[80px]"
+              className="bg-[#0d0d0d] rounded-2xl md:py-2 md:px-1 lg:py-6 lg:px-4 flex items-center justify-center border border-white/5 shadow-2xl min-h-[80px]"
             >
               <div
                 className="w-full max-w-[140px] h-10 md:h-12 bg-[#ff004e]"

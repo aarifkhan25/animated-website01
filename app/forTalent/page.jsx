@@ -6,6 +6,7 @@ import Services from "../components/forTalent/Services.jsx"
 
 import Work from '../components/forTalent/Work.jsx';
 import Card from '../components/forTalent/Card.jsx';
+import FindNextRoleCTA from "../components/forTalent/FindNextRoleCTA.jsx";
 export default function ForTalent() {
  
   return (
@@ -31,6 +32,7 @@ export default function ForTalent() {
       <Work title=" The new way to work" heading={<>Build longer relationships <br/> with Fractional Hiring </>}
        
         subheading="Jobs on Pangea last longer, pay better, and bill more hours than the average freelance project."/>
+        <FindNextRoleCTA/>
 
        
     </>

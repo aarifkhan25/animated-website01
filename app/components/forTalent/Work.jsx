@@ -12,7 +12,7 @@ const data = [
 ];
 export default function Work({ title, heading, subheading }) {
   return (
-     <section className="  w-full   py-10 px-4 md:px-6 md:py-5 overflow-hidden">
+     <section className="  w-full   py-10 lg:py-20 1xl:py-30 px-6 md:px-10 lg:px-20 1x:px-25  overflow-hidden">
                 <div className="flex flex-col gap-0 md:gap-5  lg:gap-0 items-center justify-center text-white">
                 {/* Top Badge */}
                 <AnimatedContent
@@ -45,7 +45,7 @@ export default function Work({ title, heading, subheading }) {
                   >
                 <div className=" text-center  ">
                 
-                  <h1 className="text-2xl md:text-5xl lg:text-6xl  tracking-wide leading-[1.1] mb-9 font-mulish "> {heading} </h1>
+                  <h1 className="text-2xl md:text-[45px] lg:text-[56px]  tracking-wide leading-[1.1] mb-9 font-mulish "> {heading} </h1>
                 </div>
         </FadeContent>
                 {/* Subtext */}
