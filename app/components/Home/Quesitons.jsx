@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrollReveal from "@/components/ScrollReveal.jsx";
 import AnimatedContent from "@/components/AnimatedContent.jsx";
+import { HiOutlineChevronDown } from "react-icons/hi";
 export default function Quesitons() {
     const [openId, setOpenId] = useState(null);
 
@@ -111,16 +112,7 @@ export default function Quesitons() {
                 transition={{ duration: 0.3 }}
                 className="text-white ml-4"
               >
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  fill="none" 
-                  viewBox="0 0 24 24" 
-                  strokeWidth={2} 
-                  stroke="currentColor" 
-                  className="w-6 h-6"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                </svg>
+               <HiOutlineChevronDown className="w-6 h-6 stroke-[2]" />
               </motion.div>
             </button>
 

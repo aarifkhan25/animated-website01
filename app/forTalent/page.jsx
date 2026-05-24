@@ -7,7 +7,7 @@ import Services from "../components/forTalent/Services.jsx"
 import Work from '../components/forTalent/Work.jsx';
 import Card from '../components/forTalent/Card.jsx';
 import FindNextRoleCTA from "../components/forTalent/FindNextRoleCTA.jsx";
-
+import FAQ from "../components/forTalent/FAQ.jsx";
 export default function ForTalent() {
  
   return (
@@ -46,7 +46,7 @@ that share your vision
 "/>
         <FindNextRoleCTA/>
 
-
+<FAQ/>
        
     </>
   );
