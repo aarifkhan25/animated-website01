@@ -239,7 +239,7 @@ export default function Work({ title, heading, subheading, role }) {
                         src="/assets/remoteImg.avif"
                         className="w-full h-full object-cover  rounded-xl"
                       />
-                      <div className="absolute top-31 md:top-30 lg:top-43 p-2 md:p-5  left-0 w-full h-full  ">
+                      <div className="absolute top-[70%]   p-2 md:p-5  left-0 w-full h-full  ">
                         <div className="flex justify-start gap-2 md:gap-3  lg:gap-5 p-1.5 md:p-3 rounded-lg bg-[#141414]  shadow-2xl border border-white/5">
                           <div className="text-[#ff004e] text-base md:text-xl lg:text-2xl">
                             {curE.icon}
@@ -305,7 +305,7 @@ export default function Work({ title, heading, subheading, role }) {
                        loading="lazy"
                   src={freelance2[activeTab].img} 
                   alt={freelance2[activeTab].heading} 
-                  className="w-full h-auto object-cover max-h-[400px] md:max-h-[500px]" 
+                  className="w-full h-auto object-cover max-h-[400px] md:max-h-[500px] 2xl:max-h-[600px] " 
                 />
                   <div
               className="absolute bottom-0 left-0 right-0 h-[20px] flex flex-col justify-end p-3 md:p-6"
