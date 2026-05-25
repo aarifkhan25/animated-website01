@@ -71,7 +71,7 @@ export default function PageScrollSpyAnimation() {
         <div className=" w-full h-screen md:h-[58vh] lg:h-[80vh] flex flex-col-reverse md:flex-row overflow-hidden items-center gap-4 md:gap-0">
           
           {/* 1st DIV: टेक्स्ट वाला हिस्सा */}
-         <div className="h-[50vh] md:h-full flex-[6] w-full overflow-hidden relative flex flex-col px-6 md:px-12 lg:px-20 py-[20vh] md:py-[2vh] lg:py-[30vh]">
+         <div className="h-[50vh] md:h-full flex-[6] w-full overflow-hidden relative flex flex-col px-6 md:px-12 lg:px-20 1xl:px-25 2xl:px-30 py-[20vh] md:py-[2vh] lg:py-[30vh]">
             <motion.div 
               style={{ y: textY }} 
               className="w-full flex flex-col"
