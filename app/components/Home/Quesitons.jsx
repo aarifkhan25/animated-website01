@@ -90,7 +90,7 @@ export default function Quesitons() {
                       animateOpacity
                       scale={1}
                       threshold={0.2}
-                      delay={0.5}
+                      delay={0.1}
                        key={item.id} 
                     >
           <div 

@@ -47,13 +47,14 @@ that share your vision
        role="freelance"
         subheading="Built different, from the ground up, by people who wanted a better way to work with interesting clients.
 "/>
-        <FindNextRoleCTA/>
+        
  <Work title=" Discover the difference" heading={<>We’re not just another <br/> freelance site
  </>}
        role="work"
         subheading="Built different, from the ground up, by people who wanted a better way to work with interesting clients.
 "/>
 <FAQ/>
+<FindNextRoleCTA/>
 
     </>
   );

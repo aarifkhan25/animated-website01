@@ -115,7 +115,7 @@ const data = [
 export default function Work({ title, heading, subheading, role }) {
    const [activeTab, setActiveTab] = useState(0);
   return (
-  <>  <section className="  w-full   pb-10 lg:pb-20 1xl:pb-30 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-30  overflow-hidden">
+  <>  <section className={`  w-full   pb-10 lg:pb-20 1xl:pb-30 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-30  overflow-hidden ${role ==="work" ? "bg-[#1A1A1A]" : ""}`}>
       <div className="flex flex-col gap-0 md:gap-5  lg:gap-0 items-center justify-center text-white">
         {/* Top Badge */}
         <AnimatedContent
