@@ -22,16 +22,15 @@ const [isMobile,setIsMobile]=useState(false);
     offset: ["start end", "center center", "end start"],
   });
 
-  // 2. 3D Transforms: Shuruat mein 3D tilt -> Center mein normal (0) -> Baahar jaate waqt fir se 3D tilt
-  // scrollYProgress:  [   0,     0.5,      1   ]  (0 = Bottom, 0.5 = Center, 1 = Top)
   
-  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [45, 0, -45]); // X axis par tilt
-  const rotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-25, 0, 25]); // Y axis par tilt
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);  // Center mein aate hi zoom-in hoga
-  const opacity = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0, 0.5, 1, 0.5, 0]); // Fade effect
+  
+const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [22, 0, -22]);
+  const rotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-12, 0, 12]); 
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.9]);  
+  const opacity = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0, 0.5, 1, 0.5, 0]);
 
   return (
-    <div     ref={containerRef}    style={{ perspective: "1000px" }}  className={`flex items-center justify-center ${role !=="remote" ? " px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-30  min-h-screen  ":""}`}>
+    <div     ref={containerRef}    style={{ perspective: "2000px" }}  className={`flex items-center justify-center ${role !=="remote" ? " px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-30  lg:min-h-screen  ":""}`}>
       {/* Main Parent Container */}
       <motion.div style={{
           rotateX,

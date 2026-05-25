@@ -1,6 +1,7 @@
 import React from 'react';
 import { HiOutlineArrowRight } from 'react-icons/hi';
-
+import FadeContent from '@/components/FadeContent.jsx';
+import AnimatedContent from "@/components/AnimatedContent.jsx";
 export default function FindNextRoleCTA() {
   return (
     <section className="relative w-full h-[400px] md:h-[600px] py-10 lg:py-20 1xl:py-30 lg:h-screen bg-[#0b0c10] flex items-center justify-center overflow-hidden ">
@@ -40,22 +41,33 @@ export default function FindNextRoleCTA() {
         
        
        <div><span className="text-[#ff004e]  font-jb-mono  text-[11px]  md:text-sm lg:text-base uppercase ">
-          Stop Waiting, Start Matching
+         <AnimatedContent
+                                    distance={20}
+                                    direction="vertical"
+                                    reverse
+                                    duration={1.5}
+                                    ease="power3.out"
+                                    initialOpacity={0}
+                                    animateOpacity
+                                    scale={1}
+                                    threshold={0.2}
+                                    delay={0.1} // Staggered delay for smooth rendering
+                                  > Stop Waiting, Start Matching </AnimatedContent> 
         </span></div>
 
        <div> <h2 className="text-2xl md:text-[45px] lg:text-[56px]  tracking-wide leading-[1.1]  font-mulish">
-          Find your next role on <br/>  Pangea Today
+          <FadeContent blur={true} duration={1.5} delay={0.3} easing="ease-in" initialOpacity={0}>Find your next role on <br/>  Pangea Today</FadeContent> 
         </h2></div>
 
         
       <div>  <p className="text-white text-sm md:text-2xl font-mulish">
-          Create your free account now to get started
+           <FadeContent blur={true} duration={1.5} delay={0.3} easing="ease-in" initialOpacity={0}>Create your free account now to get started</FadeContent>
         </p></div>
 
-      <div>  <button className="group flex items-center justify-center gap-2 py-2.5 md:py-4 px-8 md:px-12 bg-[#ff004e] text-black text-base md:text-xl lg:text-2xl font-bold font-mulish  rounded-full transition-all duration-300 hover:bg-[#e6004c] hover:scale-105 active:scale-95 shadow-lg shadow-[#ff004e]/20">
+      <div> <FadeContent blur={true} duration={1.5} delay={0.3} easing="ease-in" initialOpacity={0}>  <button className="group flex items-center justify-center gap-2 py-2.5 md:py-4 px-8 md:px-12 bg-[#ff004e] text-black text-base md:text-xl lg:text-2xl font-bold font-mulish  rounded-full transition-all duration-300 hover:bg-[#e6004c] hover:scale-105 active:scale-95 shadow-lg shadow-[#ff004e]/20">
           Get Started
           <HiOutlineArrowRight className="text-base md:text-lg stroke-[2.5] transition-transform duration-300 group-hover:translate-x-1" />
-        </button></div>
+        </button></FadeContent></div>
 
       </div>
     </section>

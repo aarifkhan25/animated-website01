@@ -30,7 +30,7 @@ export default function Services() {
   return (
     <div 
         ref={containerRef}
-        className="w-full overflow-hidden  pb-20 relative flex flex-col gap-5"
+        className="w-full overflow-hidden  pb-20 relative flex flex-col gap-5 mt-5 lg:mt-0"
       >
       
 

@@ -44,9 +44,9 @@ export default function ChooseUs({textColor,bgColor,title,heading,subheading}) {
     });
     
     // 2. Base transforms variables
-    const baseRotateX = useTransform(scrollYProgress, [0, 0.5, 1], [45, 0, -45]);
-    const baseRotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-25, 0, 25]);
-    const baseScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
+    const baseRotateX = useTransform(scrollYProgress, [0, 0.5, 1], [22, 0, -22]);
+    const baseRotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-12, 0, 12]);
+    const baseScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.9]);
     const opacity = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0, 0.5, 1, 0.5, 0]);
 
     // --- FIX: Agar mobile hai toh 3D transforms ko static (0 और 1) kar dein ---

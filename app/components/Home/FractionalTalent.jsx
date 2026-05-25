@@ -370,7 +370,7 @@ export default function FractionalTalent({
             <FadeContent
               blur={true}
               duration={1000}
-              delay={0.5}
+              delay={0.3}
               easing="ease-out"
               initialOpacity={0}
               key={index}

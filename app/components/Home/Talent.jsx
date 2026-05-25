@@ -245,7 +245,7 @@ export default function FractionalTalent({
                     {subheading}
                   </p>
                 </div>
-                <div>
+                <div className={`${role !== "client" ? "block" : "hidden"}`}>
                   <div className="flex gap-4">
                     <button 
                       disabled={!canScrollLeft}

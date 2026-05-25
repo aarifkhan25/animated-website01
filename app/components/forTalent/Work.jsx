@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import {useState} from "react";
 import AnimatedContent from "@/components/AnimatedContent.jsx";
 import FadeContent from "@/components/FadeContent";
 import ScrollReveal from "@/components/ScrollReveal.jsx";
@@ -12,6 +12,31 @@ import { RiBankLine } from "react-icons/ri";
 import { TbFileInvoice } from "react-icons/tb";
 import Image from "next/image";
 import Card from '../forTalent/Card.jsx';
+import { GoGoal } from "react-icons/go";
+import { FaRegCompass } from "react-icons/fa";
+import { LuCopyCheck } from "react-icons/lu";
+
+const freelance2 = [
+  {
+    icon: <GoGoal />,
+    title: "less leg work",
+    heading: "Application Tracker",
+  img:'/assets/story3.avif'
+  },
+  {
+    icon: <FaRegCompass />,
+    title: "less leg work",
+    heading: "Interview Co-Pilot",
+   img:"/assets/story2.avif"
+   
+  },
+  {
+    icon: <LuCopyCheck />,
+    title: "less leg work",
+    heading: "Get paid easily",
+   img:"/assets/story4.avif"
+  },
+]
 const freelance = [
   {
     icon: <BsArrowUpRightCircle />,
@@ -67,7 +92,7 @@ const data = [
     ),
     title: "Longer projects",
     subTitle: "than average Upwork project",
-    delay: 0.5,
+    delay: 0.6,
   },
   {
     name: (
@@ -78,18 +103,19 @@ const data = [
     ),
     title: "Higher hourly rates",
     subTitle: "than US freelance average",
-    delay: 1,
+    delay: 0.7,
   },
   {
     name: "$4M",
     title: "Earned on platform",
     subTitle: "by freelancers on Pangea",
-    delay: 1.5,
+    delay: 0.8,
   },
 ];
 export default function Work({ title, heading, subheading, role }) {
+   const [activeTab, setActiveTab] = useState(0);
   return (
-  <>  <section className="  w-full   py-10 lg:py-20 1xl:py-30 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-30  overflow-hidden">
+  <>  <section className="  w-full   pb-10 lg:pb-20 1xl:pb-30 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-30  overflow-hidden">
       <div className="flex flex-col gap-0 md:gap-5  lg:gap-0 items-center justify-center text-white">
         {/* Top Badge */}
         <AnimatedContent
@@ -101,10 +127,10 @@ export default function Work({ title, heading, subheading, role }) {
           animateOpacity
           scale={1}
           threshold={0.2}
-          delay={0.5}
+          delay={0.1}
         >
           <div className="mt-10 md:mt-25 mb-10 md:mb-0">
-            <span className=" text-[#ff004e]  font-jb-mono  text-[11px]  md:text-sm lg:text-base uppercase">
+            <span className=" text-[#ff004e]  font-jb-mono  text-xs  md:text-sm lg:text-base uppercase">
               {title}
             </span>
           </div>
@@ -114,7 +140,7 @@ export default function Work({ title, heading, subheading, role }) {
         <FadeContent
           blur={true}
           duration={1.5}
-          delay={0.5}
+          delay={0.3}
           easing="ease-out"
           initialOpacity={0}
         >
@@ -132,7 +158,7 @@ export default function Work({ title, heading, subheading, role }) {
             duration={1.5}
             easing="ease-in"
             initialOpacity={0}
-            delay={1}
+            delay={0.5}
           >
             <p className="text-white text-sm md:text-2xl font-mulish">
               {subheading}
@@ -140,7 +166,7 @@ export default function Work({ title, heading, subheading, role }) {
           </FadeContent>
         </div>
       </div>
-      <div className=" py-10  grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5 lg:gap-8 justify-center items-stretch">
+    { role !=="work"? (<div className=" py-10  grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5 lg:gap-8 justify-center items-stretch">
         {" "}
         {role !== "freelance"
           ? data?.map((curE, i) => {
@@ -171,14 +197,22 @@ export default function Work({ title, heading, subheading, role }) {
             })
           : freelance?.map((curE, i) => {
               return (
+                 <FadeContent
+                              blur={true}
+                              duration={1000}
+                              delay={0.3}
+                              easing="ease-out"
+                              initialOpacity={0}
+                              key={i}
+                            >
                 <div
-                  key={i}
+                 
                   className="rounded-xl bg-[#141414] shadow-2xl border border-white/5 h-full flex flex-col overflow-hidden"
                 >
                   
                   {curE.title !== "Always remote" ? (
                     <div className="w-full p-2 md:p-4 lg:p-6  flex flex-col justify-start items-start gap-3 md:gap-4 lg:gap-5 h-full">
-                      <div className="flex justify-start gap-2  md:gap-5">
+                      <div className="flex justify-start gap-2 md:gap-3 lg:gap-5">
                         <div className="text-[#ff004e] tex-base md:text-xl lg:text-2xl">
                           {curE.icon}
                         </div>
@@ -206,7 +240,7 @@ export default function Work({ title, heading, subheading, role }) {
                         className="w-full h-full object-cover  rounded-xl"
                       />
                       <div className="absolute top-31 md:top-30 lg:top-43 p-2 md:p-5  left-0 w-full h-full  ">
-                        <div className="flex justify-start gap-2  md:gap-5 p-1.5 md:p-3 rounded-lg bg-[#141414]  shadow-2xl border border-white/5">
+                        <div className="flex justify-start gap-2 md:gap-3  lg:gap-5 p-1.5 md:p-3 rounded-lg bg-[#141414]  shadow-2xl border border-white/5">
                           <div className="text-[#ff004e] text-base md:text-xl lg:text-2xl">
                             {curE.icon}
                           </div>
@@ -217,10 +251,72 @@ export default function Work({ title, heading, subheading, role }) {
                       </div>
                     </div>
                   )}
-                </div>
+                </div></FadeContent>
+
               );
             })}
-      </div>
+      </div>):(  <div className="w-full flex flex-col items-center">
+            
+            {/* 1. BUTTONS GRID */}
+<div className="py-10 flex flex-row md:grid md:grid-cols-3 gap-6 md:gap-7 lg:gap-10 justify-start md:justify-center overflow-x-auto md:overflow-hidden hide-scrollbar  w-full snap-x snap-mandatory">      
+          {freelance2?.map((curE, i) => {
+                const isActive = activeTab === i;
+      
+                return (
+<div key={i} className="flex flex-col relative pb-1 shrink-0 w-[70%] sm:w-[45%] md:w-full snap-center">                    {/* बटन पर क्लिक करने से स्टेट बदलेगी */}
+                    <button 
+                      onClick={() => setActiveTab(i)}
+                      className="w-full cursor-pointer pb-2 md:pb-4 lg:pb-7 flex flex-col justify-start items-start gap-2 md:gap-2 lg:gap-5 text-left transition-all duration-300"
+                    >
+                      <div className="flex justify-start gap-2 md:gap-5 items-center">
+                        {/* एक्टिव होने पर आइकॉन और टाइटल का कलर भी थोड़ा ब्राइट रख सकते हैं */}
+                        <div className={`text-[#ff004e] text-base md:text-xl lg:text-3xl transition-opacity ${isActive ? 'opacity-100' : 'opacity-60'}`}>
+                          {curE.icon}
+                        </div>
+                        <div className={`text-[#ff004e] font-jb-mono text-[10px] md:text-sm lg:text-xl uppercase transition-opacity ${isActive ? 'opacity-100' : 'opacity-60'}`}>
+                          {curE.title}
+                        </div>
+                      </div>
+      
+                      <div className={`text-white text-base md:text-[22px] lg:text-4xl font-semibold font-mulish transition-opacity ${isActive ? 'opacity-100' : 'opacity-50'}`}>
+                        {curE.heading}
+                      </div>
+                    </button>
+      
+                    {/* FIX 2: बॉर्डर बॉटम जो एक्टिव होने पर opacity-100 और बाकी पर opacity-10 रहेगा */}
+                    <div 
+                      className={`absolute bottom-0 left-0 w-full h-1 bg-[#ff004e] transition-all duration-300 ${
+                        isActive ? "opacity-100" : "opacity-30"
+                      }`} 
+                    />
+                  </div>
+                );
+              })}
+            </div>
+      
+           
+            <div className="w-full    transition-all duration-500 ease-in-out ">
+              <div className="w-full relative overflow-hidden rounded-xl border border-white/5 shadow-2xl">
+                <Image
+                       
+                       width={500}
+                       height={500}
+                      
+                       loading="lazy"
+                  src={freelance2[activeTab].img} 
+                  alt={freelance2[activeTab].heading} 
+                  className="w-full h-auto object-cover max-h-[400px] md:max-h-[500px]" 
+                />
+                  <div
+              className="absolute bottom-0 left-0 right-0 h-[20px] flex flex-col justify-end p-3 md:p-6"
+              style={{
+                background: `linear-gradient(to top,#ff004e  0%, transparent 100%)`,
+              }}
+            ></div>
+              </div>
+            </div>
+      
+          </div>) }
 
       {/* star setion */}
      {  role !=="freelance"? (
@@ -230,7 +326,7 @@ export default function Work({ title, heading, subheading, role }) {
         baseRotation={0}
         blurStrength={4}
       >
-      <div className={`w-full grid justify-center items-center gap-5  md:mt-10`}>
+      <div className={`w-full ${role === "work" ? "hidden":"grid"}  justify-center items-center gap-5  md:mt-10`}>
           <div className="flex justify-center items-center gap-3">
             {[1, 2, 3, 4, 5].map((star) => {
               return star === 5 ? (
@@ -251,11 +347,12 @@ export default function Work({ title, heading, subheading, role }) {
               Rated 4.6/5 on G2
             </p>
           </div>
+       
         </div>
       </ScrollReveal>
         )
         
-    :(<Card  title="Worldwide network" heading={<>Currently active in 165+ <br/> Countries
+    :(<Card className={`${role === "work" ? "hidden" : "block"}`} title="Worldwide network" heading={<>Currently active in 165+ <br/> Countries
      </>}
           role="remote"
             subheading="Pangea supports payouts in your currency via our payment processing partner Stripe. Check the list below to see if your country is currently enabled for payouts on Pangea.
