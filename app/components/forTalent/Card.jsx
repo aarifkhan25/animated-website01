@@ -55,7 +55,7 @@ const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [22, 0, -22]);
           </div>
 
           <div className="mt-12">
-            <button className="group flex items-center justify-center gap-2 bg-[#ff004e] hover:bg-[#ff185e] transition-all text-black  rounded-full font-bold font-mulish p-3 lg:py-3 lg:px-4  1xl:py-6 1xl:px-8 text-sm lg:text-lg 1xl:text-2xl ">
+            <button className="group flex items-center justify-center gap-2 bg-[#ff004e] hover:bg-[#ff185e] transition-all text-black  rounded-full font-bold font-mulish p-2.5 lg:py-3 lg:px-4  1xl:py-6 1xl:px-8 text-sm lg:text-lg 1xl:text-2xl ">
               Get Started
               <GoArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
             </button>

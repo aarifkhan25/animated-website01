@@ -64,7 +64,7 @@ export default function FindNextRoleCTA() {
            <FadeContent blur={true} duration={1.5} delay={0.3} easing="ease-in" initialOpacity={0}>Create your free account now to get started</FadeContent>
         </p></div>
 
-      <div> <FadeContent blur={true} duration={1.5} delay={0.3} easing="ease-in" initialOpacity={0}>  <button className="group flex items-center justify-center gap-2 py-2.5 md:py-4 px-8 md:px-12 bg-[#ff004e] text-black text-base md:text-xl lg:text-2xl font-bold font-mulish  rounded-full transition-all duration-300 hover:bg-[#e6004c] hover:scale-105 active:scale-95 shadow-lg shadow-[#ff004e]/20">
+      <div> <FadeContent blur={true} duration={1.5} delay={0.3} easing="ease-in" initialOpacity={0}>  <button className="group flex items-center justify-center gap-2 py-2 px-6 md:py-4  md:px-12 bg-[#ff004e] text-black text-base md:text-xl lg:text-2xl font-bold font-mulish  rounded-full transition-all duration-300 hover:bg-[#e6004c] hover:scale-105 active:scale-95 shadow-lg shadow-[#ff004e]/20">
           Get Started
           <HiOutlineArrowRight className="text-base md:text-lg stroke-[2.5] transition-transform duration-300 group-hover:translate-x-1" />
         </button></FadeContent></div>
