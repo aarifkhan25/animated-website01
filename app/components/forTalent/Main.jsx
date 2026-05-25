@@ -4,7 +4,7 @@ import { GoArrowRight } from "react-icons/go";
 
 export default function Main() {
   return (
-   <section className="grid w-full gap-15 justify-center md:justify-start text-white py-10 md:py-5 pt-30 md:pt-30 1xl:pt-50 px-6 md:px-10 lg:px-20 1xl:px-25 overflow-hidden">
+   <section className="grid w-full gap-15 justify-center md:justify-start text-white py-10 md:py-5 pt-30 md:pt-30 lg:pt-25 1xl:pt-50 px-6 md:px-10 lg:px-20 1xl:px-25 overflow-hidden">
   
     {/* Main Heading */}
     <div>

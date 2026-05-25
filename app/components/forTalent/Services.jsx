@@ -2,6 +2,7 @@
 
 import  { useRef } from 'react';
 import { motion, useScroll, useTransform } from "framer-motion";
+import AnimatedContent from "@/components/AnimatedContent.jsx";
 const items = [
   { id: 1, name: "Design", color: "#009ded" },
   { id: 2, name: "Operations", color: "#ff0044" },
@@ -35,38 +36,61 @@ export default function Services() {
       
 
         {/* ================= ROW 1: SCROLL HONE PAR LEFT TO RIGHT ================= */}
-        <motion.div
+      <AnimatedContent
+  distance={100}
+  direction="horizontal"
+  reverse={false}
+  duration={0.8}
+  ease="power3.out"
+  initialOpacity={0}
+  animateOpacity
+  scale={1}
+  threshold={0.1}
+  delay={0.5}
+> <motion.div
           className="flex gap-3 md:gap-6 w-max"
           style={{ x: xRight }} // Scroll transform value attach ki
         >
           {services?.map((item, index) => (
           <div
               key={index}
-              className="px-2 md:px-8 py-1 md:py-3 border border-[#ff004e] rounded-lg md:rounded-xl shadow-xl "
+              className="px-2 md:px-8 py-1 md:py-3 border border-[#ff004e] rounded-lg shadow-xl "
               
             >
             
               <p className="text-[#ff004e] text-sm md:text-2xl font-mulish">{item}</p>
             </div>
           ))}
-        </motion.div>
+        </motion.div></AnimatedContent> 
 
         {/* ================= ROW 2: SCROLL HONE PAR RIGHT TO LEFT ================= */}
-        <motion.div
+      <AnimatedContent
+  distance={100}
+  direction="horizontal"
+  reverse={true}
+ 
+  duration={0.8}
+  ease="power3.out"
+  initialOpacity={0}
+  animateOpacity
+  scale={1}
+  threshold={0.1}
+  delay={0.5}
+> <motion.div
           className="flex gap-3 md:gap-6 w-max"
           style={{ x: xLeft }} // Scroll transform value attach ki
         >
           {services?.reverse()?.map((item, index) => (
              <div
               key={index}
-              className="px-2 md:px-8 py-1 md:py-3 border border-[#ff004e] rounded-lg md:rounded-xl shadow-xl "
+              className="px-2 md:px-8 py-1 md:py-3 border border-[#ff004e] rounded-lg  shadow-xl "
               
             >
             
               <p className="text-[#ff004e] text-sm md:text-2xl font-mulish">{item}</p>
             </div>
           ))}
-        </motion.div>
+        </motion.div></AnimatedContent>
       </div>
   )
 }

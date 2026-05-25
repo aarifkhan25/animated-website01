@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, useTransform } from "framer-motion";
+
 import Image from "next/image";
 
 const scrollData = [
@@ -61,16 +62,16 @@ export default function PageScrollSpyAnimation() {
   });
 
   return (
-    <div ref={sectionRef} className="relative w-full h-[400vh] bg-[#0b0c10]">
+    <div ref={sectionRef} className="relative w-full h-[400vh] bg-[#0b0c10] ">
       
       {/* Sticky कंटेनर */}
-      <div className="sticky top-0 w-full h-screen top-[10%] md:top-[0%] lg:top-[7%] flex items-center justify-center overflow-hidden">
+      <div className="sticky  w-full h-screen top-[10%] md:top-[0%] lg:top-[7%] flex items-center justify-center overflow-hidden ">
         
         {/* मुख्य फ्लेक्स बॉक्स */}
-        <div className="w-full h-screen md:h-[50vh] lg:h-[80vh] flex flex-col-reverse md:flex-row overflow-hidden items-center gap-4 md:gap-0">
+        <div className=" w-full h-screen md:h-[58vh] lg:h-[80vh] flex flex-col-reverse md:flex-row overflow-hidden items-center gap-4 md:gap-0">
           
           {/* 1st DIV: टेक्स्ट वाला हिस्सा */}
-          <div className="h-[50vh] md:h-full flex-[6] w-full overflow-hidden relative flex flex-col px-6 md:px-12 lg:px-20 py-[20vh] md:py-[30vh]">
+         <div className="h-[50vh] md:h-full flex-[6] w-full overflow-hidden relative flex flex-col px-6 md:px-12 lg:px-20 py-[20vh] md:py-[2vh] lg:py-[30vh]">
             <motion.div 
               style={{ y: textY }} 
               className="w-full flex flex-col"
@@ -79,8 +80,8 @@ export default function PageScrollSpyAnimation() {
                 const isActive = activeIndex === index;
                 return (
                   <div
-                    key={item.id}
-                    className={`min-h-[25vh] flex flex-col justify-center items-start transition-all duration-500 mb-[50vh] ${
+                   key={item.id}
+                    className={`min-h-[25vh] flex flex-col justify-center items-start transition-all duration-500 mb-[50vh] md:mb-[20vh] lg:mb-[50vh] ${
                       isActive ? "opacity-100 scale-100 filter blur-0" : "opacity-10 scale-95 filter blur-[1px]"
                     }`}
                   >
@@ -104,7 +105,7 @@ export default function PageScrollSpyAnimation() {
           </div>
 
           {/* 2nd DIV: इमेज वाला हिस्सा */}
-          <div className="h-[50vh] md:h-full w-[92%] md:w-full flex-[4] bg-[#40000b] overflow-hidden relative flex items-center justify-center rounded-2xl shadow-2xl mt-4 md:mt-0">
+          <div className="h-[50vh] md:h-full w-[92%] md:w-full flex-[4] bg-[#40000b] overflow-hidden relative flex items-center justify-center  shadow-2xl mt-4 md:mt-0">
             {scrollData.map((item, index) => (
               <motion.div
                 key={item.id}
