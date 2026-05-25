@@ -269,7 +269,7 @@ export default function Work({ title, heading, subheading, role }) {
                       className="w-full cursor-pointer pb-2 md:pb-4 lg:pb-7 flex flex-col justify-start items-start gap-2 md:gap-2 lg:gap-5 text-left transition-all duration-300"
                     >
                       <div className="flex justify-start gap-2 md:gap-5 items-center">
-                        {/* एक्टिव होने पर आइकॉन और टाइटल का कलर भी थोड़ा ब्राइट रख सकते हैं */}
+
                         <div className={`text-[#ff004e] text-base md:text-xl lg:text-3xl transition-opacity ${isActive ? 'opacity-100' : 'opacity-60'}`}>
                           {curE.icon}
                         </div>
@@ -283,7 +283,6 @@ export default function Work({ title, heading, subheading, role }) {
                       </div>
                     </button>
       
-                    {/* FIX 2: बॉर्डर बॉटम जो एक्टिव होने पर opacity-100 और बाकी पर opacity-10 रहेगा */}
                     <div 
                       className={`absolute bottom-0 left-0 w-full h-1 bg-[#ff004e] transition-all duration-300 ${
                         isActive ? "opacity-100" : "opacity-30"

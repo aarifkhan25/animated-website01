@@ -12,21 +12,19 @@ const items = [
 ];
 const services=['Full Stack Engineer', 'Frontend Developer', 'Backend Developer', 'UI/UX Designer', 'Product Manager', 'Data Scientist', 'DevOps Engineer', 'App Developer', 'QA Engineer', 'Cloud Architect'];
 export default function Services() {
-     // Humne poore section ko track karne ke liye ek ref banaya
+     // for track a scroll position of a section
       const containerRef = useRef(null);
       
       const duplicatedItems = [...items, ...items];
     
-      // useScroll ki madad se is specific section ki scroll progress track hogi
       const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start end", "end start"] // Jab section screen par aayega tabhi se scroll track shuru hoga
       });
     
-      // Row 1: Scroll karne par Left to Right jayegi (e.g., -30% se lekar 0% tak)
       const xRight = useTransform(scrollYProgress, [0, 1], ["-30%", "0%"]);
     
-      // Row 2: Scroll karne par Right to Left jayegi (e.g., 0% se lekar -30% tak)
+    
       const xLeft = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
   return (
     <div 
@@ -35,7 +33,7 @@ export default function Services() {
       >
       
 
-        {/* ================= ROW 1: SCROLL HONE PAR LEFT TO RIGHT ================= */}
+        {/* ================= ROW 1: on scroll right ================= */}
       <AnimatedContent
   distance={100}
   direction="horizontal"
@@ -49,7 +47,7 @@ export default function Services() {
   delay={0.5}
 > <motion.div
           className="flex gap-3 md:gap-6 w-max"
-          style={{ x: xRight }} // Scroll transform value attach ki
+          style={{ x: xRight }} // attech the scroll transform value
         >
           {services?.map((item, index) => (
           <div
@@ -63,7 +61,7 @@ export default function Services() {
           ))}
         </motion.div></AnimatedContent> 
 
-        {/* ================= ROW 2: SCROLL HONE PAR RIGHT TO LEFT ================= */}
+        {/* ================= ROW 2: scroll to right ================= */}
       <AnimatedContent
   distance={100}
   direction="horizontal"
@@ -78,7 +76,7 @@ export default function Services() {
   delay={0.5}
 > <motion.div
           className="flex gap-3 md:gap-6 w-max"
-          style={{ x: xLeft }} // Scroll transform value attach ki
+          style={{ x: xLeft }} // attech the scroll transform value
         >
           {services?.reverse()?.map((item, index) => (
              <div

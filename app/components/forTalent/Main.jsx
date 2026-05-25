@@ -46,8 +46,7 @@ export default function Main() {
         easing="ease-out"
         initialOpacity={0}
       >
-        {/* FIX: 'w-full' हटाकर पैडिंग को बढ़ाया ताकि बटन कंटेंट के हिसाब से सही चौड़ाई ले */}
-        <button className="flex justify-center items-center group gap-2 bg-[#ff004e] hover:bg-[#ff185e] transition-colors text-black py-2.5 md:py-4 px-8 md:px-12 rounded-full font-mulish font-bold text-base md:text-xl lg:text-2xl w-max md:w-[350px] xl:w-[400px] shadow-lg shadow-[#ff004e]/20 hover:shadow-[#ff004e]/40">
+        <button className="flex justify-center items-center group gap-2 bg-[#ff004e] hover:bg-[#ff185e] transition-colors text-black py-2.5 md:py-4 px-8 md:px-12 rounded-full font-mulish font-bold text-base md:text-xl lg:text-2xl w-max  shadow-lg shadow-[#ff004e]/20 hover:shadow-[#ff004e]/40">
           <div className="flex justify-center items-center gap-1">
             Get Started
             <GoArrowRight className="w-5 h-5 md:w-7 md:h-7 group-hover:translate-x-1 transition-transform" />

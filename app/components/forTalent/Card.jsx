@@ -16,9 +16,9 @@ const [isMobile,setIsMobile]=useState(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    // "start end" = Jab card ka top screen ke bottom se enter karega
-    // "center center" = Jab card screen ke bilkul center mein pahunchega
-    // "end start" = Jab card screen ke top se poora bahar nikal jayega
+    // "start end" = when card enters the screen from the bottom 
+    // "center center" = when card is at the center of the screen
+    // "end start" = when card leaves the screen from the top
     offset: ["start end", "center center", "end start"],
   });
 

@@ -291,7 +291,6 @@ export default function FractionalTalent({
           style={{ height: dynamicSectionHeight }}
           className={`relative w-full ${role === "work" ? "hidden" : "block"}`}
         >
-          {/* --- FIX FIXED: md:h-screen को हटाकर md:h-[380px] किया ताकि गैप खत्म हो और md:top-[10%] से स्क्रीन के ऊपरी हिस्से में स्टिकी रहे --- */}
           <div 
             ref={horizontalScrollRef}
             onScroll={checkScrollPosition}

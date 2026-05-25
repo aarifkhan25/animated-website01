@@ -5,6 +5,7 @@ import FadeContent from "../components/FadeContent.jsx";
 import { FiAlignJustify } from "react-icons/fi";
 import { JetBrains_Mono, Mulish } from "next/font/google";
 import AnimatedContent from "@/components/AnimatedContent.jsx";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { MdOutlineClose } from "react-icons/md";
 import Footer from '../app/components/Footer.jsx';
@@ -20,16 +21,44 @@ const mulish = Mulish({
 });
 
 const nav = [
-  { name: "Hire", href: '/' }, 
-  { name: "For Talent", href: '/forTalent' }, 
-  { name: "About", href: '/about' }, 
-  { name: "Resources", href: '/resources' }
+  { 
+    name: "Hire", 
+    href: '/',
+    subItems: [
+      { name: "Our Mission", href: "/about#mission" },
+      { name: "Press", href: "/about#press" },
+    ]
+  }, 
+  { 
+    name: "For Talent", 
+    href: '/forTalent',
+    // subItems: [
+    //   { name: "Job Board", href: "/jobs", desc: "Explore open roles matched for you." },
+    //   { name: "Success Stories", href: "/stories", desc: "See how talents found their dream jobs." },
+    // ]
+  }, 
+  { 
+    name: "About", 
+    href: '/about',
+    subItems: [
+         { name: "Our Mission", href: "/about#mission" },
+      { name: "Press", href: "/about#press" },,
+    ]
+  }, 
+  { 
+    name: "Resources", 
+    href: '/resources',
+    subItems: [ { name: "Job Description Generator", href: "/jobgesgen" },
+      { name: "Blogs", href: "/blog" },
+      { name: "FAQ", href: "/faq" },
+    ]
+  }
 ];
 
 export default function RootLayout({ children }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+const [hoveredIndex, setHoveredIndex] = useState(null);
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 20) {
@@ -58,136 +87,137 @@ export default function RootLayout({ children }) {
       </head>
       <body className={`${jbMono.variable} ${mulish.variable} bg-black text-white antialiased`}>
         
-        {/* Main Wrapper */}
+     
         <div className="w-full font-sans min-h-screen flex flex-col justify-between">
           
           {/* HEADER NAV CONTAINER */}
-          <header>
-            <nav
-              className={`fixed top-0 left-1/2 -translate-x-1/2 w-full z-50 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-30 py-4 flex items-center justify-between transition-all duration-300 ${
-                isScrolled ? "bg-black/80 backdrop-blur-md border-b border-white/5" : "bg-transparent"
-              }`}
-            >
-              {/* Logo & Desktop Nav Links */}
-              <div className="flex items-center gap-5 lg:gap-10">
-                <Link href="/" onClick={closeMobileMenu}>
-                  <Image 
-                    width={500} 
-                    height={500} 
-                    src="/assets/logo.svg" 
-                    alt="logo" 
-                    priority 
-                    className="hover:opacity-80 cursor-pointer w-8 h-8 md:w-10 md:h-10 lg:w-11 lg:h-11" 
-                  />
+   <header>
+ 
+      <nav
+        onMouseLeave={() => setHoveredIndex(null)}
+        className={`fixed top-0 left-1/2 -translate-x-1/2 w-full z-50 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-30 py-4 flex items-center justify-between transition-all duration-300 ${
+          isScrolled ? "bg-black/80 backdrop-blur-md border-b border-white/5" : "bg-transparent"
+        }`}
+      >
+        {/* Logo & Desktop Nav Links */}
+        <div className="flex items-center gap-5 lg:gap-10">
+          <Link href="/" onClick={closeMobileMenu}>
+            <Image 
+              width={500} 
+              height={500} 
+              src="/assets/logo.svg" 
+              alt="logo" 
+              priority 
+              className="hover:opacity-80 cursor-pointer w-8 h-8 md:w-10 md:h-10 lg:w-11 lg:h-11" 
+            />
+          </Link>
+
+         
+          <div className="hidden sm:flex items-center gap-4 lg:gap-8 relative h-full py-2">
+            {nav?.map((item, i) => (
+              <div
+                key={i}
+                onMouseEnter={() => setHoveredIndex(i)}
+                className="py-2"
+              >
+                <Link 
+                  href={item.href}
+                  className="hover:text-gray-400 text-white transition-colors cursor-pointer text-sm lg:text-base font-mulish font-semibold"
+                >
+                  {item.name}
                 </Link>
 
-                {nav?.map((item, i) => (
-                  <Link 
-                    href={item.href}
-                    key={i}
-                    className="hidden sm:block hover:text-gray-500 transition-colors cursor-pointer text-sm lg:text-base font-mulish font-semibold"
-                  >
-                    <AnimatedContent
-                      distance={20}
-                      direction="vertical"
-                      reverse
-                      duration={1.5}
-                      ease="power3.out"
-                      initialOpacity={0}
-                      animateOpacity
-                      scale={1}
-                      threshold={0.2}
-                      delay={0.3 * i} // Staggered delay for smooth rendering
+                <AnimatePresence>
+                  {hoveredIndex === i && item.subItems && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{ duration: 0.25, ease: "easeOut" }}
+                      className="fixed left-0 top-[72px] w-full bg-[#0d0d0d] backdrop-blur-md border-b border-white/10 shadow-2xl z-[60] px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-30 py-6"
                     >
-                      <FadeContent blur={true} duration={1.5} easing="ease-in" initialOpacity={0}>
-                        {item.name}
-                      </FadeContent>
-                    </AnimatedContent>
-                  </Link>
-                ))}
-              </div>
-
-              {/* Action Buttons & Mobile Toggle */}
-              <div className="flex items-center gap-4">
-                <AnimatedContent
-                  distance={20}
-                  direction="vertical"
-                  reverse
-                  duration={1.5}
-                  ease="power3.out"
-                  initialOpacity={0}
-                  animateOpacity
-                  scale={1}
-                  threshold={0.2}
-                > 
-                  <FadeContent blur={true} duration={1.5} easing="ease-in" initialOpacity={0}>
-                    <div className="flex items-center gap-3 lg:gap-6">
-                      <Link
-                        href="#courses"
-                        className="bg-[#1a1a1a] hover:bg-[#242323] text-white font-semibold px-4 py-2.5 font-mulish rounded-full text-sm lg:text-base transition duration-150"
+                 
+                      <div 
+                        className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-20 lg:gap-30 1xl:gap-40  max-w-7xl transition-all duration-300 md:pl-14 lg:pl-18 1xl:pl-21 2xl:pl-26"
+                      
                       >
-                        Sign In
-                      </Link>
-                      <Link
-                        href="#courses"
-                        className="hidden sm:flex bg-white hover:bg-gray-200 text-black font-semibold px-4 font-mulish py-2.5 rounded-full text-sm lg:text-base transition duration-150"
-                      >
-                        Start Hiring Talents
-                      </Link>
-                    </div>
-                  </FadeContent>
-                </AnimatedContent>
-
-                {/* Hamburger / Close Icon (Mobile Only) */}
-                <div className="flex sm:hidden items-center cursor-pointer p-2 text-white z-50">
-                  {isMobileMenuOpen ? (
-                    <MdOutlineClose onClick={toggleMobileMenu} className="w-6 h-6" />
-                  ) : (
-                    <FiAlignJustify onClick={toggleMobileMenu} className="w-6 h-6" />
+                        {item.subItems.map((subItem, subIdx) => (
+                          <Link
+                            key={subIdx}
+                            href={subItem.href}
+                            className="p-2 text-white "
+                          >
+                            <span className="text-sm lg:text-base font-semibold font-mulish hover:text-gray-400 transition-colors">
+                              {subItem.name}
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
                   )}
-                </div>
+                </AnimatePresence>
               </div>
-            </nav>
+            ))}
+          </div>
+        </div>
 
-            {/* MOBILE MENU OVERLAY - FIX: Isko 'fixed' kiya aur top navbar ke thik niche set kiya */}
-            <div 
-              className={`sm:hidden fixed inset-0 top-[64px] h-[calc(100vh-64px)] w-full bg-black/95 backdrop-blur-md z-40 transition-all duration-300 ease-in-out ${
-                isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
-              }`}
+        {/* Action Buttons & Mobile Toggle */}
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 lg:gap-6">
+            <Link
+              href="#courses"
+              className="bg-[#1a1a1a] cursor-pointer hover:bg-[#242323] text-white font-semibold px-4 py-2.5 font-mulish rounded-full text-sm lg:text-base transition duration-150"
             >
-              <AnimatedContent
-                distance={20}
-                direction="vertical"
-                reverse
-                duration={1}
-                ease="power3.out"
-                initialOpacity={0}
-                animateOpacity
+              Sign In
+            </Link>
+            <Link
+              href="#courses"
+              className="hidden sm:flex cursor-pointer bg-white hover:bg-gray-200 text-black font-semibold px-4 font-mulish py-2.5 rounded-full text-sm lg:text-base transition duration-150"
+            >
+              Start Hiring Talents
+            </Link>
+          </div>
+
+          {/* Hamburger Icon */}
+          <div className="flex sm:hidden items-center cursor-pointer p-2 text-white z-50">
+            {isMobileMenuOpen ? (
+              <MdOutlineClose onClick={toggleMobileMenu} className="w-6 h-6" />
+            ) : (
+              <FiAlignJustify onClick={toggleMobileMenu} className="w-6 h-6" />
+            )}
+          </div>
+        </div>
+      </nav>
+
+      {/* MOBILE MENU OVERLAY */}
+      <div 
+        className={`sm:hidden fixed inset-0 top-[64px] h-[calc(100vh-64px)] w-full bg-black/95 backdrop-blur-md z-40 transition-all duration-300 ease-in-out ${
+          isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
+        }`}
+      >
+        <div className="flex flex-col px-6 py-8 gap-2">
+          {nav?.map((item, i) => (
+            <div key={i} className="flex flex-col w-full">
+              <Link 
+                href={item.href} 
+                onClick={closeMobileMenu} 
+                className="p-4 hover:text-gray-500 text-white w-full text-lg font-mulish font-medium border-b border-white/5 hover:bg-white/5 transition-all rounded-lg"
               >
-               <div className="flex flex-col px-6 py-8 gap-2">
-  {nav?.map((item, i) => (
-    <Link 
-      key={i} 
-      href={item.href} 
-      onClick={closeMobileMenu} 
-      className="p-4 hover:text-gray-500 text-white w-full text-lg font-mulish font-medium border-b border-white/5 hover:bg-white/5 transition-all rounded-lg"
-    >
-      {item.name}
-    </Link>
-  ))}
-  
-  {/* FIXED BUTTON: Ab yeh full width nahi lega aur exact center mein rahega */}
-  <Link
-    href="#courses"
-    onClick={closeMobileMenu}
-    className="mt-4 sm:hidden bg-white text-black font-bold text-center py-2 px-6 rounded-full text-base self-center transition-transform active:scale-95"
-  >
-    Start Hiring Talents
-  </Link>
-</div>
-              </AnimatedContent>
+                {item.name}
+              </Link>
             </div>
-          </header>
+          ))}
+          
+          <Link
+            href="#courses"
+            onClick={closeMobileMenu}
+            className="mt-4 sm:hidden bg-white text-black font-bold text-center py-2 px-6 rounded-full text-base self-center"
+          >
+            Start Hiring Talents
+          </Link>
+        </div>
+      </div>
+    </header>
 
           {/* PAGE CONTENT */}
           <main className="w-full flex-grow ">

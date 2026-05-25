@@ -39,38 +39,36 @@ export default function PageScrollSpyAnimation() {
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRef = useRef(null);
 
-  // पूरे पेज के स्क्रॉल को ट्रैक करना
+  // track scroll progress
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"]
   });
 
-  // टेक्स्ट को ऊपर की तरफ ले जाने के लिए ट्रांसफॉर्म मोशन
+  // uplift the text on scroll
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-75%"]);
 
-  // FIX: टाइमिंग को थोड़ा आगे (Delay) बढ़ा दिया है ताकि टेक्स्ट के सेंटर में आने पर ही इमेज बदले
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     if (latest < 0.30) {
-      setActiveIndex(0); // पहला टेक्स्ट सेंटर में है
+      setActiveIndex(0); 
     } else if (latest >= 0.30 && latest < 0.58) {
-      setActiveIndex(1); // दूसरा टेक्स्ट सेंटर में है
+      setActiveIndex(1); 
     } else if (latest >= 0.58 && latest < 0.85) {
-      setActiveIndex(2); // तीसरा टेक्स्ट सेंटर में है
+      setActiveIndex(2); 
     } else {
-      setActiveIndex(3); // जब चौथा टेक्स्ट बिल्कुल सेंटर में लॉक होगा, तभी चौथी इमेज आएगी
-    }
-  });
+      setActiveIndex(3); 
+ } });
 
   return (
     <div ref={sectionRef} className="relative w-full h-[400vh] bg-[#0b0c10] ">
       
-      {/* Sticky कंटेनर */}
+      {/* Sticky container*/}
       <div className="sticky  w-full h-screen top-[10%] md:top-[0%] lg:top-[7%] flex items-center justify-center overflow-hidden ">
         
-        {/* मुख्य फ्लेक्स बॉक्स */}
+        {/* main div */}
         <div className=" w-full h-screen md:h-[58vh] lg:h-[80vh] flex flex-col-reverse md:flex-row overflow-hidden items-center gap-4 md:gap-0">
           
-          {/* 1st DIV: टेक्स्ट वाला हिस्सा */}
+          {/* 1st DIV */}
          <div className="h-[50vh] md:h-full flex-[6] w-full overflow-hidden relative flex flex-col px-6 md:px-12 lg:px-20 1xl:px-25 2xl:px-30 py-[20vh] md:py-[2vh] lg:py-[30vh]">
             <motion.div 
               style={{ y: textY }} 
@@ -99,12 +97,12 @@ export default function PageScrollSpyAnimation() {
                   </div>
                 );
               })}
-              {/* आखिरी स्टेप को रोकने के लिए खाली ब्लॉक */}
+              {/* block the last step */}
               <div className="min-h-[30vh] w-full" />
             </motion.div>
           </div>
 
-          {/* 2nd DIV: इमेज वाला हिस्सा */}
+          {/* 2nd DIV */}
           <div className="h-[50vh] md:h-full w-[92%] md:w-full flex-[4] bg-[#40000b] overflow-hidden relative flex items-center justify-center  shadow-2xl mt-4 md:mt-0">
             {scrollData.map((item, index) => (
               <motion.div

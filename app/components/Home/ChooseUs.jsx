@@ -27,7 +27,6 @@ export default function ChooseUs({textColor,bgColor,title,heading,subheading}) {
     const containerRef = useRef(null);
     const [isMobile, setIsMobile] = useState(false);
 
-    // --- FIX: Mobile screen detect karne ke liye useEffect ---
     useEffect(() => {
         const checkMobile = () => {
             setIsMobile(window.innerWidth < 768);
@@ -37,7 +36,7 @@ export default function ChooseUs({textColor,bgColor,title,heading,subheading}) {
         return () => window.removeEventListener("resize", checkMobile);
     }, []);
     
-    // 1. Container ke scroll progress ko track karein
+  
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start end", "center center", "end start"],
@@ -49,7 +48,6 @@ export default function ChooseUs({textColor,bgColor,title,heading,subheading}) {
     const baseScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.9]);
     const opacity = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0, 0.5, 1, 0.5, 0]);
 
-    // --- FIX: Agar mobile hai toh 3D transforms ko static (0 और 1) kar dein ---
     const rotateX = isMobile ? 0 : baseRotateX;
     const rotateY = isMobile ? 0 : baseRotateY;
     const scale = isMobile ? 1 : baseScale;
@@ -144,7 +142,7 @@ export default function ChooseUs({textColor,bgColor,title,heading,subheading}) {
         </div>
       </motion.div> : 
  <div  className="grid gap-6 md:gap-10 overflow-hidden"> 
-  {/* 1. h-[500px] ko h-auto kiya aur mobile par padding set ki */}
+
   <motion.div style={{
           rotateX,
           rotateY,
@@ -225,7 +223,6 @@ export default function ChooseUs({textColor,bgColor,title,heading,subheading}) {
     </div>
   </motion.div>
 
-  {/* Cards Grid */}
   <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 items-stretch">
     {fractionalHringData?.map((curE, i) => (
       <FadeContent

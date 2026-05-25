@@ -75,7 +75,7 @@ export default function Main() {
 
             The best marketing, design, ops, and engineering operators in the
             world, ready to hire in 24 hours. AI-supported, human selected,
-            and flexible to work with.s
+            and flexible to work with.
                             </FadeContent></AnimatedContent>
           </p>
        
@@ -93,7 +93,7 @@ export default function Main() {
                             animateOpacity
                             scale={1}
                             threshold={0.2}
-                            delay={0.2 } // Staggered delay for smooth rendering
+                            delay={0.2 } 
                           >
                             <FadeContent blur={true} duration={1.5} delay={0.2} easing="ease-in" initialOpacity={0}>
           <button className="group flex items-center gap-2 bg-[#009de4] hover:bg-[#0082cc] transition-colors text-black py-2 px-3 md:py-2 md:px-4 xl:py-3 xl:px-6 rounded-full font-mulish font-bold text-base md:text-xl cursor-pointer">
