@@ -90,7 +90,7 @@ export default function Home() {
       {/* hire Fractionally */}
        
       <FractionalTalent
-        textColor="#ff0056"
+        textColor="#ff0056"s
         bgColor="#40000b"
         title="The fastest way to hire fractionally"
         heading={

@@ -109,7 +109,7 @@ export default function FractionalTalent({
           
           if (scrollDistance > 0) {
             setMaxScrollX(-scrollDistance); 
-            // यहाँ 400px हमारी ट्रैक हाइट (sticky height) को बैलेंस करता है
+          
             setDynamicSectionHeight(`${400 + scrollDistance}px`);
           }
         }
@@ -276,7 +276,7 @@ export default function FractionalTalent({
           style={{ height: dynamicSectionHeight }}
           className={`relative w-full ${role === "client" ? "hidden" : "block"}`}
         >
-          {/* --- FIX FIXED: md:h-screen को हटाकर md:h-[380px] किया ताकि गैप खत्म हो और md:top-[10%] से स्क्रीन के ऊपरी हिस्से में स्टिकी रहे --- */}
+    
           <div 
             ref={horizontalScrollRef}
             onScroll={checkScrollPosition}

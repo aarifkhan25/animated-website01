@@ -65,6 +65,11 @@ const sections = [
   },
 ];
 
+const data = [
+  { name: "160+", title: "Countries", delay: 0.3 },
+  { name: "4.6/5", title: "Rating on G2", delay: 0.7 },
+  { name: "1st", title: "Product Hunt Approved", delay: 1.1, img: '/assets/product1.svg' },
+];
 const comptition = [
   { img: "/assets/comperision/img1.png", name: "Upwork" },
   { img: "/assets/comperision/img2.png", name: "Toptal" },
@@ -294,7 +299,7 @@ export default function FractionalTalent({
           <div 
             ref={horizontalScrollRef}
             onScroll={checkScrollPosition}
-            className="static md:sticky md:top-[20%] h-auto md:h-[400px] w-full flex flex-col justify-start items-start overflow-x-auto md:overflow-hidden scrollbar-hide scroll-smooth snap-x snap-mandatory md:snap-none pt-4"
+            className={`static md:sticky md:top-[20%] h-auto ${textColor === "#ff0056" ?"md:h-[230px] lg:h-[280px] 1xl:h-[300px] 2xl:h-[350px]": "md:h-[400px]"}     w-full flex flex-col justify-start items-start overflow-x-auto md:overflow-hidden scrollbar-hide scroll-smooth snap-x snap-mandatory md:snap-none pt-4`}
           >
             <motion.div
               ref={containerRef}
@@ -359,6 +364,45 @@ export default function FractionalTalent({
           </div> 
         </div> 
       </section>
+  {textColor === "#ff0056" ? (
+            <div className="relative z-20 pb-10 px-5 md:px-20 lg:px-32 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5 justify-center items-stretch">
+              {data?.map((curE, i) => {
+                return (
+                  <FadeContent
+                    blur={true}
+                    duration={1000}
+                    delay={curE.delay}
+                    easing="ease-out"
+                    initialOpacity={0}
+                    key={i}
+                    className="h-full flex"
+                  >
+                    <div className="w-full flex-1 flex flex-col justify-center rounded-xl bg-[#141414] p-4 md:p-5 lg:p-6 shadow-2xl border border-white/5">
+                      <div className="mb-2 md:mb-3 flex items-center justify-start">
+                        {curE.delay !== 1.5 ? (
+                          <h2 className="font-jb-mono text-lg md:text-2xl lg:text-5xl font-bold text-white">
+                            {curE.name}
+                          </h2>
+                        ) : (
+                          <Image
+                            src={curE.img}
+                            width={500}
+                            height={500}
+                            alt="Product"
+                            loading="lazy"
+                            className="w-[70px] md:w-[130px] lg:w-[180px] object-contain"
+                          />
+                        )}
+                      </div>
+                      <p className="text-[10px] md:text-sm lg:text-lg font-mulish text-gray-300 leading-tight">
+                        {curE.title}
+                      </p>
+                    </div>
+                  </FadeContent>
+                );
+              })}
+            </div>
+          ) : null}
 
       {/* --- Grid Roles Section --- */}
       <div className="px-10 lg:px-32">

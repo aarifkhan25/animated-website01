@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef,useState } from "react";
+import React, { useRef,useState,useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion"
 import { GoArrowRight } from "react-icons/go";
 import Image from "next/image"
@@ -24,20 +24,34 @@ const [isMobile,setIsMobile]=useState(false);
 
   
   
-const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [22, 0, -22]);
-  const rotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-12, 0, 12]); 
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.9]);  
-  const opacity = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0, 0.5, 1, 0.5, 0]);
+    // 2. Base transforms variables
+    const baseRotateX = useTransform(scrollYProgress, [0, 0.5, 1], [22, 0, -22]);
+    const baseRotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-12, 0, 12]);
+    const baseScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.9]);
+    const opacity = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0, 0.5, 1, 0.5, 0]);
+
+    const rotateX = isMobile ? 0 : baseRotateX;
+    const rotateY = isMobile ? 0 : baseRotateY;
+    const scale = isMobile ? 1 : baseScale;
+   useEffect(() => {
+          const checkMobile = () => {
+              setIsMobile(window.innerWidth < 768);
+          };
+          checkMobile(); // Initial check
+          window.addEventListener("resize", checkMobile);
+          return () => window.removeEventListener("resize", checkMobile);
+      }, []);
+
 
   return (
-    <div     ref={containerRef}    style={{ perspective: "2000px" }}  className={`flex items-center justify-center ${role !=="remote" ? " px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-30  lg:min-h-screen  ":""}`}>
+    <div     ref={containerRef}    style={isMobile ? {} : { perspective: "1000px" }}   className={`flex items-center justify-center ${role !=="remote" ? " px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-30  lg:min-h-screen  ":""}`}>
       {/* Main Parent Container */}
       <motion.div style={{
           rotateX,
           rotateY,
           scale,
           opacity,
-          transformStyle: "preserve-3d", // Child elements ko 3D space mein rakhne ke liye
+         transformStyle: isMobile ? "flat" : "preserve-3d",
         }} className="w-full flex flex-col md:flex-row overflow-hidden rounded-xl  bg-[#1a1a1a]">
         
         {/* LEFT DIV: 70% Width */}
