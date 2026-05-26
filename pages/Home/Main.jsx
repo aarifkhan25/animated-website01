@@ -57,8 +57,6 @@ export default function Main() {
       {/* Subtext */}
       <div className="text-center max-w-3xl">
    
-          <p className="text-white text-base md:text-2xl font-mulish">
-
             <AnimatedContent
                             distance={20}
                             direction="vertical"
@@ -72,12 +70,15 @@ export default function Main() {
                             delay={0.5 } // Staggered delay for smooth rendering
                           >
                             <FadeContent blur={true} duration={1.5} delay={0.3} easing="ease-in" initialOpacity={0}>
+          <p className="text-white text-base md:text-2xl font-mulish">
+
 
             The best marketing, design, ops, and engineering operators in the
             world, ready to hire in 24 hours. AI-supported, human selected,
             and flexible to work with.
-                            </FadeContent></AnimatedContent>
+
           </p>
+                            </FadeContent></AnimatedContent>
        
       </div>
 

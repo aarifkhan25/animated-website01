@@ -1,4 +1,3 @@
-"use client"
 import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -11,7 +10,7 @@ const FadeContent = ({
   blur = false,
   duration = 1000,
   ease = 'power2.out',
-  delay =  1,
+  delay = 0,
   threshold = 0.1,
   initialOpacity = 0,
   disappearAfter = 0,

@@ -1,14 +1,14 @@
 "use client";
 import React, { useState } from 'react';
 
-import Main from '../components/forTalent/Main.jsx';
-import Services from "../components/forTalent/Services.jsx"
+import Main from "@/pages/forTalent/Main.jsx";
+import Services from "@/pages/forTalent/Services.jsx"
 
-import Work from '../components/forTalent/Work.jsx';
-import Card from '../components/forTalent/Card.jsx';
-import FindNextRoleCTA from "../components/forTalent/FindNextRoleCTA.jsx";
-import FAQ from "../components/forTalent/FAQ.jsx";
-import ScrollSpyAnimation from '../components/forTalent/ScrollSpyAnimation.jsx';
+import Work from '@/pages/forTalent/Work.jsx';
+import Card from '@/pages/forTalent/Card.jsx';
+import FindNextRoleCTA from "@/pages/forTalent/FindNextRoleCTA.jsx";
+import FAQ from "@/pages/forTalent/FAQ.jsx";
+import ScrollSpyAnimation from '@/pages/forTalent/ScrollSpyAnimation.jsx';
 export default function ForTalent() {
 
   return (

@@ -7,58 +7,12 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import ReactPlayer from "react-player";
 import { HiOutlineChevronRight } from "react-icons/hi";
 import Image from "next/image";
-const talent = [
-  {
-    img: "/assets/talent/t1.avif",
-    title: "Fractional designers",
-    name: "Design",
-    des: "The graphic, UI/UX, and content designers you need to differentiate your company",
-  },
-  {
-    img: "/assets/talent/t5.avif",
-    title: "Fractional ops props",
-    name: "Oprations",
-    des: "Project + Product Managers to keep your team running smoothly",
-  },
-  {
-    img: "/assets/talent/t3.avif",
-    title: "Fractional devs",
-    name: "Engineering",
-    des: "Front-End, Back-End, and Full-Stack devs that know your tech stack",
-  },
-  {
-    img: "/assets/talent/t4.avif",
-    title: "Fractional Marketers",
-    name: "Marketing",
-    des: "From GTM Strategy, to Growth Management, to Social Media Management",
-  },
-];
 
-const clientInfo = [
-  {
-    id: 1,
-    name: "Anam",
-    post: "co-founder & co-ceo",
-    img: "/assets/clientImg/img.svg",
-    video: "https://www.youtube.com/watch?v=zxjfxrXfROc",
-  },
-  {
-    id: 2,
-    name: "Jae",
-    post: "founder & managing principal",
-    img: "/assets/clientImg/img2.png",
-    video: "https://vimeo.com/949215348",
-  },
-  {
-    id: 3,
-    name: "Arianna",
-    post: "Founder & ceo",
-    img: "/assets/clientImg/img3.svg",
-    video: "https://www.youtube.com/watch?v=zxjfxrXfROc",
-  },
-];
 
-export default function FractionalTalent({
+
+export default function Talent({
+  talent,
+  clientInfo,
   textColor,
   bgColor,
   title,

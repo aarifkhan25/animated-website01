@@ -4,39 +4,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ScrollReveal from "@/components/ScrollReveal.jsx";
 import AnimatedContent from "@/components/AnimatedContent.jsx";
 import { HiOutlineChevronDown } from "react-icons/hi";
-export default function Quesitons() {
+export default function Quesitons({faqData}) {
     const [openId, setOpenId] = useState(null);
 
   const toggleAccordion = (id) => {
     setOpenId(openId === id ? null : id);
   };
-  const faqData = [
-    {
-      id: 1,
-      question: "Why choose Pangea for your marketing and design needs?",
-      answer: "Pangea provides access to top-tier fractional talent, allowing you to scale your creative and marketing efforts without the overhead of full-time hires.Pangea provides access to top-tier fractional talent, allowing you to scale your creative and marketing efforts without the overhead of full-time hires."
-    },
-    {
-      id: 2,
-      question: "How does Pangea work for businesses?",
-      answer: "We match you with vetted experts based on your specific project needs. You can manage your team directly through our platform with flexible monthly plans.Pangea provides access to top-tier fractional talent, allowing you to scale your creative and marketing efforts without the overhead of full-time hires."
-    },
-    {
-      id: 3,
-      question: "What are the benefits of choosing Pangea for fractional hiring?",
-      answer: "You get cost-effective expertise, faster turnaround times, and the flexibility Pangea provides access to top-tier fractional talent, allowing you to scale your creative and marketing efforts without the overhead of full-time hires. to pause or scale services as your business evolves."
-    },
-       {
-      id: 4,
-      question: "How does Pangea work for businesses?",
-      answer: "We match you with vetted experts based on your specific project needs. You can manage your team directly through our platform with flexible monthly plans.Pangea provides access to top-tier fractional talent, allowing you to scale your creative and marketing efforts without the overhead of full-time hires."
-    },
-      {
-      id: 5,
-      question: "Why choose Pangea for your marketing and design needs?",
-      answer: "Pangea provides access to top-tier fractional talent, allowing you to scale your creative and marketing efforts without the overhead of full-time hires.Pangea provides access to top-tier fractional talent, allowing you to scale your creative and marketing efforts without the overhead of full-time hires."
-    }
-  ];
+ 
   return (
       <section className="w-full  text-white py-10 md:py-15 lg:py-20 1xl:py-30 px-10 md:px-20 lg:px-32">
             <div className="w-full mx-auto flex flex-col justify-between  gap-10">

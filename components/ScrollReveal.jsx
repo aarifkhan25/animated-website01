@@ -1,4 +1,3 @@
-"use client"
 import { useEffect, useRef, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -19,9 +18,11 @@ const ScrollReveal = ({
 }) => {
   const containerRef = useRef(null);
 
-  const isStringChildren = typeof children === 'string';
+  const isString = typeof children === 'string' || typeof children === 'number';
+
   const splitText = useMemo(() => {
-    const text = isStringChildren ? children : '';
+    if (!isString) return children;
+    const text = String(children);
     return text.split(/(\s+)/).map((word, index) => {
       if (word.match(/^\s+$/)) return word;
       return (
@@ -30,7 +31,7 @@ const ScrollReveal = ({
         </span>
       );
     });
-  }, [children, isStringChildren]);
+  }, [children, isString]);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -38,10 +39,9 @@ const ScrollReveal = ({
 
     const scroller = scrollContainerRef && scrollContainerRef.current ? scrollContainerRef.current : window;
 
-    gsap.fromTo(el, { transformOrigin: '0% 50%', rotate: baseRotation, opacity: baseOpacity }, {
+    gsap.fromTo(el, { transformOrigin: '0% 50%', rotate: baseRotation }, {
       ease: 'none',
       rotate: 0,
-      opacity: 1,
       scrollTrigger: {
         trigger: el,
         scroller,
@@ -51,41 +51,32 @@ const ScrollReveal = ({
       }
     });
 
-    const wordElements = el.querySelectorAll('.word');
-    const hasWords = wordElements.length > 0;
+    let wordElements = el.querySelectorAll('.word');
 
-    if (hasWords) {
-      gsap.fromTo(wordElements, { opacity: baseOpacity, willChange: 'opacity' }, {
-        ease: 'none',
-        opacity: 1,
-        stagger: 0.05,
-        scrollTrigger: {
-          trigger: el,
-          scroller,
-          start: 'top bottom-=20%',
-          end: wordAnimationEnd,
-          scrub: true
-        }
-      });
+    // If there are no explicit .word spans (children were elements),
+    // animate the direct child nodes instead.
+    if (!wordElements.length) {
+      wordElements = el.querySelectorAll(':scope > *');
+    }
 
-      if (enableBlur) {
-        gsap.fromTo(wordElements, { filter: `blur(${blurStrength}px)` }, {
-          ease: 'none',
-          filter: 'blur(0px)',
-          stagger: 0.05,
-          scrollTrigger: {
-            trigger: el,
-            scroller,
-            start: 'top bottom-=20%',
-            end: wordAnimationEnd,
-            scrub: true
-          }
-        });
+    gsap.fromTo(wordElements, { opacity: baseOpacity, willChange: 'opacity' }, {
+      ease: 'none',
+      opacity: 1,
+      stagger: 0.05,
+      scrollTrigger: {
+        trigger: el,
+        scroller,
+        start: 'top bottom-=20%',
+        end: wordAnimationEnd,
+        scrub: true
       }
-    } else if (enableBlur) {
-      gsap.fromTo(el, { filter: `blur(${blurStrength}px)` }, {
+    });
+
+    if (enableBlur) {
+      gsap.fromTo(wordElements, { filter: `blur(${blurStrength}px)` }, {
         ease: 'none',
         filter: 'blur(0px)',
+        stagger: 0.05,
         scrollTrigger: {
           trigger: el,
           scroller,
@@ -102,15 +93,11 @@ const ScrollReveal = ({
   }, [scrollContainerRef, enableBlur, baseRotation, baseOpacity, rotationEnd, wordAnimationEnd, blurStrength]);
 
   return (
-    <div ref={containerRef} className={`my-5 ${containerClassName}`}>
-      {isStringChildren ? (
-        <p className={`text-[clamp(1.6rem,4vw,3rem)] leading-normal font-semibold ${textClassName}`}>
-          {splitText}
-        </p>
-      ) : (
-        children
-      )}
-    </div>
+    <h2 ref={containerRef} className={`my-5 ${containerClassName}`}>
+      <p className={`text-[clamp(1.6rem,4vw,3rem)] leading-[1.5] font-semibold ${textClassName}`}>
+        {splitText}
+      </p>
+    </h2>
   );
 };
 

@@ -1,33 +1,35 @@
 "use client";
 import { useState, useRef } from "react";
-import Main from "./components/Home/Main.jsx";
-import Team from "./components/Home/Team.jsx";
-import Company from "./components/Home/Company.jsx";
-import Talent from "./components/Home/Talent.jsx";
-import StartHiring from "./components/Home/StartHiring.jsx";
-import FractionalTalent from "./components/Home/FractionalTalent.jsx";
-import ChooseUs from "./components/Home/ChooseUs.jsx";
-import YourExpectations from "./components/Home/YourExpectations.jsx";
-import Quesitons from "./components/Home/Quesitons.jsx";
+import Main from "@/pages/Home/Main.jsx";
+import Team from "@/pages/Home/Team.jsx";
+import Company from "@/pages/Home/Company.jsx";
+import Talent from "@/pages/Home/Talent.jsx";
+import StartHiring from "@/pages/Home/StartHiring.jsx";
+import FractionalTalent from "@/pages/Home/FractionalTalent.jsx";
+import ChooseUs from "@/pages/Home/ChooseUs.jsx";
+import YourExpectations from "@/pages/Home/YourExpectations.jsx";
+import Quesitons from "@/pages/Home/Quesitons.jsx";
+import { homeData } from '@/data/home.js';
 
 export default function Home() {
-  const { show, setShow } = useState(true);
+  // FIX: ऑब्जेक्ट {} की जगह ऐरे [] डिकंस्ट्रक्शन का इस्तेमाल किया
+  const [show, setShow] = useState(true);
+  const { talent, factionalTalent, clientInfo, comptition, sections,faqData } = homeData;
 
   return (
     <>
-      {/* // hero section */}
-      <Main></Main>
+      {/* hero section */}
+      <Main />
 
-      {/* //team section */}
-      
-      <Team></Team>
+      {/* team section */}
+      <Team />
 
-      {/* //Company section */}
-      <Company></Company>
+      {/* Company section */}
+      <Company />
 
-      {/* //talent section */}
-      
+      {/* talent section */}
       <Talent
+        talent={talent}
         textColor="#f35400"
         bgColor="#370c00"
         title="Pick from high-quality fractional talent"
@@ -36,83 +38,70 @@ export default function Home() {
             Access the <br /> talent you need
           </>   
         }
-        subheading=" Interview curated candidates for every role you're hiring
-                         for, hand-picked to select the world's best fractional
-                         talent"
+        subheading="Interview curated candidates for every role you're hiring for, hand-picked to select the world's best fractional talent"
         show={show}
-      ></Talent>
+      />
 
       {/* start hiring */}
-  
-
-      <StartHiring></StartHiring>
-    
+      <StartHiring />
 
       {/* FractionalTalent */}
       <FractionalTalent
+        factionalTalent={factionalTalent}
         textColor="#009de4"
         bgColor="#002036"
         title="The best fractional talent in the world"
         heading={
           <>
-            {" "}
             Build with Pangeans,
             <br /> grow with Pangea
           </>
         }
         subheading="Expand your team's capabilities quickly with high-quality operators from Pangea's private talent network, available in 48 or less"
-      ></FractionalTalent>
+      />
 
       {/* why choose us */}
-
-   
-   
       <ChooseUs
         textColor="#9070ff"
         bgColor="#1c143d"
         title="Why companies choose Pangea"
         heading={
           <>
-            {" "}
             A trusted partner <br /> for growth
           </>
         }
         subheading="Pangea's proudly helped thousands of clients connect with talent"
-      ></ChooseUs>
-
+      />
 
       {/* your expectations */}
       <YourExpectations
         textColor="#fb00c6"
         bgColor="#3a002b"
-      ></YourExpectations>
+      />
 
       {/* hire Fractionally */}
-       
       <FractionalTalent
-        textColor="#ff0056"s
+        factionalTalent={factionalTalent}
+        textColor="#ff0056" // FIX: यहाँ से एक्स्ट्रा 's' हटा दिया गया है
         bgColor="#40000b"
         title="The fastest way to hire fractionally"
         heading={
           <>
-           
             Hiring fractionally is <br />
             easier than you think
           </>
         }
-        subheading=" Expand your team's capabilities quickly with high-quality operators from Pangea's private talent network, available in 48 or less"
-      ></FractionalTalent>
+        subheading="Expand your team's capabilities quickly with high-quality operators from Pangea's private talent network, available in 48 or less"
+      />
 
       {/* help for hire */}
-      
-           <ChooseUs
+      <ChooseUs
         textColor="#ff4d00"
         bgColor="#2a1205"
         title="End-to-End fractional hiring"
         heading={
           <>
-            {" "}
-            Here to help  <br className="block sm:hidden" /> you  hire <br /> from beginning to end
+            Here to help <br className="block sm:hidden" /> you hire <br /> from beginning to end
           </>
         }
         subheading={
@@ -123,11 +112,11 @@ export default function Home() {
             of the way.
           </>
         }
-      ></ChooseUs>
-      
+      />
 
-      {/* frictional grouth */}
+      {/* frictional growth */}
       <Talent
+        talent={talent}
         textColor="#00ae6c"
         bgColor="#002611"
         title="From 1 to 100 to 1000"
@@ -136,20 +125,16 @@ export default function Home() {
             Fractional hiring at <br /> every stage of growth
           </>
         }
-        subheading=" Interview curated candidates for every role you're hiring
-                         for, hand-picked to select the world's best fractional
-                         talent"
+        subheading="Interview curated candidates for every role you're hiring for, hand-picked to select the world's best fractional talent"
         show={show}
-      ></Talent>
+      />
 
       {/* start hiring */}
-       
-       
-      <StartHiring></StartHiring>
-      
+      <StartHiring />
 
       {/* our client */}
       <Talent
+        clientInfo={clientInfo}
         textColor="#009de4"
         bgColor="#002036"
         title="Why Innovators hire with Pangea"
@@ -159,55 +144,48 @@ export default function Home() {
             <br /> to say about us
           </>
         }
-        subheading=" Interview curated candidates for every role you're hiring
-                         for, hand-picked to select the world's best fractional
-                         talent"
+        subheading="Interview curated candidates for every role you're hiring for, hand-picked to select the world's best fractional talent"
         role="client"
-      ></Talent>
+      />
 
+      {/* competition */}
       <FractionalTalent
+        comptition={comptition}
         textColor="#9070ff"
         bgColor="#1c143d"
         show={show}
         title="The best of the best"
         heading={
           <>
-            {" "}
             There's no comparison <br /> to our efficiency
           </>
         }
-        subheading=" Pangea outpaces other hiring platforms in speed, value, and efficency. See how we stack up against the biggest names in the world, across over 160 countries worldwide."
-      ></FractionalTalent>
+        subheading="Pangea outpaces other hiring platforms in speed, value, and efficiency. See how we stack up against the biggest names in the world, across over 160 countries worldwide."
+      />
 
       {/* work */}
-      
-      
       <FractionalTalent
-     textColor="#fb00c6"
+        sections={sections}
+        textColor="#fb00c6"
         bgColor="#3a002b"
         role="work"
         title="The talent you need to build faster"
         heading={
           <>
-            {" "}
             Work with <br />
             world-class talent
           </>
         }
         subheading="Finding the right people is about hiring for the right role. Thankfully, we've got 'em covered."
-      ></FractionalTalent>
-     
-     
+      />
+
       {/* questions */}
-      
-      <Quesitons ></Quesitons>
+      <Quesitons faqData={faqData} />
 
       <YourExpectations
         textColor="#ff4d00"
         bgColor="#2a1205"
-      ></YourExpectations>
-
-  
+      />
     </>
   );
 }

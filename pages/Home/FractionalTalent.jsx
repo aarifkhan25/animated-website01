@@ -6,79 +6,19 @@ import AnimatedContent from "@/components/AnimatedContent.jsx";
 import FadeContent from "@/components/FadeContent";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
-const talent = [
-  {
-    title: " Fractional designers",
-    title1: "step 1",
-    name: "Design",
-    des: "The graphic, UI/UX, and content designers you need to differentiate your company",
-  },
-  {
-    title: " Fractional ops props",
-    title1: "step 2",
-    name: "Oprations",
-    des: "Project + Product Managers to keep your team running smoothly",
-  },
-  {
-    title: " Fractional devs",
-    title1: "step 3",
-    name: "Engineering",
-    des: "Front-End, Back-End, and Full-Stack devs that know your tech stack",
-  },
-  {
-    title: " Fractional Marketers",
-    title1: "step 4",
-    name: "Marketing",
-    des: "From GTM Strategy, to Growth Management, to Social Media Management",
-  },
-];
 
-const sections = [
-  {
-    title: "Top fractional design roles",
-    roles: [
-      "UX Designer",
-      "Brand Designer",
-      "Product Designer",
-      "UI Designer",
-      "Graphic Designer",
-      "Web Designer",
-    ],
-  },
-  {
-    title: "Top fractional marketing roles",
-    roles: [
-      "Marketing Writer",
-      "Marketer",
-      "Email Marketer",
-      "Growth Marketer",
-      "Product Marketer",
-    ],
-  },
-  {
-    title: "Top fractional operations roles",
-    roles: ["Product Analyst", "Product Manager"],
-  },
-  {
-    title: "Top fractional engineering roles",
-    roles: ["Web Developer"],
-  },
-];
+
+
 
 const data = [
   { name: "160+", title: "Countries", delay: 0.3 },
   { name: "4.6/5", title: "Rating on G2", delay: 0.7 },
   { name: "1st", title: "Product Hunt Approved", delay: 1.1, img: '/assets/product1.svg' },
 ];
-const comptition = [
-  { img: "/assets/comperision/img1.png", name: "Upwork" },
-  { img: "/assets/comperision/img2.png", name: "Toptal" },
-  { img: "/assets/comperision/img3.jpg", name: "Marketerhire" },
-  { img: "/assets/comperision/img4.jpg", name: "Braintrust" },
-  { img: "/assets/comperision/img5.png", name: "Fivver" },
-];
+
 
 export default function FractionalTalent({
+factionalTalent,  comptition,sections,
   textColor,
   bgColor,
   title,
@@ -95,7 +35,7 @@ export default function FractionalTalent({
     offset: ["start start", "end end"]
   });
 
-  const [visibleCards, setVisibleCards] = useState(talent);
+  const [visibleCards, setVisibleCards] = useState(factionalTalent);
   const [isMobileOnly, setIsMobileOnly] = useState(false);
   
   const [maxScrollX, setMaxScrollX] = useState(-1000); 
@@ -113,13 +53,13 @@ export default function FractionalTalent({
       const width = window.innerWidth;
       
       if (width < 768) {
-        setVisibleCards(talent?.slice(0, -1));
+        setVisibleCards(factionalTalent?.slice(0, -1));
         setIsMobileOnly(true);
         setDynamicSectionHeight("auto");
         setMaxScrollX(0);
       } else {
         setIsMobileOnly(false);
-        setVisibleCards(talent);
+        setVisibleCards(factionalTalent);
         
         if (containerRef.current) {
           const scrollWidth = containerRef.current.scrollWidth; 
@@ -409,7 +349,7 @@ export default function FractionalTalent({
         <div
           className={`${role === "work" ? "block" : "hidden"} grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-5 lg:gap-10 w-full mx-auto`}
         >
-          {sections.map((section, index) => (
+          {sections?.map((sections, index) => (
             <FadeContent
               blur={true}
               duration={1000}
@@ -420,10 +360,10 @@ export default function FractionalTalent({
             >
               <div className="bg-[#141414] rounded-xl p-8 lg:p-12 border border-white/5 flex flex-col h-full">
                 <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-mulish font-semibold leading-[1.2] mb-3 md:mb-5 lg:mb-10 max-w-[90%]">
-                  {section.title}
+                  {sections.title}
                 </h2>
                 <ul className="space-y-1 md:space-y-2 lg:space-y-4">
-                  {section.roles.map((role, idx) => (
+                  {sections.roles.map((role, idx) => (
                     <li
                       key={idx}
                       className="text-[#f5f5f5] font-mulish text-xs md:text-base lg:text-lg font-medium opacity-90 hover:opacity-100 transition-opacity cursor-pointer"

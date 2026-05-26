@@ -17,6 +17,9 @@ body{
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+  .neon-shadow-cyan {
+            box-shadow: 0 0 35px 5px rgba(0, 180, 216, 0.7); /* Adjust color and intensity as needed */
+        }
 }
 @keyframes centerSmoothMove {
   from {
