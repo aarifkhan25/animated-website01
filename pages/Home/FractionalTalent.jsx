@@ -170,7 +170,7 @@ factionalTalent,  comptition,sections,
   return (
     <>
       {/* --- Upper Header Section --- */}
-      <section className="w-full text-white py-0 px-10 md:px-20 lg:px-32 pt-10 md:pt-20 1xl:pt-30">
+      <section className="w-full text-white py-0 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35 pt-10 md:pt-20 1xl:pt-30">
         <div className="w-full mx-auto flex flex-col justify-between gap-10">
           <div className="flex-1">
             <AnimatedContent
@@ -244,7 +244,7 @@ factionalTalent,  comptition,sections,
             <motion.div
               ref={containerRef}
               style={isMobileOnly ? {} : { x: dynamicX }}
-              className="flex w-max gap-5 md:gap-7 lg:gap-10 px-10 pb-10 md:px-20 lg:px-32"
+              className="flex w-max gap-5 md:gap-7 lg:gap-10 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35 pb-10"
             >
               {bgColor !== "#1c143d"
                 ? visibleCards?.map((item, i) => (
@@ -305,7 +305,7 @@ factionalTalent,  comptition,sections,
         </div> 
       </section>
   {textColor === "#ff0056" ? (
-            <div className="relative z-20 pb-10 px-5 md:px-20 lg:px-32 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5 justify-center items-stretch">
+            <div className="relative z-20 pb-10 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5 justify-center items-stretch">
               {data?.map((curE, i) => {
                 return (
                   <FadeContent
@@ -345,7 +345,7 @@ factionalTalent,  comptition,sections,
           ) : null}
 
       {/* --- Grid Roles Section --- */}
-      <div className="px-10 lg:px-32">
+      <div className="px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35">
         <div
           className={`${role === "work" ? "block" : "hidden"} grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-5 lg:gap-10 w-full mx-auto`}
         >

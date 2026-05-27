@@ -100,11 +100,11 @@ export default function Header() {
    <header>
             <nav
               onMouseLeave={() => setHoveredIndex(null)}
-              className={`fixed top-0 left-1/2 -translate-x-1/2 w-full z-50 px-6 md:px-10 lg:px-20 transition-all duration-300 ${
+              className={`fixed top-0 left-1/2 -translate-x-1/2 w-full z-50 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35 transition-all duration-300 ${
                 isScrolled ? "bg-black/60 backdrop-blur-xl border-b border-white/5 py-3" : "bg-[#0d0d0d] py-5"
               }`}
             >
-              <div className="max-w-7xl mx-auto flex items-center justify-between">
+              <div className="w-full flex items-center justify-between">
                 {/* Logo & Desktop Nav Links */}
                 <div className="flex items-center gap-5 lg:gap-10">
                   <Link href="/" onClick={closeMobileMenu}>

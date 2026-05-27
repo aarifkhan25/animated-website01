@@ -24,7 +24,7 @@ export default function Company() {
    
                <div className=" grid grid-cols-3 gap-3 mt-5">
                  {companies?.map((comp, i) => {
-                   return (
+                   return (       
                      <div
                        key={i}
                        className="flex items-center justify-center  p-3 md:p-4  hover:bg-[#333333] rounded-lg transition-colors duration-300"

@@ -4,7 +4,7 @@ import AnimatedContent from '@/components/AnimatedContent.jsx';
 
 export default function StartHiring() {
   return (
-      <section className=" px-10 md:px-25 lg:px-35  py-10 md:py-20 1xl:py-30 2xl:pt-50 w-full   ">
+      <section className=" px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35  py-10 md:py-20 1xl:py-30 2xl:pt-50 w-full   ">
        <AnimatedContent
           distance={100}
           direction="vertical"

@@ -164,7 +164,7 @@ export default function Talent({
   return (
     <>
       {/* --- Upper Header Section --- */}
-      <section className="w-full text-white py-0 px-10 md:px-20 lg:px-32 pt-10 md:pt-20 1xl:pt-30">
+      <section className="w-full text-white py-0 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35 pt-10 md:pt-20 1xl:pt-30">
         <div className="w-full mx-auto flex flex-col justify-between gap-10">
           <div className="flex-1">
             <AnimatedContent
@@ -239,7 +239,7 @@ export default function Talent({
             <motion.div
               ref={containerRef}
               style={isMobileOnly ? {} : { x: dynamicX }}
-              className="flex w-max gap-5 md:gap-7 lg:gap-10 px-10  md:px-20 lg:px-32"
+              className="flex w-max gap-5 md:gap-7 lg:gap-10 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35"
             >
                {visibleCards?.map((item, i) => (
                 <div
@@ -295,7 +295,7 @@ export default function Talent({
         <div className="pb-10 md:pb-30 ">
           <div 
             ref={clientScrollRef}
-            className="flex gap-5 md:gap-7 lg:gap-10 px-10 md:px-20 lg:px-32 overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth"
+            className="flex gap-5 md:gap-7 lg:gap-10 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35 overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth"
             style={{ scrollSnapType: "x mandatory" }}
           >
             {clientInfo?.map((curE, i) => (
