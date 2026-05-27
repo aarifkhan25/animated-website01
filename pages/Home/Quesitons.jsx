@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ScrollReveal from "@/components/ScrollReveal.jsx";
 import AnimatedContent from "@/components/AnimatedContent.jsx";
 import { HiOutlineChevronDown } from "react-icons/hi";
-export default function Quesitons({faqData}) {
+export default function Quesitons({faqData = []}) {
     const [openId, setOpenId] = useState(null);
 
   const toggleAccordion = (id) => {
