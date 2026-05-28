@@ -11,7 +11,7 @@ const items = [
   { id: 5, name: "Product Hunt", color: "#da552f" },
 ];
 const services=['Full Stack Engineer', 'Frontend Developer', 'Backend Developer', 'UI/UX Designer', 'Product Manager', 'Data Scientist', 'DevOps Engineer', 'App Developer', 'QA Engineer', 'Cloud Architect'];
-export default function Services() {
+export default function Services({textColor}) {
      // for track a scroll position of a section
       const containerRef = useRef(null);
       
@@ -52,11 +52,11 @@ export default function Services() {
           {services?.map((item, index) => (
           <div
               key={index}
-              className="px-2 md:px-8 py-1 md:py-3 border border-[#ff004e] rounded-lg shadow-xl "
-              
+              className="px-2 md:px-8 py-1 md:py-3 border      rounded-lg shadow-xl "
+              style={{borderColor:textColor}}
             >
             
-              <p className="text-[#ff004e] text-sm md:text-2xl font-mulish">{item}</p>
+              <p style={{color:textColor}} className="   text-sm md:text-2xl font-mulish">{item}</p>
             </div>
           ))}
         </motion.div></AnimatedContent> 
@@ -81,11 +81,11 @@ export default function Services() {
           {services?.reverse()?.map((item, index) => (
              <div
               key={index}
-              className="px-2 md:px-8 py-1 md:py-3 border border-[#ff004e] rounded-lg  shadow-xl "
-              
+              className="px-2 md:px-8 py-1 md:py-3 border      rounded-lg  shadow-xl "
+                   style={{borderColor:textColor}}
             >
             
-              <p className="text-[#ff004e] text-sm md:text-2xl font-mulish">{item}</p>
+              <p      style={{color:textColor}} className="   text-sm md:text-2xl font-mulish">{item}</p>
             </div>
           ))}
         </motion.div></AnimatedContent>

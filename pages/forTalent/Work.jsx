@@ -5,117 +5,16 @@ import FadeContent from "@/components/FadeContent";
 import ScrollReveal from "@/components/ScrollReveal.jsx";
 import { FaStar } from "react-icons/fa";
 import { FaRegStarHalfStroke } from "react-icons/fa6";
-import { BsArrowUpRightCircle } from "react-icons/bs";
-import { IoMdSpeedometer } from "react-icons/io";
-import { IoIosNotificationsOutline } from "react-icons/io";
-import { RiBankLine } from "react-icons/ri";
-import { TbFileInvoice } from "react-icons/tb";
+
 import Image from "next/image";
 import Card from '../forTalent/Card.jsx';
-import { GoGoal } from "react-icons/go";
-import { FaRegCompass } from "react-icons/fa";
-import { LuCopyCheck } from "react-icons/lu";
 
-const freelance2 = [
-  {
-    icon: <GoGoal />,
-    title: "less leg work",
-    heading: "Application Tracker",
-  img:'/assets/story3.avif'
-  },
-  {
-    icon: <FaRegCompass />,
-    title: "less leg work",
-    heading: "Interview Co-Pilot",
-   img:"/assets/story2.avif"
-   
-  },
-  {
-    icon: <LuCopyCheck />,
-    title: "less leg work",
-    heading: "Get paid easily",
-   img:"/assets/story4.avif"
-  },
-]
-const freelance = [
-  {
-    icon: <BsArrowUpRightCircle />,
-    title: "tip top jobs",
-    heading: "Premium roles",
-    subheading:
-      "Clients are kept to a high standard so top talent like you don’t have to search through hundreds of listings to find the right role.",
-  },
-  {
-    icon: <BsArrowUpRightCircle />,
-    title: "Always remote",
-    heading: "Premium roles",
-    subheading:
-      "Clients are kept to a high standard so top talent like you don’t have to search through hundreds of listings to find the right role.",
-  },
-  {
-    icon: <IoMdSpeedometer />,
-    title: "forget ghosting",
-    heading: "Fast-paced hiring",
-    subheading:
-      "Roles start to interview matches in 48 hours or less, so you’re kept in the loop for the entire cycle.",
-  },
-  {
-    icon: <IoIosNotificationsOutline />,
-    title: "less leg work",
-    heading: "Invoice Reminders",
-    subheading:
-      "We make sure you get paid on time. We’ll remind you to invoice and follow up with your clients to send payment.",
-  },
-  {
-    icon: <RiBankLine />,
-    title: "Flexible contracts",
-    heading: "ACH + W2",
-    subheading:
-      "Go beyond traditional freelance contracts brokered by other sites. Receive payments directly in your bank account ASAP.",
-  },
-  {
-    icon: <TbFileInvoice />,
-    title: "WYSIWYG invoices",
-    heading: "Fee-free payments",
-    subheading:
-      "What you see on your invoice is what you get in your bank account. All transfer fees are paid by your clients, not you.",
-  },
-];
 
-const data = [
-  {
-    name: (
-      <div className="flex justify-center items-center">
-        <div>3</div>
-        <div></div>x
-      </div>
-    ),
-    title: "Longer projects",
-    subTitle: "than average Upwork project",
-    delay: 0.6,
-  },
-  {
-    name: (
-      <div className="flex justify-center items-center">
-        <div>2</div>
-        <div></div>x
-      </div>
-    ),
-    title: "Higher hourly rates",
-    subTitle: "than US freelance average",
-    delay: 0.7,
-  },
-  {
-    name: "$4M",
-    title: "Earned on platform",
-    subTitle: "by freelancers on Pangea",
-    delay: 0.8,
-  },
-];
-export default function Work({ title, heading, subheading, role }) {
+
+export default function Work({ title, heading, subheading,textColor, role,freelance,freelance2,data,bgColor }) {
    const [activeTab, setActiveTab] = useState(0);
   return (
-  <>  <section className={`  w-full   pb-10 lg:pb-20 1xl:pb-30 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35  overflow-hidden ${role ==="work" ? "bg-[#1A1A1A]" : ""}`}>
+  <>  <section style={{backgroundColor:`${role ==="work" ? bgColor : ""}`}} className={`  w-full   pb-10 lg:pb-20 1xl:pb-30 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35  overflow-hidden `}>
       <div className="flex flex-col gap-0 md:gap-5  lg:gap-0 items-center justify-center text-white">
         {/* Top Badge */}
         <AnimatedContent
@@ -130,7 +29,7 @@ export default function Work({ title, heading, subheading, role }) {
           delay={0.1}
         >
           <div className="mt-10 md:mt-25 mb-10 md:mb-0">
-            <span className=" text-[#ff004e]  font-jb-mono  text-xs  md:text-sm lg:text-base uppercase">
+            <span style={{color:textColor}} className="    font-jb-mono  text-xs  md:text-sm lg:text-base uppercase">
               {title}
             </span>
           </div>
@@ -181,7 +80,7 @@ export default function Work({ title, heading, subheading, role }) {
                   className="h-full flex"
                 >
                   <div className="w-full flex-1 flex flex-col justify-center items-center gap-3 md:gap-4 lg:gap-5 rounded-xl bg-[#141414] p-2 md:p-4 lg:p-6 shadow-2xl border border-white/5">
-                    <h2 className="font-mulish text-xl md:text-6xl lg:text-7xl font-bold text-[#ff004e]">
+                    <h2 style={{color:textColor}} className="font-mulish text-xl md:text-6xl lg:text-7xl font-bold  ">
                       {curE.name}
                     </h2>
 
@@ -213,10 +112,10 @@ export default function Work({ title, heading, subheading, role }) {
                   {curE.title !== "Always remote" ? (
                     <div className="w-full p-2 md:p-4 lg:p-6  flex flex-col justify-start items-start gap-3 md:gap-4 lg:gap-5 h-full">
                       <div className="flex justify-start gap-2 md:gap-3 lg:gap-5">
-                        <div className="text-[#ff004e] tex-base md:text-xl lg:text-2xl">
+                        <div style={{color:textColor}} className="  tex-base md:text-xl lg:text-2xl">
                           {curE.icon}
                         </div>
-                        <div className="text-[#ff004e]  font-jb-mono  text-[10px]  md:text-xs lg:text-base uppercase">
+                        <div style={{color:textColor}} className="   font-jb-mono  text-[10px]  md:text-xs lg:text-base uppercase">
                           {curE.title}
                         </div>
                       </div>
@@ -241,10 +140,10 @@ export default function Work({ title, heading, subheading, role }) {
                       />
                       <div className="absolute top-[70%]   p-2 md:p-5  left-0 w-full h-full  ">
                         <div className="flex justify-start gap-2 md:gap-3  lg:gap-5 p-1.5 md:p-3 rounded-lg bg-[#141414]  shadow-2xl border border-white/5">
-                          <div className="text-[#ff004e] text-base md:text-xl lg:text-2xl">
+                          <div style={{color:textColor}} className="  text-base md:text-xl lg:text-2xl">
                             {curE.icon}
                           </div>
-                          <div className="text-[#ff004e]  font-jb-mono  text-[10px]  md:text-xs lg:text-base uppercase">
+                          <div style={{color:textColor}} className="   font-jb-mono  text-[10px]  md:text-xs lg:text-base uppercase">
                             {curE.title}
                           </div>
                         </div>
@@ -270,10 +169,10 @@ export default function Work({ title, heading, subheading, role }) {
                     >
                       <div className="flex justify-start gap-2 md:gap-5 items-center">
 
-                        <div className={`text-[#ff004e] text-base md:text-xl lg:text-3xl transition-opacity ${isActive ? 'opacity-100' : 'opacity-60'}`}>
+                        <div style={{color:textColor}} className={`  text-base md:text-xl lg:text-3xl transition-opacity ${isActive ? 'opacity-100' : 'opacity-60'}`}>
                           {curE.icon}
                         </div>
-                        <div className={`text-[#ff004e] font-jb-mono text-[10px] md:text-sm lg:text-xl uppercase transition-opacity ${isActive ? 'opacity-100' : 'opacity-60'}`}>
+                        <div style={{color:textColor}} className={`  font-jb-mono text-[10px] md:text-sm lg:text-xl uppercase transition-opacity ${isActive ? 'opacity-100' : 'opacity-60'}`}>
                           {curE.title}
                         </div>
                       </div>
@@ -284,7 +183,8 @@ export default function Work({ title, heading, subheading, role }) {
                     </button>
       
                     <div 
-                      className={`absolute bottom-0 left-0 w-full h-1 bg-[#ff004e] transition-all duration-300 ${
+                    style={{ backgroundColor: textColor }}
+                      className={`absolute bottom-0 left-0 w-full h-1  transition-all duration-300 ${
                         isActive ? "opacity-100" : "opacity-30"
                       }`} 
                     />
@@ -309,7 +209,7 @@ export default function Work({ title, heading, subheading, role }) {
                   <div
               className="absolute bottom-0 left-0 right-0 h-[20px] flex flex-col justify-end p-3 md:p-6"
               style={{
-                background: `linear-gradient(to top,#ff004e  0%, transparent 100%)`,
+                background: `linear-gradient(to top,${bgColor}  0%, transparent 100%)`,
               }}
             ></div>
               </div>
@@ -329,14 +229,14 @@ export default function Work({ title, heading, subheading, role }) {
           <div className="flex justify-center items-center gap-3">
             {[1, 2, 3, 4, 5].map((star) => {
               return star === 5 ? (
-                <FaRegStarHalfStroke
+                <FaRegStarHalfStroke style={{color:textColor}}
                   key={star}
-                  className=" w-7 h-7 md:w-10 md:h-10 lg:w-12 lg:h-12 text-[#ff004e]"
+                  className=" w-7 h-7 md:w-10 md:h-10 lg:w-12 lg:h-12  "
                 />
               ) : (
-                <FaStar
+                <FaStar style={{color:textColor}}
                   key={star}
-                  className=" w-7 h-7 md:w-10 md:h-10 lg:w-12 lg:h-12 text-[#ff004e]"
+                  className=" w-7 h-7 md:w-10 md:h-10 lg:w-12 lg:h-12  "
                 />
               );
             })}
@@ -352,7 +252,8 @@ export default function Work({ title, heading, subheading, role }) {
         )
         
     :(<Card className={`${role === "work" ? "hidden" : "block"}`} title="Worldwide network" heading={<>Currently active in 165+ <br/> Countries
-     </>}
+     </>}  textColor={textColor}
+      bgColor={bgColor}
           role="remote"
             subheading="Pangea supports payouts in your currency via our payment processing partner Stripe. Check the list below to see if your country is currently enabled for payouts on Pangea.
     "/>)

@@ -9,8 +9,9 @@ import Card from '@/pages/forTalent/Card.jsx';
 import FindNextRoleCTA from "@/pages/forTalent/FindNextRoleCTA.jsx";
 import FAQ from "@/pages/forTalent/FAQ.jsx";
 import ScrollSpyAnimation from '@/pages/forTalent/ScrollSpyAnimation.jsx';
+import {forTalentData} from "@/data/forTalent.js"
 export default function ForTalent() {
-
+const {companies,data,freelance,freelance2}=forTalentData
   return (
     <>
       <Main   />
@@ -27,34 +28,49 @@ export default function ForTalent() {
           }}
         ></div>
       </section>
-<Services />
+<Services textColor="#ff004e" />
 
-<Card title=" Your Perfect Fit" heading={<>Connect with top companies <br/>
+<Card textColor="#ff004e" title=" Your Perfect Fit" heading={<>Connect with top companies <br/>
 that share your vision
- </>}
-      
+ </>} bgColor="#40000b"
+      companies={companies}
         subheading="Want to build on your experience in a space, find a company working on the next big thing, or align with purpose-focused organizations? Find them all on Pangea, right when they're looking for you.
 "/>
+
       {/* Main Container jise hum scroll ke liye track kar rahe hain */}
 
       <Work title=" The new way to work" heading={<>Build longer relationships <br/> with Fractional Hiring </>}
-       
+       data={data} textColor="#ff004e"
         subheading="Jobs on Pangea last longer, pay better, and bill more hours than the average freelance project."/>
+
+
+
           <ScrollSpyAnimation/>
-        <FindNextRoleCTA/>
+
+
+
+
+        <FindNextRoleCTA textColor="#ff004e"/>
  <Work title=" Discover the difference" heading={<>We’re not just another <br/> freelance site
- </>}
+ </>} freelance={freelance} textColor="#ff004e" bgColor="#40000b"
        role="freelance"
         subheading="Built different, from the ground up, by people who wanted a better way to work with interesting clients.
 "/>
+
         
  <Work title=" Discover the difference" heading={<>We’re not just another <br/> freelance site
- </>}
+ </>} freelance2={freelance2} textColor="#ff004e" bgColor="#1A1A1A"
        role="work"
         subheading="Built different, from the ground up, by people who wanted a better way to work with interesting clients.
 "/>
-<FAQ/>
-<FindNextRoleCTA/>
+
+
+
+<FAQ textColor="#ff004e"/>
+
+
+
+<FindNextRoleCTA  textColor="#ff004e"/>
 
     </>
   );

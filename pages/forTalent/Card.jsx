@@ -3,13 +3,8 @@ import React, { useRef,useState,useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion"
 import { GoArrowRight } from "react-icons/go";
 import Image from "next/image"
-const companies = [
-  { name: "SOMETHINGS", img: "/assets/comp/logo5.avif" },
-  { name: "Context", img: "/assets/comp/logo8.avif" }, 
-  { name: "Dorothy™", img: "/assets/comp/logo6.svg" },
-  { name: "SecurityScorecard", img: "/assets/comp/logo4.svg" },
-];
-export default function Card({title,heading,subheading,role}) {
+
+export default function Card({title,heading,subheading,role,textColor,bgColor,companies}) {
  const containerRef = useRef(null);
 const [isMobile,setIsMobile]=useState(false);
  
@@ -57,7 +52,7 @@ const [isMobile,setIsMobile]=useState(false);
         {/* LEFT DIV: 70% Width */}
         <div className="md:flex-[6] w-full p-5 md:p-7 lg:p-10 flex flex-col justify-between items-start">
           <div className="w-full">
-            <h5 className="text-[#ff004e] uppercase text-xs md:text-sm lg:text-base font-jb-mono mb-6">
+            <h5 style={{color:textColor}} className="        uppercase text-xs md:text-sm lg:text-base font-jb-mono mb-6">
               {title}
             </h5>
             <h1 className="text-white text-2xl md:text-[30px] lg:text-[40px]  font-mulish font-medium mb-8">
@@ -69,7 +64,7 @@ const [isMobile,setIsMobile]=useState(false);
           </div>
 
           <div className="mt-12">
-            <button className="group flex items-center justify-center gap-2 bg-[#ff004e] hover:bg-[#ff185e] transition-all text-black  rounded-full font-bold font-mulish p-2.5 lg:py-3 lg:px-4  1xl:py-6 1xl:px-8 text-sm lg:text-lg 1xl:text-2xl ">
+            <button style={{ backgroundColor: textColor }}className="group flex items-center justify-center gap-2       transition-all text-black  rounded-full font-bold font-mulish p-2.5 lg:py-3 lg:px-4  1xl:py-6 1xl:px-8 text-sm lg:text-lg 1xl:text-2xl ">
               Get Started
               <GoArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
             </button>
@@ -78,10 +73,11 @@ const [isMobile,setIsMobile]=useState(false);
 
         {/* RIGHT DIV: 30% Width */}
 
-     {role==="remote"?   <div className="md:flex-[4] w-full h-[300px] md:h-auto  bg-[#40000b] p-6 md:p-8 flex justify-center items-center">
+     {role==="remote"?   <div style={{ backgroundColor: bgColor
+            }} className="md:flex-[4] w-full h-[300px] md:h-auto  flex justify-center items-center">
           
           <div
-            className="w-full  h-full bg-[#ff004e]"
+            className="w-full  h-full      "
             style={{
               maskImage:`url('/assets/fortalent2.png')` ,
               WebkitMaskImage:`url('/assets/fortalent2.png')`,
@@ -91,11 +87,12 @@ const [isMobile,setIsMobile]=useState(false);
               WebkitMaskRepeat: 'no-repeat',
               maskPosition: 'center',
               WebkitMaskPosition: 'center',
+              backgroundColor: textColor
             }}
           >
         </div>
         </div>:
-        <div className="md:flex-[4] w-full bg-[#40000b] p-6 md:p-8 flex flex-col gap-4 justify-center ">
+        <div style={{backgroundColor:bgColor}} className="md:flex-[4] w-full  p-6 md:p-8 flex flex-col gap-4 justify-center ">
          
           {companies?.map((comp, i) => (
             <div
@@ -103,7 +100,7 @@ const [isMobile,setIsMobile]=useState(false);
               className="bg-[#0d0d0d] rounded-2xl md:py-2 md:px-1 lg:py-6 lg:px-4 flex items-center justify-center border border-white/5 shadow-2xl min-h-[80px]"
             >
               <div
-                className="w-full max-w-[140px] h-10 md:h-12 bg-[#ff004e]"
+                className="w-full max-w-[140px] h-10 md:h-12      "
                 style={{
                   maskImage: `url('${comp.img}')`,
                   WebkitMaskImage: `url('${comp.img}')`,
@@ -113,6 +110,7 @@ const [isMobile,setIsMobile]=useState(false);
                   WebkitMaskRepeat: 'no-repeat',
                   maskPosition: 'center',
                   WebkitMaskPosition: 'center',
+                  backgroundColor: textColor
                 }}
               />
             </div>

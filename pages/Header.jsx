@@ -211,6 +211,18 @@ export default function Header() {
 
                 {/* Action Buttons & Mobile Toggle */}
                 <div className="flex items-center gap-4">
+                     <AnimatedContent
+                            distance={10}
+                            direction="vertical"
+                            reverse
+                            duration={0.8}
+                            ease="power3.out"
+                            initialOpacity={0}
+                            animateOpacity
+                            scale={1}
+                            threshold={0.2}
+                            delay={0.5}
+                          >
                   <div className="flex items-center gap-3 lg:gap-4">
                     <Link
                       href="#signin"
@@ -225,7 +237,7 @@ export default function Header() {
                       Start Hiring Talents
                     </Link>
                   </div>
-
+</AnimatedContent>
                   {/* Hamburger Icon */}
                   <div className="flex md:hidden items-center cursor-pointer p-2 text-white z-50">
                     {isMobileMenuOpen ? (
