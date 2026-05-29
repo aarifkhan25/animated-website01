@@ -10,7 +10,10 @@ import {forTalentData} from "@/data/forTalent.js"
 export default function page() {
     const {companies,data,freelance,freelance2}=forTalentData;
   return (<>
-  <Main textColor="#f35400" />
+  <Main textColor="#f35400" heading={<>Hire fractional experts for <span className="text-[#f35400]">early - stage startups</span></>}
+  subheading={<> Top designers, marketers, developers, and more <br/> with experience at early-stage startup companies,<br/> ready to work in 48 hours. Are you ready to discover<br/> Pangea?</>}
+  img="/assets/hire/stages/E1.png"
+  />
   <Services textColor="#f35400" />
   <Card  title="Worldwide network" heading={<>Currently active in 165+ <br/> Countries
        </>}   textColor="#f35400" bgColor="#370c00"
@@ -27,6 +30,7 @@ export default function page() {
                 companies={companies}
                   subheading="Want to build on your experience in a space, find a company working on the next big thing, or align with purpose-focused organizations? Find them all on Pangea, right when they're looking for you.
           "/>
+          
            <FindNextRoleCTA textColor="#f35400"/>
             <Work title=" Discover the difference" heading={<>We’re not just another <br/> freelance site
             </>} freelance={freelance} textColor="#f35400" bgColor="#370c00"

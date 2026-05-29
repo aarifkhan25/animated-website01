@@ -44,7 +44,7 @@ export default function Work({ title, heading, subheading,textColor, role,freela
           initialOpacity={0}
         >
           <div className=" text-center  ">
-            <h1 className="text-2xl md:text-[45px] lg:text-[56px]  tracking-wide leading-[1.1] mb-9 font-mulish ">
+            <h1 className="text-2xl md:text-[45px] lg:text-[56px]  tracking-wide leading-[1.1] mb-5 font-mulish ">
               {" "}
               {heading}{" "}
             </h1>

@@ -11,7 +11,7 @@ export default function FindNextRoleCTA({textColor}) {
 className={`absolute top-0 left-0 w-[20%] md:w-[30%] h-[60%] md:h-full opacity-60 md:opacity-80 pointer-events-none
     ${textColor === "#ff004e" 
       ? "bg-gradient-to-br from-[#ff004e] via-[#ff004e]/60 to-transparent" 
-      : "bg-gradient-to-br from-[#f35400] via-[#f35400]/60 to-transparent"
+      : textColor ==="#00b365"?"bg-gradient-to-br from-[#00b365] via-[#00b365]/60 to-transparent": "bg-gradient-to-br from-[#f35400] via-[#f35400]/60 to-transparent"
     }`}        style={{
           maskImage: "url('/assets/fortalent1.png')",
           WebkitMaskImage: "url('/assets/fortalent1.png')",
@@ -27,9 +27,9 @@ className={`absolute top-0 left-0 w-[20%] md:w-[30%] h-[60%] md:h-full opacity-6
 
       <div 
         className={`absolute bottom-0 right-0 w-[20%] md:w-[30%] h-[60%] md:h-full opacity-60 md:opacity-80 pointer-events-none
-    ${textColor === "#ff004e" 
-      ? "bg-gradient-to-tl from-[#ff004e] via-[#ff004e]/60 to-transparent" 
-      : "bg-gradient-to-tl from-[#f35400] via-[#f35400]/60 to-transparent"
+   ${textColor === "#ff004e" 
+      ? "bg-gradient-to-br from-[#ff004e] via-[#ff004e]/60 to-transparent" 
+      : textColor ==="#00b365"?"bg-gradient-to-br from-[#00b365] via-[#00b365]/60 to-transparent": "bg-gradient-to-br from-[#f35400] via-[#f35400]/60 to-transparent"
     }`}        style={{
           maskImage: "url('/assets/fortalent1.png')",
           WebkitMaskImage: "url('/assets/fortalent1.png')",

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import FadeContent from "@/components/FadeContent.jsx";
 import AnimatedContent from "@/components/AnimatedContent.jsx";
 import { HiOutlineChevronDown } from "react-icons/hi";
-export default function FAQ() {
+export default function FAQ({bgColor,textColor}) {
     const [openId, setOpenId] = useState(null);
 
   const toggleAccordion = (id) => {
@@ -38,7 +38,7 @@ export default function FAQ() {
     }
   ];
   return (
-      <section className="w-full  text-white pb-10 md:pb-15 lg:pb-20 1xl:py-30 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35 bg-[#1A1A1A] ">
+      <section className="w-full  text-white pb-10 md:pb-15 lg:pb-20 1xl:py-30 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35 " style={{backgroundColor:bgColor}}>
            <div className="grid gap-0 md:gap-5 lg:gap-10 1xl:gap-15  lg:gap-0 justify-start  text-white">
         {/* Top Badge */}
         <AnimatedContent
@@ -53,7 +53,7 @@ export default function FAQ() {
           delay={0.5}
         >
           <div className="mt-10 md:mt-25 mb-10 md:mb-0">
-            <span className=" text-[#ff004e]  font-jb-mono  text-xs  md:text-sm lg:text-base uppercase">
+            <span style={{color:textColor}} className="  font-jb-mono  text-xs  md:text-sm lg:text-base uppercase">
              Fractional WORK FAQ
             </span>
           </div>

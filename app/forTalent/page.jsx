@@ -66,7 +66,7 @@ that share your vision
 
 
 
-<FAQ textColor="#ff004e"/>
+<FAQ bgColor="#1A1A1A"   textColor="#ff004e" />
 
 
 

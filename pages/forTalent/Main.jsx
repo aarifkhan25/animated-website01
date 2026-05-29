@@ -42,7 +42,7 @@ export default function Main() {
       <FadeContent
         blur={true}
         duration={1.5}
-        delay={3}
+        delay={0.5}
         easing="ease-out"
         initialOpacity={0}
       >

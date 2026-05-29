@@ -244,7 +244,7 @@ factionalTalent,  comptition,sections,
             <motion.div
               ref={containerRef}
               style={isMobileOnly ? {} : { x: dynamicX }}
-              className="flex w-max gap-5 md:gap-7 lg:gap-10 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35 pb-10"
+              className="flex w-max gap-5 md:gap-7 lg:gap-10 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35 pb-10 pr-6 md:pr-10"
             >
               {bgColor !== "#1c143d"
                 ? visibleCards?.map((item, i) => (
