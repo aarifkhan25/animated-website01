@@ -73,7 +73,7 @@ const [isMobile,setIsMobile]=useState(false);
 
         {/* RIGHT DIV: 30% Width */}
 
-     {role==="remote"?   <div style={{ backgroundColor: bgColor
+     {role==="remote"? <div style={{ backgroundColor: bgColor
             }} className="md:flex-[4] w-full h-[300px] md:h-auto  flex justify-center items-center">
           
           <div
@@ -91,16 +91,46 @@ const [isMobile,setIsMobile]=useState(false);
             }}
           >
         </div>
-        </div>:
+        </div>:role ==="world" ?  <div 
+  style={{ backgroundColor: bgColor }} 
+  className="md:flex-[4] relative w-full z-0 h-[300px] md:h-[450px] lg:h-[500px] rounded-xl overflow-hidden flex items-center justify-center"
+>
+  {/* 1. इमेज मास्क डिब */}
+  <div
+    className="w-full h-full"
+    style={{
+      maskImage: `url('/assets/hire/stages/E2.png')`,
+      WebkitMaskImage: `url('/assets/hire/stages/E2.png')`,
+      maskSize: 'cover', // 'cover' से इमेज कट सकती है, 'contain' ज्यादा सेफ है
+      WebkitMaskSize: 'cover',
+      maskRepeat: 'no-repeat',
+      WebkitMaskRepeat: 'no-repeat',
+      maskPosition: 'center',
+      WebkitMaskPosition: 'center',
+      backgroundColor: textColor
+    }}
+  />
+
+ 
+  <div className="absolute bottom-[40%] left-1/2 -translate-x-1/2 z-10 flex justify-center items-center bg-[#0d0d0d] rounded-lg p-4 md:py-3 md:px-4 lg:py-6 lg:px-6 border border-white/10 shadow-2xl min-h-[60px] w-[90%] max-w-[400px]">
+    <Image 
+      src="/assets/hire/stages/E3.svg" 
+      alt="Stage Detail" 
+      width={400} 
+      height={50} 
+      className="w-full h-auto object-contain" 
+    />
+  </div>
+</div>:
         <div style={{backgroundColor:bgColor}} className="md:flex-[4] w-full  p-6 md:p-8 flex flex-col gap-4 justify-center ">
          
           {companies?.map((comp, i) => (
             <div
               key={i}
-              className="bg-[#0d0d0d] rounded-2xl md:py-2 md:px-1 lg:py-6 lg:px-4 flex items-center justify-center border border-white/5 shadow-2xl min-h-[80px]"
+              className="bg-[#0d0d0d] rounded-lg md:py-2 md:px-1 lg:py-6 lg:px-4 flex items-center justify-center border border-white/5 shadow-2xl min-h-[80px]"
             >
               <div
-                className="w-full max-w-[140px] h-10 md:h-12      "
+                className="w-full  h-10 md:h-12      "
                 style={{
                   maskImage: `url('${comp.img}')`,
                   WebkitMaskImage: `url('${comp.img}')`,
