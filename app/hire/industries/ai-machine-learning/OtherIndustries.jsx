@@ -104,9 +104,8 @@ export default function OtherIndustries({ textColor }) {
       
       <div 
         ref={scrollContainerRef} 
-        onScroll={checkScrollPosition} // FIX: स्क्रॉल होने पर स्टेट अपडेट करने के लिए लिसनर लगाया
-        /* FIX: आखरी कार्ड पूरा दिखे इसलिए pr-6 md:pr-10... (Right पैडिंग) को अंत में जोड़ा गया */
-        className="flex gap-5 md:gap-10 1xl:gap-15 overflow-x-auto scroll-smooth snap-x snap-mandatory py-5 md:py-10 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ml-6 md:ml-10 lg:ml-20 1xl:ml-25 2xl:ml-50 3xl:ml-80 pr-6 md:pr-10 lg:pr-20 1xl:pr-25 2xl:pr-50 3xl:pr-80"
+        onScroll={checkScrollPosition} 
+        className="flex gap-5 md:gap-10 1xl:gap-15 overflow-x-auto scroll-smooth snap-x snap-mandatory py-5 md:py-10 [scrollbar-width:none] [-ms-overflow-style:none]  ml-6 md:ml-10 lg:ml-20 1xl:ml-25 2xl:ml-50 3xl:ml-80 pr-6 md:pr-10 lg:pr-20 1xl:pr-25 2xl:pr-50 3xl:pr-80"
       >
         {otherIndus?.map((item, i) => {
           return (
