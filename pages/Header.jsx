@@ -100,7 +100,7 @@ export default function Header() {
    <header>
             <nav
               onMouseLeave={() => setHoveredIndex(null)}
-              className={`fixed top-0 left-1/2 -translate-x-1/2 w-full z-50 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35 transition-all duration-300 ${
+              className={`fixed top-0 left-1/2 -translate-x-1/2 w-full z-50 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80 transition-all duration-300 ${
                 isScrolled ? "bg-black/60 backdrop-blur-xl border-b border-white/5 py-3" : "bg-[#0d0d0d] py-5"
               }`}
             >

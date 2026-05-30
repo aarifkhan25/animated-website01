@@ -23,7 +23,7 @@ export default function page() {
    <Work title=" The new way to work" heading={<>Build longer relationships <br/> with Fractional Hiring </>}
          data={data}  textColor="#f35400" 
           subheading="Jobs on Pangea last longer, pay better, and bill more hours than the average freelance project."/>
-          <Matchmaking textColor="#f35400" />
+          <Matchmaking textColor="#f35400" bgColor="#370c00" textColor2="black" />
           <Card textColor="#f35400"  bgColor="#370c00" title=" Your Perfect Fit" heading={<>Connect with top companies <br/>
           that share your vision 
            </>}

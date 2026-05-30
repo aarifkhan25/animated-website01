@@ -54,7 +54,7 @@ export default function OtherIndustries({ textColor }) {
   return (
     <section className="w-full text-white py-10 md:py-20 1xl:py-30 overflow-hidden">
     
-      <div className="w-full mx-auto flex justify-between items-center px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35">
+      <div className="w-full mx-auto flex justify-between items-center px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80">
         <div className="flex">
           <AnimatedContent
             distance={20}
@@ -106,7 +106,7 @@ export default function OtherIndustries({ textColor }) {
         ref={scrollContainerRef} 
         onScroll={checkScrollPosition} // FIX: स्क्रॉल होने पर स्टेट अपडेट करने के लिए लिसनर लगाया
         /* FIX: आखरी कार्ड पूरा दिखे इसलिए pr-6 md:pr-10... (Right पैडिंग) को अंत में जोड़ा गया */
-        className="flex gap-5 md:gap-10 1xl:gap-15 overflow-x-auto scroll-smooth snap-x snap-mandatory py-5 md:py-10 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ml-6 md:ml-10 lg:pl-20 1xl:pl-25 2xl:pl-35 pr-6 md:pr-10 lg:pr-20 1xl:pr-25 2xl:pr-35"
+        className="flex gap-5 md:gap-10 1xl:gap-15 overflow-x-auto scroll-smooth snap-x snap-mandatory py-5 md:py-10 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ml-6 md:ml-10 lg:ml-20 1xl:ml-25 2xl:ml-50 3xl:ml-80 pr-6 md:pr-10 lg:pr-20 1xl:pr-25 2xl:pr-50 3xl:pr-80"
       >
         {otherIndus?.map((item, i) => {
           return (

@@ -5,7 +5,7 @@ import AnimatedContent from '@/components/AnimatedContent.jsx';
 import { GoArrowRight } from "react-icons/go";
 export default function Main({ textColor,heading,subheading,img }) {
   return (
-    <section className="w-full text-white py-10 md:py-20 pt-20 lg:pt-25 px-6 md:pl-10 lg:pl-20 1xl:pl-25 2xl:pl-35 overflow-hidden">
+    <section className="w-full text-white py-10 md:py-20 pt-20 lg:pt-25 px-6 md:pl-10 lg:pl-20 1xl:pl-25 2xl:px-50 3xl:px-80 overflow-hidden">
    
       <div className=" grid md:justify-center md:items-center md:flex    ">
         
@@ -74,7 +74,7 @@ export default function Main({ textColor,heading,subheading,img }) {
   delay={0.5}
 >
           <div
-            className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 xl:w-[500px] xl:h-full 2xl:w-[550px] aspect-square transition-all duration-300  md:-mr-30 overflow-hidden "
+            className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 xl:w-[500px] xl:h-full 2xl:w-[550px] aspect-square transition-all duration-300  md:-mr-30  overflow-hidden "
             style={{
               maskImage: `url('${img}')`,
               WebkitMaskImage:`url('${img}')`,

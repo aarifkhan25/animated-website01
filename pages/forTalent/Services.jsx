@@ -29,7 +29,7 @@ export default function Services({textColor}) {
   return (
     <div 
         ref={containerRef}
-        className="w-full overflow-hidden  pb-20 relative flex flex-col gap-5 mt-5 lg:mt-0"
+        className="w-full overflow-hidden   relative flex flex-col gap-5 "
       >
       
 

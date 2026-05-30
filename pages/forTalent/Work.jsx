@@ -14,7 +14,7 @@ import Card from '../forTalent/Card.jsx';
 export default function Work({ title, heading, subheading,textColor, role,freelance,freelance2,data,bgColor }) {
    const [activeTab, setActiveTab] = useState(0);
   return (
-  <>  <section style={{backgroundColor:`${role ==="work" ? bgColor : ""}`}} className={`  w-full   pb-10 lg:pb-20 1xl:pb-30 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35  overflow-hidden `}>
+  <>  <section style={{backgroundColor:`${role ==="work" ? bgColor : ""}`}} className={`  w-full   pb-10 lg:pb-20 1xl:pb-30 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80  overflow-hidden `}>
       <div className="flex flex-col gap-0 md:gap-5  lg:gap-0 items-center justify-center text-white">
         {/* Top Badge */}
         <AnimatedContent

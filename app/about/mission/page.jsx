@@ -10,7 +10,7 @@ export default function page() {
   };
   return (
     <section className="w-full mt-10 md:mt-15 lg:mt-10     py-10 lg:py-15  1xl:py-20">
-  <div className="w-full px-3 md:px-5 lg:px-10 1xl:px-20 2xl:px-25 pb-5 1xl:pb-10">
+  <div className="w-full px-3 md:px-5 lg:px-10 1xl:px-20 2xl:px-50 3xl:px-80 pb-5 1xl:pb-10">
     <FadeContent
         blur={true}
         duration={1.5}
@@ -40,7 +40,7 @@ export default function page() {
     </div>
   </div></FadeContent>
 </div>
-<div className="w-full px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35">
+<div className="w-full px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80">
 
 <Main heading="Our Mission" subheading={<>   We believe that great teams build great products. That’s why we built this platform - for you, the top <br/> talent and teams of the future. Our mission is simple: to empower you to work on your own terms. Our <br/> platform makes it easy for teams to find top talent, and for talent to find their next opportunity. We <br/> know that the way we build relationships is evolving, and our platform is designed to help you keep up <br/> with the trend toward flexible and meaningful work. Join us on this journey, and let’s build <br/> great products together!
 </>}

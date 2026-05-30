@@ -31,7 +31,7 @@ export default function page() {
                  <Work title=" The new way to work" heading={<>Build longer relationships <br/> with Fractional Hiring </>}
                          data={data}  textColor="#00b365" 
                           subheading="Jobs on Pangea last longer, pay better, and bill more hours than the average freelance project."/>
-      <Matchmaking textColor="#00b365" />
+      <Matchmaking textColor="#00b365" bgColor="#002611" textColor2="black" />
        <FindNextRoleCTA textColor="#00b365"/>
            <Work title=" Discover the difference" heading={<>We’re not just another <br/> freelance site
                    </>} freelance={freelance} textColor="#00b365" bgColor="#002611"

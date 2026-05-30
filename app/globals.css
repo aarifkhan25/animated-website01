@@ -51,4 +51,10 @@ body{
 @theme {
 /* for 1440px and above */
   --breakpoint-1xl: 90rem; 
+  /* for 1760 and above */
+  --breakpoint-3xl: 110rem; 
+ 
+  
+  
+
 }

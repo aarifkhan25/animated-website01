@@ -4,7 +4,7 @@ import AnimatedContent from '@/components/AnimatedContent.jsx';
 
 export default function StartHiring() {
   return (
-      <section className=" px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35  py-10 md:py-20 1xl:py-30 2xl:pt-50 w-full   ">
+      <section className=" px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80  py-10 md:py-20 1xl:py-30 2xl:pt-50 w-full   ">
        <AnimatedContent
           distance={100}
           direction="vertical"
@@ -15,7 +15,7 @@ export default function StartHiring() {
           animateOpacity
           scale={1}
           threshold={0.2}
-          delay={0.2}
+          delay={0}
         >
       <div className="border border-gray-400 h-[50px] md:h-[100px] flex justify-between items-center px-3 md:px-4 lg:px-5   rounded-lg  bg-[#0d0d0d]">
         <div><h3 className="text-base md:text-[26px] lg:text-4xl font-semibold text-white font-monish">Ready to get started?</h3></div>

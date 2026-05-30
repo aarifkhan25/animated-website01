@@ -3,29 +3,29 @@ import Image from 'next/image';
 import AnimatedContent from '@/components/AnimatedContent.jsx';
 import FadeContent from "@/components/FadeContent.jsx";
 
-export default function Matchmaking({ textColor }) {
+export default function Matchmaking({ textColor,bgColor,textColor2 }) {
 
   const textBubbles = [
-    { text: "RELATED WORK EXPERIENCE", size: "w-40 h-40 lg:w-48 lg:h-48 text-sm lg:text-base", bg: "bg-[#f35400]", textColor: "text-black", pos: "bottom-[55%] left-[7%] lg:left-[10%]" },
-    { text: "DEGREES + CERTS", size: "w-24 h-24 lg:w-28 lg:h-28 text-xs lg:text-sm", bg: "bg-[#a63a00]", textColor: "text-[#f35400]", pos: "top-[15%] left-[28%]" },
-    { text: "HOURLY RATE", size: "w-20 h-20 lg:w-24 lg:h-24 text-xs", bg: "bg-[#4d1300]", textColor: "text-[#f35400]", pos: "bottom-[40%] left-[20%] lg:left-[12%]" }, // FIX: bottom-50% से बाहर जा रहा था, 20% किया
-    { text: "INDURED EXPERIENCE", textDisplay: "INDUSTRY EXPERIENCE", size: "w-32 h-32 lg:w-36 lg:h-36 text-xs lg:text-sm", bg: "bg-[#f35400]", textColor: "text-black", pos: "top-[15%] right-[25%]" },
-    { text: "SKILLS", size: "w-20 h-20 lg:w-24 lg:h-24 text-xs lg:text-sm", bg: "bg-[#3d0f00]", textColor: "text-[#f35400]", pos: "top-[45%] right-[12%] lg:right-[10%]" },
-    { text: "DEGREES + CERTS", size: "w-32 h-32 lg:w-36 lg:h-36 text-xs lg:text-sm", bg: "bg-[#f35400]", textColor: "text-black", pos: "bottom-[35%] right-[20%]" }, // FIX: bottom-50% से 15% किया
+    { text: "RELATED WORK EXPERIENCE", size: "w-40 h-40 lg:w-48 lg:h-48 text-sm lg:text-base", bg: textColor, textColor: textColor2, pos: "bottom-[55%] left-[7%] lg:left-[10%]" },
+    { text: "DEGREES + CERTS", size: "w-24 h-24 lg:w-28 lg:h-28 text-xs lg:text-sm", bg:bgColor, textColor: textColor, pos: "top-[15%] left-[28%]" },
+    { text: "HOURLY RATE", size: "w-20 h-20 lg:w-24 lg:h-24 text-xs", bg: bgColor, textColor: textColor, pos: "bottom-[42%] left-[20%] lg:left-[12%]" }, // FIX: bottom-50% से बाहर जा रहा था, 20% किया
+    { text: "INDURED EXPERIENCE", textDisplay: "INDUSTRY EXPERIENCE", size: "w-32 h-32 lg:w-36 lg:h-36 text-xs lg:text-sm", bg: textColor, textColor: textColor2, pos: "top-[15%] right-[25%]" },
+    { text: "SKILLS", size: "w-20 h-20 lg:w-24 lg:h-24 text-xs lg:text-sm", bg: bgColor, textColor: textColor, pos: "top-[35%] right-[12%] lg:right-[10%]" },
+    { text: "DEGREES + CERTS", size: "w-32 h-32 lg:w-36 lg:h-36 text-xs lg:text-sm", bg: textColor, textColor: textColor2, pos: "bottom-[45%] right-[20%]" }, // FIX: bottom-50% से 15% किया
   ];
 
   const avatars = [
-    { id: 1, size: "w-12 h-12 lg:w-14 lg:h-14", pos: "top-[25%] left-[7%]", src: "/assets/hire/stages/F1.avif" },
-    { id: 2, size: "w-14 h-14 lg:w-16 lg:h-16", pos: "top-[10%] left-[22%]", src: "/assets/hire/stages/F2.avif" },
-    { id: 3, size: "w-14 h-14 lg:w-16 lg:h-16", pos: "bottom-[20%] left-[12%]", src: "/assets/hire/stages/F3.avif" },
+    { id: 1, size: "w-12 h-12 lg:w-14 lg:h-14", pos: "top-[22%] left-[5%]", src: "/assets/hire/stages/F1.avif" },
+    { id: 2, size: "w-14 h-14 lg:w-16 lg:h-16", pos: "top-[12%] left-[22%]", src: "/assets/hire/stages/F2.avif" },
+    { id: 3, size: "w-14 h-14 lg:w-16 lg:h-16", pos: "bottom-[35%] left-[17%]", src: "/assets/hire/stages/F3.avif" },
     { id: 4, size: "w-14 h-14 lg:w-16 lg:h-16", pos: "top-[9%] right-[38%]", src: "/assets/hire/stages/F4.avif" },
-    { id: 5, size: "w-14 h-14 lg:w-16 lg:h-16", pos: "top-[36%] right-[20%]", src: "/assets/hire/stages/F5.avif" },
-    { id: 6, size: "w-14 h-14 lg:w-16 lg:h-16", pos: "bottom-[30%] right-[4%]", src: "/assets/hire/stages/F6.avif" },
+    { id: 5, size: "w-14 h-14 lg:w-16 lg:h-16", pos: "top-[27%] right-[20%]", src: "/assets/hire/stages/F5.avif" },
+    { id: 6, size: "w-14 h-14 lg:w-16 lg:h-16", pos: "bottom-[39%] right-[18%]", src: "/assets/hire/stages/F6.avif" },
   ];
 
   return (
     /* FIX: min-h-[650px] या md:min-h-[750px] दिया ताकि absolute एलिमेंट्स को पूरा स्पेस मिले */
-    <section className="w-full min-h-[700px] md:min-h-[750px] lg:min-h-[850px] text-white flex items-center justify-center relative overflow-hidden font-mulish px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-35 py-10 lg:py-20 1xl:py-30">
+    <section className="w-full min-h-[700px] md:min-h-[750px] lg:min-h-[850px] text-white flex items-center justify-center relative overflow-hidden font-mulish px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80 py-10 lg:py-20 1xl:py-30">
       
       {/* ─── DESKTOP/TABLET ABSOLUTE LAYOUT ─── */}
     <div className="hidden md:block absolute inset-0 w-full h-full max-w-[1600px] mx-auto pointer-events-none">
@@ -34,7 +34,8 @@ export default function Matchmaking({ textColor }) {
         {textBubbles.map((bubble, index) => (
           <div
             key={`text-${index}`}
-            className={`absolute ${bubble.pos} ${bubble.size} ${bubble.bg} ${bubble.textColor} 
+            style={{color:bubble.textColor,backgroundColor:bubble.bg}}
+            className={`absolute ${bubble.pos} ${bubble.size} 
                        rounded-full flex items-center justify-center text-center font-bold 
                        p-4 leading-tight tracking-wider transition-transform duration-500 hover:scale-110 shadow-lg select-none`}
           >
@@ -74,7 +75,7 @@ export default function Matchmaking({ textColor }) {
           delay={0.1}
         >
           <div className="mb-4 md:mb-0">
-            <span style={{ color: textColor }} className="font-jb-mono text-xs md:text-sm lg:text-base uppercase tracking-widest font-bold">
+            <span style={{ color: textColor }} className="font-jb-mono text-xs md:text-sm lg:text-base uppercase ">
               Move over, cupid
             </span>
           </div>
@@ -89,7 +90,7 @@ export default function Matchmaking({ textColor }) {
           initialOpacity={0}
         >
           <div className="text-center">
-            <h1 style={{color:textColor}} className="text-3xl md:text-[44px] lg:text-[56px] xl:text-[64px] tracking-wide leading-[1.1] mb-5 font-mulish font-medium">
+            <h1 className="text-3xl md:text-[44px] lg:text-[56px] xl:text-[64px] tracking-wide leading-[1.1] mb-5 font-mulish font-medium">
               A+ fractional <br /> matchmaking
             </h1>
           </div>
