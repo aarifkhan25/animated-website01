@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const FadeContent = ({
+  as = 'div',
   children,
   container,
   blur = false,
@@ -83,10 +84,12 @@ const FadeContent = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const Component = as;
+
   return (
-    <div ref={ref} className={className} {...props}>
+    <Component ref={ref} className={className} {...props}>
       {children}
-    </div>
+    </Component>
   );
 };
 

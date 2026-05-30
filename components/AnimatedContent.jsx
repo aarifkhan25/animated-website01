@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const AnimatedContent = ({
+  as = 'div',
   children,
   container,
   distance = 100,
@@ -107,10 +108,12 @@ const AnimatedContent = ({
     onDisappearanceComplete
   ]);
 
+  const Component = as;
+
   return (
-    <div ref={ref} className={`invisible ${className}`} {...props}>
+    <Component ref={ref} className={`invisible ${className}`} {...props}>
       {children}
-    </div>
+    </Component>
   );
 };
 

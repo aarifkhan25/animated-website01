@@ -11,11 +11,13 @@ const items = [
   { id: 5, name: "Product Hunt", color: "#da552f" },
 ];
 const services=['Full Stack Engineer', 'Frontend Developer', 'Backend Developer', 'UI/UX Designer', 'Product Manager', 'Data Scientist', 'DevOps Engineer', 'App Developer', 'QA Engineer', 'Cloud Architect'];
+const reversedServices = [...services].reverse();
+
 export default function Services({textColor}) {
      // for track a scroll position of a section
       const containerRef = useRef(null);
       
-      const duplicatedItems = [...items, ...items];
+
     
       const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -49,9 +51,9 @@ export default function Services({textColor}) {
           className="flex gap-3 md:gap-6 w-max"
           style={{ x: xRight }} // attech the scroll transform value
         >
-          {services?.map((item, index) => (
+          {services?.map((item) => (
           <div
-              key={index}
+              key={item}
               className="px-2 md:px-8 py-1 md:py-3 border      rounded-lg shadow-xl "
               style={{borderColor:textColor}}
             >
@@ -78,9 +80,9 @@ export default function Services({textColor}) {
           className="flex gap-3 md:gap-6 w-max"
           style={{ x: xLeft }} // attech the scroll transform value
         >
-          {services?.reverse()?.map((item, index) => (
+          {reversedServices.map((item) => (
              <div
-              key={index}
+              key={item}
               className="px-2 md:px-8 py-1 md:py-3 border      rounded-lg  shadow-xl "
                    style={{borderColor:textColor}}
             >

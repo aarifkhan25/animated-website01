@@ -93,12 +93,20 @@ const ScrollReveal = ({
     };
   }, [scrollContainerRef, enableBlur, baseRotation, baseOpacity, rotationEnd, wordAnimationEnd, blurStrength]);
 
+  if (isString) {
+    return (
+      <h2 ref={containerRef} className={`my-5 ${containerClassName}`}>
+        <p className={`text-[clamp(1.6rem,4vw,3rem)] leading-[1.5] font-semibold ${textClassName}`}>
+          {splitText}
+        </p>
+      </h2>
+    );
+  }
+
   return (
-    <h2 ref={containerRef} className={`my-5 ${containerClassName}`}>
-      <p className={`text-[clamp(1.6rem,4vw,3rem)] leading-[1.5] font-semibold ${textClassName}`}>
-        {splitText}
-      </p>
-    </h2>
+    <div ref={containerRef} className={`my-5 ${containerClassName}`}>
+      {children}
+    </div>
   );
 };
 

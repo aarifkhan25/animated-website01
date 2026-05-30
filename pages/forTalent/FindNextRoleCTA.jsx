@@ -49,6 +49,7 @@ className={`absolute top-0 left-0 w-[20%] md:w-[30%] h-[60%] md:h-full opacity-6
        
        <div><span style={{color:textColor}} className="  font-jb-mono  text-[11px]  md:text-sm lg:text-base uppercase ">
          <AnimatedContent
+                                    as="span"
                                     distance={20}
                                     direction="vertical"
                                     reverse
@@ -63,12 +64,12 @@ className={`absolute top-0 left-0 w-[20%] md:w-[30%] h-[60%] md:h-full opacity-6
         </span></div>
 
        <div> <h2 className="text-2xl md:text-[45px] lg:text-[56px]  tracking-wide leading-[1.1]  font-mulish">
-          <FadeContent blur={true} duration={1.5} delay={0.3} easing="ease-in" initialOpacity={0}>Find your next role on <br/>  Pangea Today</FadeContent> 
+          <FadeContent as="span" blur={true} duration={1.5} delay={0.3} easing="ease-in" initialOpacity={0}>Find your next role on <br/>  Pangea Today</FadeContent> 
         </h2></div>
 
         
       <div>  <p className="text-white text-sm md:text-2xl font-mulish">
-           <FadeContent blur={true} duration={1.5} delay={0.3} easing="ease-in" initialOpacity={0}>Create your free account now to get started</FadeContent>
+           <FadeContent as="span" blur={true} duration={1.5} delay={0.3} easing="ease-in" initialOpacity={0}>Create your free account now to get started</FadeContent>
         </p></div>
 
       <div> <FadeContent blur={true} duration={1.5} delay={0.3} easing="ease-in" initialOpacity={0}>  <button style={{backgroundColor:textColor}} className="group flex items-center justify-center gap-2 py-2 px-6 md:py-4  md:px-12  text-black text-base md:text-xl lg:text-2xl font-bold font-mulish  rounded-full transition-all duration-300  hover:scale-105 active:scale-95 shadow-lg ">
