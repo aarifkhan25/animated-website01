@@ -65,13 +65,15 @@ export default function StepToGrowth({textColor,borderColor}) {
       Talk to our team, or our on-demand AI agent, and give us some background on your company. We’ll identify skills and capabilities to target for our talent search.
           </p></div>
 {/* div 5 */}
-          <div style={{borderColor:borderColor}}   className="p-2  border md:p-3  lg:p-5 flex flex-col justify-start        gap-2 md:gap-3 lg:gap-5 ">  <h1 className="text-base md:text-2xl lg:text-[32px]   font-semibold  font-mulish text-white ">
+          <div style={{borderColor:borderColor}}   className="p-2  border md:p-3  lg:p-5 flex flex-col justify-start        gap-2 md:gap-3 lg:gap-5 ">
+              <h1 className="text-base md:text-2xl lg:text-[32px]   font-semibold  font-mulish text-white ">
          We match you with talent
           </h1>
 
           {/* Subtext description */}
           <p className="text-white text-[10px]  md:text-xs lg:text-base font-mulish">
-"Our best-in-class matching algorithm looks for candidates with past work experiences and projects that relate to your company & select the best Pangeans for you.          </p></div>
+"Our best-in-class matching algorithm looks for candidates with past work experiences and projects that relate to your company & select the best Pangeans for you.          </p>
+</div>
 
           {/* div 6 */}
           <div style={{borderColor:borderColor}}   className="p-2  border md:p-3  lg:p-5 flex flex-col justify-start        gap-2 md:gap-3 lg:gap-5 ">  <h1 className="text-base md:text-2xl lg:text-[32px]   font-semibold  font-mulish text-white ">

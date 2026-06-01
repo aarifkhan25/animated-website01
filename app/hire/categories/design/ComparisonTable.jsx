@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-
+import Step from "./Step.jsx";
 // तुलना के लिए डेटा स्ट्रक्चर
 const comparisonData = [
   {
@@ -37,8 +37,9 @@ const comparisonData = [
 
 export default function ComparisonTable({textColor,bgColor}) {
   return (
-    <section className="w-full  text-white py-12 md:py-20 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 font-sans overflow-hidden">
-        
+    <section className="w-full  text-white px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80  py-10 lg:py-20 1xl:py-30 overflow-hidden">
+           <Step title="3 easy steps to growth
+        " heading={<>Pangea makes hiring fractional talent easy</>} textColor={textColor}  />
       <div className="w-full">
         
         {/* ─── मुख्य ग्रिड कंटेनर (3-कॉलम लेआउट) ─── */}
@@ -50,8 +51,8 @@ export default function ComparisonTable({textColor,bgColor}) {
           <div className="hidden md:block"></div>
           
           {/* कॉलम 2: Pangea लोगो हेडर */}
-          <div className="relative flex justify-center items-center pb-6 md:pb-10 z-20 md:border-x md:border-[#30001f]/40  rounded-t-xl">
-            <div className="flex items-center gap-2 text-xl md:text-2xl font-medium tracking-wide">
+          <div style={{ borderColor: bgColor}} className="relative flex justify-center items-center pb-6 md:pb-10 z-20  rounded-xl">
+            <div className="flex items-center gap-2 text-xl md:text-2xl ">
               {/* कस्टम एसवीजी ग्लोब लोगो (Pangea आइकॉन) */}
               <svg className="w-6 h-6 md:w-7 md:h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="12" cy="12" r="10" />
@@ -64,44 +65,41 @@ export default function ComparisonTable({textColor,bgColor}) {
           
           {/* कॉलम 3: अन्य प्लेटफॉर्म्स हेडर */}
           <div className="text-center pb-8 md:pb-10 flex flex-col justify-center items-center">
-            <h3 className="text-neutral-400 text-sm md:text-base lg:text-lg font-normal leading-snug max-w-[180px] md:max-w-none">
+            <h3 className=" text-white text-sm md:text-lg lg:text-[28px] font-normal leading-snug  ">
               Freelance hiring platforms
             </h3>
           </div>
 
           {/* ─── ग्रिड रोज़ (Grid Rows Data) ─── */}
           {comparisonData.map((row, index) => {
-            // हाइलाइटेड रो के लिए बैकग्राउंड वेरिएशन्स
-            const rowBgClass = row.highlightRow 
-              ? "bg-[#30001f] text-white rounded-lg md:rounded-none" 
-              : "text-neutral-300";
-
+         
             return (
               <React.Fragment key={index}>
                 
                 {/* मोबाइल व्यू कस्टमाइजेशन के लिए आउटर फ्लेक्स रैपर (सिर्फ md से छोटे स्क्रीन्स पर काम करेगा) */}
-                <div className={`md:contents flex flex-col gap-3 p-5 mb-4 ${row.highlightRow ? 'bg-[#30001f] rounded-xl' : 'bg-[#121212]/30 rounded-xl md:bg-transparent'}`}>
+                <div className={`md:contents flex flex-col gap-3 p-5 mb-4 ${row.highlightRow ? 'bg-[#3a002b] rounded-l-xl ' : 'bg-[#121212]/30  md:bg-transparent'}`}>
                   
                   {/* 1. फीचर नाम (लेफ्ट कॉलम) */}
-                  <div className={`flex items-center py-2 md:py-6 text-sm sm:text-base font-medium md:pl-4 ${row.highlightRow ? 'text-white md:bg-[#30001f] md:rounded-l-xl' : 'text-neutral-400 md:text-white'}`}>
+                  <div className={`flex items-center py-2 md:py-6 lg:py-10 text-base font-mulish sm:text-base md:text-xl lg:text-[26px]  md:pl-4 ${row.highlightRow ? 'text-white md:bg-[#3a002b] ' : ' text-white md:text-white'}`}>
                     {row.feature}
                   </div>
 
                   {/* 2. Pangea वैल्यू (सेंटर कॉलम) */}
-                  <div className={`flex items-center justify-start md:justify-center py-2 md:py-6 text-sm sm:text-base font-semibold md:text-center md:border-x md:border-[#30001f]/40 md:px-6 z-10
-                    ${row.highlightRow ? 'text-white md:bg-[#30001f]' : 'text-white md:bg-[#0d0d0d]/40'}`}
+                  <div  className={`flex items-center justify-start md:justify-center text-center  py-2 md:py-6 lg:py-10 text-sm sm:text-base font-semibold font-mulish md:text-xl lg:text-[26px] md:border-x md:border-[#3a002b]  md:px-6 z-10
+                    ${row.highlightRow ? 'text-white md:bg-[#3a002b] ' : 'text-white md:bg-[#0d0d0d]/40'}`}
                   >
                     {/* मोबाइल पर विजुअल हिंट */}
-                    <span className="text-[10px] uppercase tracking-wider text-neutral-500 font-mono mr-2 md:hidden">Pangea:</span>
+                    <span className="text-xs uppercase  font-mulish mr-2 md:hidden">Pangea:</span>
                     {row.pangea}
                   </div>
 
                   {/* 3. अन्य प्लेटफॉर्म्स वैल्यू (राइट कॉलम) */}
-                  <div className={`flex items-center justify-start md:justify-center py-2 md:py-6 text-sm sm:text-base font-normal md:text-center md:pr-4 md:text-neutral-300
-                    ${row.highlightRow ? 'text-white md:bg-[#30001f] md:rounded-r-xl' : 'text-neutral-400'}`}
+                  <div className={`flex items-center justify-start md:justify-center py-2 md:py-6 lg:py-10 text-sm md:text-xl lg:text-[26px] 
+                  l md:text-center md:pr-4 
+                    ${row.highlightRow ? 'text-white md:bg-[#3a002b] md:rounded-r-xl' : ' text-white'}`}
                   >
                     {/* मोबाइल पर विजुअल हिंट */}
-                    <span className="text-[10px] uppercase tracking-wider text-neutral-500 font-mono mr-2 md:hidden">Others:</span>
+                    <span className="text-sm md:text-xl lg:text-[26px] uppercase    font-mulish mr-2 md:hidden">Others:</span>
                     {row.others}
                   </div>
 
@@ -112,7 +110,7 @@ export default function ComparisonTable({textColor,bgColor}) {
           })}
 
           {/* ─── Pangea कॉलम का वर्टिकल बॉर्डर बॉक्स (सिर्फ डेस्कटॉप पर दिखेगा) ─── */}
-          <div className="hidden md:block absolute top-[52px] bottom-0 left-[33.33%] right-[33.33%] border border-[#30001f]/60 bg-transparent rounded-b-xl pointer-events-none z-0" />
+          <div className="hidden md:block absolute top-[52px] bottom-0 left-[33.33%] right-[33.33%] border border-[#3a002b]/60 bg-transparent rounded-b-xl pointer-events-none z-0" />
 
         </div>
       </div>

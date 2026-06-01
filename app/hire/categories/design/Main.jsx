@@ -48,8 +48,8 @@ export default function Main({textColor}) {
             </div>
             {/* Flexbox container matching the exact layout of horizontal logos */}
             <div 
-    style={{ height: '150px', position: 'relative', overflow: 'hidden'}}
-    className="[&_img]:[filter:brightness(0)_saturate(100%)_invert(13%)_sepia(95%)_saturate(7080%)_hue-rotate(318deg)_brightness(102%)_contrast(109%)] -mt-10"
+    style={{ height: '100px', position: 'relative', overflow: 'hidden'}}
+    className="[&_img]:[filter:brightness(0)_saturate(100%)_invert(13%)_sepia(95%)_saturate(7080%)_hue-rotate(318deg)_brightness(102%)_contrast(109%)] -mt-5"
   >
   
     <LogoLoop
