@@ -68,11 +68,11 @@ export default function Main({textColor}) {
 
         {/* Right Card Column */}
         <div className="lg:col-span-5 w-full h-full  hidden lg:block flex">
-          <div className="relative w-full max-w-[440px] aspect-[4/5] rounded-xl overflow-hidden shadow-2xl group">
+          <div className="relative w-full  rounded-xl overflow-hidden shadow-2xl group">
             
             {/* Main Portrait Image */}
             <img 
-              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=800" 
+              src="/assets/hire/stages/F2.avif" 
               alt="Featured Fractional Designer Profile" 
               className="w-full h-full object-cover grayscale-[10%] brightness-95 group-hover:scale-105 transition-transform duration-700 ease-out"
             />

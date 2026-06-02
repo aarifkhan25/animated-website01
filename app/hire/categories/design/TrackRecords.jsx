@@ -2,26 +2,9 @@
 import React from 'react';
 import Step from "./Step.jsx";
 // स्टैट्स डेटा ऐरे
-const tag=["DIVERSE DATABASE", "SUCCESSFUL MATCHES", "HIGH VALUE TALENT"]
-const statsData = [
-  {
-  
-    value: "75,000",
-    label: "Talent profiles"
-  },
-  {
-  
-    value: "2,500",
-    label: "Hires"
-  },
-  {
 
-    value: "$75",
-    label: "Average hourly rate"
-  }
-];
 
-export default function TrackRecords({textColor, borderColor}) {
+export default function TrackRecords({textColor, borderColor,tag,statsData}) {
   return (
     <section className="w-full  text-white px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80  py-10 lg:py-20 1xl:py-30  ">
       <div className="w-full border border-[#3a002b] rounded-lg">

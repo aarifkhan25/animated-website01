@@ -4,41 +4,9 @@ import Image from 'next/image';
 import { FiArrowRight } from 'react-icons/fi';
 
 // टैलेंट डेटा ऐरे (मैचिंग इमेजेस और पिछले एक्सपीरिएंस के साथ)
-const talentData = [
-  {
-    name: "Alison",
-    formerCompany: "AMAZON",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600&h=500",
-  },
-  {
-    name: "Rick",
-    formerCompany: "ENDEAVOR",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600&h=500",
-  },
-  {
-    name: "Oana",
-    formerCompany: "GROUPE CRÉDIT AGRICOLE",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=600&h=500",
-    isGrayscale: true, // डिज़ाइन के अनुसार यह इमेज ब्लैक एंड व्हाइट है
-  },
-  {
-    name: "Fiamma",
-    formerCompany: "PHILIPS",
-    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=600&h=500",
-  },
-  {
-    name: "Anton",
-    formerCompany: "RIAN + RAMBLER",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=600&h=500",
-  },
-  {
-    name: "Abhijith",
-    formerCompany: "AMAZON",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=600&h=500",
-  },
-];
 
-export default function DesignTalent({textColor,bgColor}) {
+
+export default function DesignTalent({textColor,bgColor,talentData}) {
   return (
     <section className="w-full   px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80 py-10 lg:py-20 1xl:py-30">
       <div className="">

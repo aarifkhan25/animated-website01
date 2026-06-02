@@ -1,41 +1,10 @@
 "use client";
 import React from 'react';
 import Step from "./Step.jsx";
-// तुलना के लिए डेटा स्ट्रक्चर
-const comparisonData = [
-  {
-    feature: "Time to match",
-    pangea: "Within 48 Hours",
-    others: "Up to a week",
-    highlightRow: false
-  },
-  {
-    feature: "Flexibility",
-    pangea: "Built to scale up or down",
-    others: "Hard to modify contracts",
-    highlightRow: true // स्क्रीनशॉट के अनुसार हाइलाइटेड रो
-  },
-  {
-    feature: "Hiring Process",
-    pangea: "Streamlined & powered by AI",
-    others: "Hours of manual work",
-    highlightRow: false
-  },
-  {
-    feature: "Talent Quality",
-    pangea: "Category experts with referrals",
-    others: "Unvetted & underskilled",
-    highlightRow: true // स्क्रीनशॉट के अनुसार हाइलाइटेड रो
-  },
-  {
-    feature: "Support",
-    pangea: "White glove service",
-    others: "Endless email chains",
-    highlightRow: false
-  }
-];
 
-export default function ComparisonTable({textColor,bgColor}) {
+
+
+export default function ComparisonTable({textColor,bgColor,comparisonData}) {
   return (
     <section className="w-full  text-white px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80  py-10 lg:py-20 1xl:py-30 overflow-hidden">
            <Step title="3 easy steps to growth

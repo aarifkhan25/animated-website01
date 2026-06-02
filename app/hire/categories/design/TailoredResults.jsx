@@ -7,7 +7,7 @@ export default function TailoredResults({textColor}) {
     <section className="w-full px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80  py-10 lg:py-20 1xl:py-30  flex items-center justify-center font-sans">
       <div className=" w-full relative flex flex-col md:flex-row items-stretch">
         
-        {/* ─── लेफ्ट डार्क कार्ड (Main Content Block) ─── */}
+      
          <div className=" w-full p-5 lg:p-10 flex flex-col justify-between items-start bg-[#1a1a1a] rounded-lg">
                  <div className="w-full">
                
@@ -44,7 +44,7 @@ export default function TailoredResults({textColor}) {
           </div>
         </div>
 
-        {/* बड़ी स्क्रीन पर राइट साइड में स्पेस बनाए रखने के लिए एक अदृश्य स्पेसर */}
+       
         <div className="hidden md:block md:w-[35%] flex-shrink-0 pointer-events-none" />
 
       </div>
