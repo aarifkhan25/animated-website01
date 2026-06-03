@@ -9,13 +9,13 @@ export default function Main({textColor}) {
   { alt: "Dorothy™", src: "/assets/comp/logo6.svg" },
   { alt: "SecurityScorecard", src: "/assets/comp/logo4.svg" },]
   return (
-    <section className="w-full text-white py-10 md:py-20 pt-20 lg:pt-25 px-6 md:px-0 overflow-hidden">
+    <section className="w-full text-white py-10 md:py-20 pt-20 lg:pt-25 overflow-hidden">
       <div className=" w-full grid grid-cols-1 lg:grid-cols-12 items-center">
         
         {/* Left Content Column */}
         <div className="space-y-8 lg:col-span-7 flex flex-col justify-center">
           {/* Top Label */}
-         <div className='md:pl-10 lg:pl-20 1xl:pl-25 2xl:px-50 3xl:px-80 grid gap-5 md:gap-10'> <span style={{color:textColor}} className=" text-xs md:text-sm lg:text-base font-jb-mono uppercase block">
+         <div className=' pl-6 md:pl-10 lg:pl-20 1xl:pl-25 2xl:px-50 3xl:px-80 grid gap-5 md:gap-10'> <span style={{color:textColor}} className=" text-xs md:text-sm lg:text-base font-jb-mono uppercase block">
            Fractional Designers
           </span>
 
@@ -40,7 +40,7 @@ export default function Main({textColor}) {
           </div>
 
           {/* Trusted Partners Section */}
-          <div className="pt-10">
+          <div className="">
             <span style={{color:textColor}} className=" text-[10px] md:text-xs lg:text-sm font-jb-mono uppercase block ">
               Trusted Partners
             </span>
@@ -48,8 +48,8 @@ export default function Main({textColor}) {
             </div>
             {/* Flexbox container matching the exact layout of horizontal logos */}
             <div 
-    style={{ height: '100px', position: 'relative', overflow: 'hidden'}}
-    className="[&_img]:[filter:brightness(0)_saturate(100%)_invert(13%)_sepia(95%)_saturate(7080%)_hue-rotate(318deg)_brightness(102%)_contrast(109%)] -mt-5"
+    style={{  position: 'relative', overflow: 'hidden'}}
+    className="[&_img]:[filter:brightness(0)_saturate(100%)_invert(13%)_sepia(95%)_saturate(7080%)_hue-rotate(318deg)_brightness(102%)_contrast(109%)] -mt-5 h-17 md:h-25 "
   >
   
     <LogoLoop
@@ -61,6 +61,7 @@ export default function Main({textColor}) {
       hoverSpeed={0}
       scaleOnHover
       ariaLabel="Technology partners"
+      className="h-15 md:h-25"
     />
   </div>
          
