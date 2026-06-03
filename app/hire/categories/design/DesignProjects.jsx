@@ -15,7 +15,7 @@ export default function DesignProjects({textColor,bgColor,title,role,blog,skills
   
   {/* आइटम 2: डेस्कटॉप पर चौथे कॉलम पर लॉक होगा */}
   <div className="  flex justify-center items-center p-2 md:py-5 md:px-5 lg:px-10  md:col-start-4 border border-[#3a002b]">
-        <button style={{backgroundColor:textColor}} className="group lg:w-full flex justify-center items-center gap-2 transition-colors text-black py-2 px-3 lg:py-2 lg:px-4 xl:py-3 xl:px-6 rounded-full font-mulish font-bold text-sm md:text-lg lg:text-2xl cursor-pointer">
+        <button style={{backgroundColor:textColor}} className="group lg:w-full flex justify-center items-center gap-2 transition-colors text-black py-2 px-3 lg:py-2 lg:px-4 xl:py-3 xl:px-6 rounded-full font-mulish font-bold text-sm md:text-base lg:text-2xl cursor-pointer">
                        <div className="flex justify-center items-center gap-1">
                          View More    
                          <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

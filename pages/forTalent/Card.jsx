@@ -73,8 +73,7 @@ const [isMobile,setIsMobile]=useState(false);
 
         {/* RIGHT DIV: 30% Width */}
 
-     {role==="remote"? <div style={{ backgroundColor: bgColor
-            }} className="md:flex-[4] w-full h-[300px] md:h-auto  flex justify-center items-center">
+     {role==="remote"? <div style={{ backgroundColor: bgColor}} className="md:flex-[4] w-full h-[300px] md:h-auto  flex justify-center items-center">
           
           <div
             className="w-full  h-full      "
