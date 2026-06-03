@@ -16,28 +16,28 @@ const nav = [
         title: "Company stages", 
         links: [
           { name: "Early-Stage-Startups", href: "/hire/stages/early-stage-startups" },
-          { name: "Growth-Stage-Startups", href: "/hire/stages/growth-stage-startups" },
-          { name: "Enterprise Companies", href: "/hire/stages/enterprise" }
+          // { name: "Growth-Stage-Startups", href: "/hire/stages/growth-stage-startups" },
+          // { name: "Enterprise Companies", href: "/hire/stages/enterprise" }
         ] 
       },
       { 
         title: "Categories", 
         links: [
           { name: "Design", href: "/hire/categories/design" },
-          { name: "Marketing", href: "/hire/categories/marketing" },
-          { name: "Operations", href: "/hire/categories/operations" },
-          { name: "Engineering", href: "/hire/categories/engineering" },
-          { name: "Content", href: "/hire/categories/content" }
+          // { name: "Marketing", href: "/hire/categories/marketing" },
+          // { name: "Operations", href: "/hire/categories/operations" },
+          // { name: "Engineering", href: "/hire/categories/engineering" },
+          // { name: "Content", href: "/hire/categories/content" }
         ] 
       },
       { 
         title: "Industries", 
         links: [
           { name: "AI & Machine Learning", href: "/hire/industries/ai-machine-learning" },
-          { name: "Direct to Consumer", href: "/hire/industries/direct-to-consumer" },
-          { name: "Business to Business", href: "/hire/industries/business-to-business" },
-          { name: "Marketing & Design Agencies", href: "/hire/industries/marketing-design-agencies" },
-          { name: "Healthcare", href: "/hire/industries/healthcare" }
+          // { name: "Direct to Consumer", href: "/hire/industries/direct-to-consumer" },
+          // { name: "Business to Business", href: "/hire/industries/business-to-business" },
+          // { name: "Marketing & Design Agencies", href: "/hire/industries/marketing-design-agencies" },
+          // { name: "Healthcare", href: "/hire/industries/healthcare" }
         ] 
       }
     ]
@@ -58,7 +58,7 @@ const nav = [
     name: "Resources", 
     href: '#',
     subItems: [ 
-      { name: "Job Description Generator", href: "/resources/job-description-generator" },
+      // { name: "Job Description Generator", href: "/resources/job-description-generator" },
       { name: "Blogs", href: "/resources/blogs" },
       { name: "FAQ", href: "/resources/faq" },
     ]
