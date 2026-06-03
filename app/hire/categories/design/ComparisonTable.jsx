@@ -49,7 +49,7 @@ export default function ComparisonTable({textColor,bgColor,comparisonData}) {
                 <div className={`md:contents flex flex-col gap-3 p-5 mb-4 ${row.highlightRow ? 'bg-[#3a002b] rounded-l-xl ' : 'bg-[#121212]/30  md:bg-transparent'}`}>
                   
                   {/* 1. फीचर नाम (लेफ्ट कॉलम) */}
-                  <div className={`flex items-center py-2 md:py-6 lg:py-10 text-base font-mulish sm:text-base md:text-xl lg:text-[26px]  md:pl-4 ${row.highlightRow ? 'text-white md:bg-[#3a002b] ' : ' text-white md:text-white'}`}>
+                  <div className={`flex items-center py-2 md:py-6 lg:py-10 text-base font-mulish sm:text-base md:text-xl lg:text-[26px]  md:pl-4 ${row.highlightRow ? 'text-white md:bg-[#3a002b] md:rounded-l-xl ' : ' text-white md:text-white'}`}>
                     {row.feature}
                   </div>
 
