@@ -17,7 +17,7 @@ useEffect(() => {
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 font-sans selection:bg-blue-100">
       {/* Step Container Card */}
-      <div className="w-full max-w-[620px] bg-white rounded-2xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)] p-5 lg:py-10 lg:px-5 flex flex-col items-center">
+      <div className="w-full max-w-[620px] bg-white rounded-xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)] p-5 lg:py-10 lg:px-5 flex flex-col items-center">
         
         {/* Card Heading */}
         <h2 className="text-xl sm:text-2xl md:text-[28px] font-bold text-[#111827] tracking-tight text-center mb-8">

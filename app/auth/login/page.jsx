@@ -17,7 +17,7 @@ export default function Login() {
   return (
     <div className="min-h-screen  flex items-center justify-center p-4 ">
       {/* Main Container Card */}
-      <div className="w-full max-w-[540px] bg-white rounded-2xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] px-2 py-5 md:py-10 md:px-5 flex flex-col gap-5">
+      <div className="w-full max-w-[540px] bg-white rounded-xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] px-2 py-5 md:py-10 md:px-5 flex flex-col gap-5">
         
         {/* Title Heading */}
         <h2 className="text-2xl md:text-[28px] font-bold text-[#1e293b] text-center tracking-tight font-sans mb-3">

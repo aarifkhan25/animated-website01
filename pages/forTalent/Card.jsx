@@ -3,7 +3,7 @@ import React, { useRef,useState,useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion"
 import { GoArrowRight } from "react-icons/go";
 import Image from "next/image"
-
+import Link from "next/link";
 export default function Card({title,heading,subheading,role,textColor,bgColor,companies}) {
  const containerRef = useRef(null);
 const [isMobile,setIsMobile]=useState(false);
@@ -64,10 +64,10 @@ const [isMobile,setIsMobile]=useState(false);
           </div>
 
           <div className="mt-12">
-            <button style={{ backgroundColor: textColor }}className="group flex items-center justify-center gap-2       transition-all text-black  rounded-full font-bold font-mulish p-2.5 lg:py-3 lg:px-4  1xl:py-6 1xl:px-8 text-sm lg:text-lg 1xl:text-2xl ">
+            <Link href="/auth/createaccount" style={{ backgroundColor: textColor }}className="group flex items-center justify-center gap-2       transition-all text-black  rounded-full font-bold font-mulish p-2.5 lg:py-3 lg:px-4  1xl:py-6 1xl:px-8 text-sm lg:text-lg 1xl:text-2xl ">
               Get Started
               <GoArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </Link >
           </div>
         </div>
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { HiOutlineArrowRight } from 'react-icons/hi';
 import FadeContent from '@/components/FadeContent.jsx';
 import AnimatedContent from "@/components/AnimatedContent.jsx";
+import Link from 'next/link';
 export default function FindNextRoleCTA({textColor}) {
   return (
     <section className="relative w-full h-[400px] md:h-[600px] py-10 lg:py-20 1xl:py-30 lg:h-screen bg-[#0b0c10] flex items-center justify-center overflow-hidden ">
@@ -72,10 +73,10 @@ className={`absolute top-0 left-0 w-[20%] md:w-[30%] h-[60%] md:h-full opacity-6
            <FadeContent as="span" blur={true} duration={1.5} delay={0.3} easing="ease-in" initialOpacity={0}>Create your free account now to get started</FadeContent>
         </p></div>
 
-      <div> <FadeContent blur={true} duration={1.5} delay={0.3} easing="ease-in" initialOpacity={0}>  <button style={{backgroundColor:textColor}} className="group flex items-center justify-center gap-2 py-2 px-6 md:py-4  md:px-12  text-black text-base md:text-xl lg:text-2xl font-bold font-mulish  rounded-full transition-all duration-300  hover:scale-105 active:scale-95 shadow-lg ">
+      <div> <FadeContent blur={true} duration={1.5} delay={0.3} easing="ease-in" initialOpacity={0}>  <Link href="/auth/createaccount" style={{backgroundColor:textColor}} className="group flex items-center justify-center gap-2 py-2 px-6 md:py-4  md:px-12  text-black text-base md:text-xl lg:text-2xl font-bold font-mulish  rounded-full transition-all duration-300  hover:scale-105 active:scale-95 shadow-lg ">
           Get Started
           <HiOutlineArrowRight className="text-base md:text-lg stroke-[2.5] transition-transform duration-300 group-hover:translate-x-1" />
-        </button></FadeContent></div>
+        </Link></FadeContent></div>
 
       </div>
     </section>
