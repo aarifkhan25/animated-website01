@@ -1,18 +1,19 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { FaApple } from 'react-icons/fa';
 import { HiOutlineMail } from 'react-icons/hi';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 export default function CreateAccount() {
-  const [email, setEmail] = useState('');
+const searchParams = useSearchParams();
+  const userType = searchParams.get('type');
 
-  const handleEmailSubmit = (e) => {
-    e.preventDefault();
-    if (!email) return;
-    alert("Logging in with: "+email);
-    // Add authentication logic here
-  };
+  useEffect(() => {
+    alert("user type is: "+ userType)
+  
+  }, [userType]);
+  
 
   return (
     <div className="min-h-screen  flex items-center justify-center p-4 ">

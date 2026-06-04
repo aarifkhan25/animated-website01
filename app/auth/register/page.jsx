@@ -87,7 +87,7 @@ useEffect(() => {
       className={`block text-center w-full ${
         selectedOption === 'hire' || selectedOption === 'job' 
           ? 'bg-black text-white hover:bg-zinc-900' 
-          : 'text-gray-500 bg-slate-300 hover:bg-slate-400'
+          : 'text-gray-500 bg-slate-300 hover:bg-slate-400 pointer-events-none'
       } active:scale-[0.995] font-bold text-sm sm:text-base py-4 px-6 rounded-xl transition-all shadow-md cursor-pointer`}
     >
       Continue

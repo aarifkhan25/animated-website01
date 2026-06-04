@@ -1,7 +1,7 @@
 import React from 'react'
 import FadeContent from '@/components/FadeContent.jsx';
 import { GoArrowRight } from "react-icons/go";
-
+import Link from "next/link"
 export default function Main() {
   return (
    <section className="grid w-full gap-15 justify-center md:justify-start text-white py-10 md:py-5 pt-30 md:pt-30 lg:pt-25 1xl:pt-50 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80 overflow-hidden">
@@ -46,12 +46,12 @@ export default function Main() {
         easing="ease-out"
         initialOpacity={0}
       >
-        <button className="flex justify-center items-center group gap-2 bg-[#ff004e] hover:bg-[#ff185e] transition-colors text-black py-2.5 md:py-4 px-8 md:px-12 rounded-full font-mulish font-bold text-base md:text-xl lg:text-2xl w-max  shadow-lg shadow-[#ff004e]/20 hover:shadow-[#ff004e]/40">
+        <Link href="/auth/createaccount?type=talent" className="flex justify-center items-center group gap-2 cursor-pointer bg-[#ff004e] hover:bg-[#ff185e] transition-colors text-black py-2.5 md:py-4 px-8 md:px-12 rounded-full font-mulish font-bold text-base md:text-xl lg:text-2xl w-max  shadow-lg shadow-[#ff004e]/20 hover:shadow-[#ff004e]/40">
           <div className="flex justify-center items-center gap-1">
             Get Started
             <GoArrowRight className="w-5 h-5 md:w-7 md:h-7 group-hover:translate-x-1 transition-transform" />
           </div>
-        </button>
+        </Link >
       </FadeContent>
     </div>
 
