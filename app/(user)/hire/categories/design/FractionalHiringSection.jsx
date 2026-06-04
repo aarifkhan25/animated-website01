@@ -2,7 +2,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FiArrowRight } from 'react-icons/fi';
-
+import Link from 'next/link';
 // Sample Cards Data Array to simulate the continuous row
 const sampleCards = [
   { id: 1, img: "/assets/hire/stages/F1.avif" ,classname:"w-72 xl:w-82 h-full blur-sm"},
@@ -79,13 +79,13 @@ export default function FractionalHiringSection({textColor, bgColor}) {
             Start in seconds. Match in minutes. Hire without limits.
           </p>
           <div className="pt-2 flex justify-center">
-            <button 
+            <Link href="/starthiring" 
               style={{backgroundColor:textColor}}  
               className="inline-flex items-center justify-center gap-2 text-black py-2 px-4 lg:py-2.5 lg:px-5 xl:py-3 xl:px-6 rounded-full font-mulish font-bold text-sm md:text-base lg:text-lg xl:text-xl cursor-pointer hover:opacity-90 active:scale-98 transition-all"
             >
               Start Hiring
               <FiArrowRight className="w-4 h-4 md:w-5 md:h-5 stroke-[3]" />
-            </button>
+            </Link>
           </div>
         </div>
 

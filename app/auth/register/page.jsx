@@ -1,11 +1,14 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { BsCheckCircleFill } from 'react-icons/bs';
 import Link from 'next/link';
 export default function Register() {
   // State management to track user intent selection ('job' or 'hire')
-  const [selectedOption, setSelectedOption] = useState('job');
-
+  const [selectedOption, setSelectedOption] = useState(' ');
+useEffect(() => {
+    
+    setSelectedOption(''); 
+  }, []);
   const handleContinue = () => {
     alert("Proceeding with option: "+selectedOption);
     // Add your routing or state processing logic here
@@ -74,9 +77,9 @@ export default function Register() {
 
        
 
-          {/* Redirect Navigation Anchor */}
+         
        <div className="w-full grid  space-y-5 text-center">
-  {/* 1. बाहरी div को w-full दिया */}
+ 
   <div className="w-full">
     <Link
       href={`${selectedOption === 'hire' ? '/starthiring' : '/auth/createaccount'}`}
@@ -91,7 +94,7 @@ export default function Register() {
     </Link>
   </div>
 
-  {/* Redirect Navigation Anchor */}
+
   <div className="w-full">
     <p className="text-slate-500 font-medium text-sm sm:text-base">
       Already have an account?{' '}

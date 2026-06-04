@@ -2,7 +2,7 @@
 import { GoArrowRight } from "react-icons/go";
 import AnimatedContent from "@/components/AnimatedContent.jsx";
 import FadeContent from "@/components/FadeContent.jsx";
-
+import Link from "next/link";
 export default function Main() {
   return (
     <section className="flex flex-col sm:gap-10 lg:gap-0 items-center justify-center w-full text-white py-10 px-4 md:px-6 md:py-5 overflow-hidden">
@@ -97,12 +97,12 @@ export default function Main() {
                             delay={0.2 } 
                           >
                             <FadeContent blur={true} duration={1.5} delay={0.2} easing="ease-in" initialOpacity={0}>
-          <button className="group flex items-center gap-2 bg-[#009de4] hover:bg-[#0082cc] transition-colors text-black py-2 px-3 md:py-2 md:px-4 xl:py-3 xl:px-6 rounded-full font-mulish font-bold text-base md:text-xl cursor-pointer">
+          <Link href="/starthiring" className="group flex items-center gap-2 bg-[#009de4] hover:bg-[#0082cc] transition-colors text-black py-2 px-3 md:py-2 md:px-4 xl:py-3 xl:px-6 rounded-full font-mulish font-bold text-base md:text-xl cursor-pointer">
             <div className="flex justify-center items-center gap-1">
               Start Hiring      
               <GoArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </div>
-          </button>
+          </Link >
 
           
         </FadeContent></AnimatedContent>

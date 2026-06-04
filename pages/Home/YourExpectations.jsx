@@ -1,6 +1,7 @@
 import React from 'react'
 import ScrollReveal from '@/components/ScrollReveal.jsx';
 import { GoArrowRight } from "react-icons/go";
+import Link from 'next/link';
 export default function YourExpectations({textColor,bgColor}) {
   return (
     <section className=" flex flex-col py-10 lg:py-20 1xl:py-30 items-center justify-center   text-white   overflow-hidden">
@@ -62,13 +63,13 @@ export default function YourExpectations({textColor,bgColor}) {
                            baseRotation={0}
                          >
                     {" "}
-                    <button className="group flex items-center gap-2  transition-colors text-black p-3 md:py-2  lg:py-3   md:px-4 lg:px-6 rounded-full font-mulish font-bold text-base md:text-xl"
+                    <Link href="/starthiring" className="group flex items-center gap-2  transition-colors text-black p-3 md:py-2  lg:py-3   md:px-4 lg:px-6 rounded-full font-mulish font-bold text-base md:text-xl"
                     style={{backgroundColor:textColor}}>
                       <div className="flex justify-center   items-center gap-1">
                         Start Hiring
                         <GoArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                       </div>
-                    </button>
+                    </Link>
                   </ScrollReveal>
                 </div>
               </section>

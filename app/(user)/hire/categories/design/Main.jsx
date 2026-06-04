@@ -2,7 +2,7 @@ import React from 'react';
 import LogoLoop from "@/components/LogoLoop.jsx"
 // Importing the ArrowRight icon from the Feather set within react-icons
 import { FiArrowRight } from 'react-icons/fi';
-
+import Link from 'next/link';
 export default function Main({textColor}) {
   const imageLogos=[  { alt: "SOMETHINGS", src: "/assets/comp/logo5.avif" },
   { alt: "Context", src: "/assets/comp/logo8.avif" }, 
@@ -30,14 +30,20 @@ export default function Main({textColor}) {
           </p>
 
           {/* Call to Action Button */}
-          <div className="pt-2">
-            <button style={{backgroundColor:textColor}} className="group flex items-center gap-2 transition-colors text-black py-2 px-3 md:py-2 md:px-4 xl:py-3 xl:px-6 rounded-full font-mulish font-bold text-base md:text-lg lg:text-xl cursor-pointer">
-                       <div className="flex justify-center items-center gap-1">
-                         Start Hiring      
-                         <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                       </div>
-                     </button>
-          </div>
+       
+<div className="pt-2 flex justify-start"> 
+  <Link 
+    href="/starthiring" 
+    style={{backgroundColor:textColor}} 
+    className="group inline-flex items-center gap-2 transition-colors text-black py-2 px-3 md:py-2 md:px-4 xl:py-3 xl:px-6 rounded-full font-mulish font-bold text-base md:text-lg lg:text-xl cursor-pointer w-fit" 
+   
+  >
+    <div className="flex justify-center items-center gap-1">
+      Start Hiring      
+      <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+    </div>
+  </Link>
+</div>
 
           {/* Trusted Partners Section */}
           <div className="">

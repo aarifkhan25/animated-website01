@@ -231,7 +231,7 @@ export default function Header() {
                       Sign In
                     </Link>
                     <Link
-                      href="/hiring"
+                      href="/starthiring"
                       className="hidden sm:flex cursor-pointer bg-white hover:bg-gray-200 text-black font-semibold px-4 py-2 rounded-full text-sm font-mulish transition duration-150"
                     >
                       Start Hiring Talents
@@ -311,7 +311,7 @@ export default function Header() {
                 ))}
                 
                 <Link
-                  href="#hiring"
+                  href="/starthiring"
                   onClick={closeMobileMenu}
                   className="mt-6 sm:hidden bg-white text-black font-bold text-center py-2.5 px-6 rounded-full text-base cursor-pointer"
                 >
