@@ -225,13 +225,13 @@ export default function Header() {
                           >
                   <div className="flex items-center gap-3 lg:gap-4">
                     <Link
-                      href="#signin"
+                      href="/auth/login"
                       className="bg-[#1a1a1a] cursor-pointer hover:bg-[#242323] text-white font-semibold px-4 py-2 rounded-full text-sm font-mulish transition duration-150"
                     >
                       Sign In
                     </Link>
                     <Link
-                      href="#hiring"
+                      href="/hiring"
                       className="hidden sm:flex cursor-pointer bg-white hover:bg-gray-200 text-black font-semibold px-4 py-2 rounded-full text-sm font-mulish transition duration-150"
                     >
                       Start Hiring Talents

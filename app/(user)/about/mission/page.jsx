@@ -61,10 +61,10 @@ className="text-base md:text-xl lg:text-2xl"
                                         delay={0.3}
                                         easing="ease-out"
                                         initialOpacity={0}
-                                  
+                                  key={i}
                                       >
 
-                    <div key={i} className="w-full flex-1 flex flex-col justify-start rounded-[6px] bg-[#141414] p-4 md:p-7 lg:p-10 shadow-2xl border border-white/5">
+                    <div  className="w-full flex-1 flex flex-col justify-start rounded-[6px] bg-[#141414] p-4 md:p-7 lg:p-10 shadow-2xl border border-white/5">
                       <div className=" flex flex-col   justify-start gap-3 md:gap-5 lg:gap-10">
                     
                           <h2 className="font-mulish font-semibold text-lg md:text-2xl lg:text-3xl text-white">

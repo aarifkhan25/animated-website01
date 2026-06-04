@@ -1,16 +1,10 @@
 "use client";
-import "./globals.css";
+import "../globals.css";
 import { useState, useEffect } from "react";
-import FadeContent from "@/components/FadeContent.jsx";
-import { FiAlignJustify, FiChevronDown } from "react-icons/fi";
 import { JetBrains_Mono, Mulish } from "next/font/google";
-import AnimatedContent from "@/components/AnimatedContent.jsx";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import { MdOutlineClose } from "react-icons/md";
 import Footer from '@/pages/Footer.jsx';
 import Header from '@/pages/Header.jsx';
-import Link from 'next/link';
+
 
 const jbMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -31,7 +25,8 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="icon" href="/assets/logo.svg" />
       </head>
-      <body className={`${jbMono.variable} ${mulish.variable} bg-black text-white antialiased`}>
+      <body className={`${jbMono.variable} ${mulish.variable}  text-white antialiased   
+  bg-[#0d0d0d] overflow-x-hidden`}>
         
         <div className="w-full font-sans min-h-screen flex flex-col justify-between">
           
