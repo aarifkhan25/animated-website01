@@ -102,7 +102,7 @@ export default function FAQPage() {
   };
 
   return (
-    <section className="w-full mt-10 md:mt-10 lg:mt-5 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80 py-10 lg:py-20 1xl:py-30">
+    <section className="w-full mt-10 md:mt-10 lg:mt-5 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80   py-5 md:py-10 1xl:py-15">
       
       {/* Banner */}
       <div

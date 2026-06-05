@@ -4,7 +4,7 @@ import { GoArrowRight } from "react-icons/go";
 import Link from 'next/link';
 export default function YourExpectations({textColor,bgColor}) {
   return (
-    <section className=" flex flex-col py-10 lg:py-20 1xl:py-30 items-center justify-center   text-white   overflow-hidden">
+    <section className=" flex flex-col py-5 md:py-10 1xl:py-15 items-center justify-center   text-white   overflow-hidden">
                 
                 {/* Top Badge */}
                 

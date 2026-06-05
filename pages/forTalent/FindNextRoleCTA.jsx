@@ -5,7 +5,7 @@ import AnimatedContent from "@/components/AnimatedContent.jsx";
 import Link from 'next/link';
 export default function FindNextRoleCTA({textColor}) {
   return (
-    <section className="relative w-full h-[400px] md:h-[600px] py-10 lg:py-20 1xl:py-30 lg:h-screen bg-[#0b0c10] flex items-center justify-center overflow-hidden ">
+    <section className="relative w-full h-[400px] md:h-[600px]   py-5 md:py-10 1xl:py-15 lg:h-screen bg-[#0b0c10] flex items-center justify-center overflow-hidden ">
      
     
       <div 

@@ -6,7 +6,7 @@ import Step from "./Step.jsx";
 
 export default function TrackRecords({textColor, borderColor,tag,statsData}) {
   return (
-    <section className="w-full  text-white px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80  py-10 lg:py-20 1xl:py-30  ">
+    <section className="w-full  text-white px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80    py-5 md:py-10 1xl:py-15  ">
       <div className="w-full border border-[#3a002b] rounded-lg">
         <Step title="fractional hiring you can trust
         " heading={<>A track record <br/> of success</>} textColor={textColor} borderColor={borderColor} />

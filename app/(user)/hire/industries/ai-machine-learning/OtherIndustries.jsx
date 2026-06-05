@@ -52,7 +52,7 @@ export default function OtherIndustries({ textColor }) {
   };
 
   return (
-    <section className="w-full text-white py-10 md:py-20 1xl:py-30 overflow-hidden">
+    <section className="w-full text-white py-5 md:py-10 1xl:py-15 overflow-hidden">
     
       <div className="w-full mx-auto flex justify-between items-center px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80">
         <div className="flex">

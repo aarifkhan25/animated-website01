@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from 'next/link';
 export default function BestCandidate({textColor}) {
   return (
-    <section className="w-full bg-[#141414] px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80  py-10 lg:py-20 1xl:py-30 ">
+    <section className="w-full bg-[#141414] px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80    py-5 md:py-10 1xl:py-15 ">
 {/* div 1 */}
     <div className="w-full grid md:flex justify-between items-center gap-5 md:gap-10 lg:gap-15">
         <div className="flex flex-col justify-start gap-5 lg:gap-10">

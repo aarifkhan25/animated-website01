@@ -7,7 +7,7 @@ export default function page() {
     boxShadow: "inset 0px 0px 40px rgba(0, 157, 228, 0.45), inset 0px 0px 15px rgba(0, 157, 228, 0.3)",
   };
   return (
- <section className="w-full mt-15 lg:mt-0  flex flex-col gap-3 md:gap-6 lg:gap-10 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80  py-10 lg:py-20 1xl:py-30">
+ <section className="w-full mt-15 lg:mt-0  flex flex-col gap-3 md:gap-6 lg:gap-10 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80    py-5 md:py-10 1xl:py-15">
   <div className="w-full ">
                 <FadeContent
               blur={true}

@@ -5,7 +5,7 @@ import AnimatedContent from '@/components/AnimatedContent.jsx';
 import { GoArrowRight } from "react-icons/go";
 export default function Main({ textColor,heading,subheading,img }) {
   return (
-    <section className="w-full text-white py-10 md:py-20 pt-20 lg:pt-25 px-6 md:pl-10 lg:pl-20 1xl:pl-25 2xl:px-50 3xl:px-80 overflow-hidden">
+    <section className="w-full text-white py-5 md:py-10 pt-20 lg:pt-25 px-6 md:pl-10 lg:pl-20 1xl:pl-25 2xl:px-50 3xl:px-80 overflow-hidden">
    
       <div className=" grid md:justify-center md:items-center md:flex    ">
         

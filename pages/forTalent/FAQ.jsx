@@ -38,7 +38,7 @@ export default function FAQ({bgColor,textColor}) {
     }
   ];
   return (
-      <section className="w-full  text-white pb-10 md:pb-15 lg:pb-20 1xl:py-30 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80 " style={{backgroundColor:bgColor}}>
+      <section className="w-full  text-white pb-5 md:pb-10  1xl:py-15 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80 " style={{backgroundColor:bgColor}}>
            <div className="grid gap-0 md:gap-5 lg:gap-10 1xl:gap-15  lg:gap-0 justify-start  text-white">
         {/* Top Badge */}
         <AnimatedContent

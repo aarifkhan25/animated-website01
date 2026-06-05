@@ -8,7 +8,7 @@ import { FiArrowRight } from 'react-icons/fi';
 
 export default function DesignTalent({textColor,bgColor,talentData}) {
   return (
-    <section className="w-full   px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80 py-10 lg:py-20 1xl:py-30">
+    <section className="w-full   px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80   py-5 md:py-10 1xl:py-15">
       <div className="">
         
    

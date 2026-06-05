@@ -3,7 +3,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 export default function OurClient({textColor}) {
   return (
-    <section className="px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80 py-10 lg:py-20 1xl:py-30">
+    <section className="px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80   py-5 md:py-10 1xl:py-15">
   
   <div className="flex flex-col md:flex-row bg-[#141414] rounded-lg overflow-hidden items-stretch">
     

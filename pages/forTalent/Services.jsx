@@ -2,14 +2,8 @@
 
 import  { useRef } from 'react';
 import { motion, useScroll, useTransform } from "framer-motion";
-import AnimatedContent from "@/components/AnimatedContent.jsx";
-const items = [
-  { id: 1, name: "Design", color: "#009ded" },
-  { id: 2, name: "Operations", color: "#ff0044" },
-  { id: 3, name: "Engineering", color: "#1c143d" },
-  { id: 4, name: "Marketing", color: "#00ffcc" },
-  { id: 5, name: "Product Hunt", color: "#da552f" },
-];
+
+
 const services=['Full Stack Engineer', 'Frontend Developer', 'Backend Developer', 'UI/UX Designer', 'Product Manager', 'Data Scientist', 'DevOps Engineer', 'App Developer', 'QA Engineer', 'Cloud Architect'];
 const reversedServices = [...services].reverse();
 
@@ -36,18 +30,7 @@ export default function Services({textColor}) {
       
 
         {/* ================= ROW 1: on scroll right ================= */}
-      <AnimatedContent
-  distance={100}
-  direction="horizontal"
-  reverse={false}
-  duration={0.8}
-  ease="power3.out"
-  initialOpacity={0}
-  animateOpacity
-  scale={1}
-  threshold={0.1}
-  delay={0.5}
-> <motion.div
+   <motion.div
           className="flex gap-3 md:gap-6 w-max"
           style={{ x: xRight }} // attech the scroll transform value
         >
@@ -61,22 +44,10 @@ export default function Services({textColor}) {
               <p style={{color:textColor}} className="   text-sm md:text-2xl font-mulish">{item}</p>
             </div>
           ))}
-        </motion.div></AnimatedContent> 
+        </motion.div>
 
         {/* ================= ROW 2: scroll to right ================= */}
-      <AnimatedContent
-  distance={100}
-  direction="horizontal"
-  reverse={true}
- 
-  duration={0.8}
-  ease="power3.out"
-  initialOpacity={0}
-  animateOpacity
-  scale={1}
-  threshold={0.1}
-  delay={0.5}
-> <motion.div
+  <motion.div
           className="flex gap-3 md:gap-6 w-max"
           style={{ x: xLeft }} // attech the scroll transform value
         >
@@ -90,7 +61,7 @@ export default function Services({textColor}) {
               <p      style={{color:textColor}} className="   text-sm md:text-2xl font-mulish">{item}</p>
             </div>
           ))}
-        </motion.div></AnimatedContent>
+        </motion.div>
       </div>
   )
 }

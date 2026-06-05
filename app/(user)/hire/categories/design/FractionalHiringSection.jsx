@@ -34,7 +34,7 @@ export default function FractionalHiringSection({textColor, bgColor}) {
   const contentOpacity = useTransform(scrollYProgress, [0, 0.25], [0.1, 1]);
 
   return (
-    <div ref={targetRef} className="text-white  relative flex flex-col justify-center items-center overflow-hidden  py-10 lg:py-20 1xl:py-30 px-4">
+    <div ref={targetRef} className="text-white  relative flex flex-col justify-center items-center overflow-hidden    py-5 md:py-10 1xl:py-15 px-4">
       
       {/* Fixed Layout Map: Default to vertical flex grid structure, expands to 12 columns above 'lg' desktop screens */}
       <div className="w-full max-w-7xl mx-auto flex flex-col lg:grid lg:grid-cols-12 items-center justify-center gap-10 lg:gap-0 relative min-h-[500px]">

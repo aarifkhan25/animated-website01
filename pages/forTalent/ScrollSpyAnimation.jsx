@@ -60,7 +60,7 @@ export default function PageScrollSpyAnimation() {
  } });
 
   return (
-    <div ref={sectionRef} className="relative w-full h-[400vh] bg-[#0b0c10] py-10 lg:py-20 1xl:py-30">
+    <div ref={sectionRef} className="relative w-full h-[400vh] bg-[#0b0c10]   py-5 md:py-10 1xl:py-15">
       
       {/* Sticky container*/}
       <div className="sticky  w-full h-screen md:h-[400px] lg:h-screen top-[10%] md:top-[20%] lg:top-[7%] flex items-center justify-center overflow-hidden ">

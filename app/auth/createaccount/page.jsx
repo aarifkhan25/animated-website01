@@ -12,7 +12,7 @@ export default function CreateAccount() {
   
 
   return (
-    <div className="min-h-screen  flex items-center justify-center p-4 ">
+    <div className="min-h-screen bg-slate-50  flex items-center justify-center p-4 ">
       {/* Main Container Card */}
       <div className="w-full max-w-[540px] bg-white rounded-xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] px-2 py-5 md:py-10 md:px-5 flex flex-col gap-5">
         

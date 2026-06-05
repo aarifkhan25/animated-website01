@@ -12,7 +12,7 @@ export default function Quesitons({faqData = []}) {
   };
  
   return (
-      <section className="w-full  text-white py-10 md:py-15 lg:py-20 1xl:py-30 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80">
+      <section className="w-full  text-white py-5 md:py-10  1xl:py-15 px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80">
             <div className="w-full mx-auto flex flex-col justify-between  gap-10">
               {/* Left Content */}
               <div className="flex-1">
