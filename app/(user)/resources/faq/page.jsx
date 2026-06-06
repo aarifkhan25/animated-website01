@@ -253,7 +253,7 @@ export default function FAQPage() {
                   ref={(el) => (categoryRefs.current[category.id] = el)}
                   // 🟢 न्यू एडिशन: Intersection Observer ट्रैक करने के लिए कस्टम डेटा एट्रिब्यूट देना
                   data-category-id={category.id}
-                  className="scroll-mt-[120px] md:scroll-mt-[140px]" 
+                  className="md:scroll-mt-[70px]" 
                 >
                    <h2 className={`${category.role ? "block":"hidden"} text-3xl md:text-4xl lg:text-[56px]  font-mulish py-5 lg:py-10 text-white capitalize`}>
         {category.role}
