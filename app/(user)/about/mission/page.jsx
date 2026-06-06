@@ -96,9 +96,9 @@ className="text-base md:text-xl lg:text-2xl"
               delay={0.3}
               easing="ease-out"
               initialOpacity={0}
-             
+               key={index} 
             >    <div 
-              key={index} 
+            
               className="flex flex-col rounded-[6px] overflow-hidden transition-all duration-300 hover:scale-[1.02] cursor-pointer"
             >
               

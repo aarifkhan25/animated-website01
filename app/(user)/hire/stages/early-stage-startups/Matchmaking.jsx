@@ -25,7 +25,7 @@ export default function Matchmaking({ textColor,bgColor,textColor2 }) {
 
   return (
     /* FIX: min-h-[650px] या md:min-h-[750px] दिया ताकि absolute एलिमेंट्स को पूरा स्पेस मिले */
-    <section className="w-full  text-white flex items-center justify-center relative overflow-hidden font-mulish px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80   py-5 md:py-10 1xl:py-15">
+    <section className="w-full  text-white flex items-center justify-center relative overflow-hidden font-mulish px-6 md:px-10 lg:px-20 1xl:px-25 2xl:px-50 3xl:px-80   py-10 md:py-20 ">
       
       {/* ─── DESKTOP/TABLET ABSOLUTE LAYOUT ─── */}
     <div className="hidden md:block absolute inset-0 w-full h-full max-w-[1600px] mx-auto pointer-events-none">
